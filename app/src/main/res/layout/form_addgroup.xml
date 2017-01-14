@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Création d'un groupe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/titre" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/titre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:id="@+id/nomG"
+        android:contentDescription="Nom du groupe"
+        android:hint="Nom du groupe" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nomG"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:id="@+id/idG" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/idG"
+        android:id="@+id/dateC" />
+
+    <Button
+        android:text="Ajouter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateC"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:id="@+id/addGrp" />
+
+</RelativeLayout>

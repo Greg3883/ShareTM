@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.elbejaj.sharetm">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Main Activity -->
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name=".MAINACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Ajout Activity -->
+        <activity android:name=".AjoutActivity">
+            <intent-filter>
+                <action android:name=".AJOUTACTIVITY" />
+            </intent-filter>
+        </activity>
+
+        <!-- Splash -->
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+</manifest>
