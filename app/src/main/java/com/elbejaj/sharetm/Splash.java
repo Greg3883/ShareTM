@@ -18,7 +18,7 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         splashSound = MediaPlayer.create(getApplicationContext(), R.raw.splash_sound);
-        splashSound.start();
+        //splashSound.start();
 
         Thread chrono = new Thread(){
             public void run(){

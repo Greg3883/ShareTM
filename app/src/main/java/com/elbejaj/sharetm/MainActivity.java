@@ -1,16 +1,15 @@
 package com.elbejaj.sharetm;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+//LAURIE
+
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import java.util.Date;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import android.widget.GridLayout.LayoutParams;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,23 +19,18 @@ public class MainActivity extends AppCompatActivity {
     TextView aff_name_tache;
     TextView aff_content_tache;
 
-
-
-
     ArrayList<Tache> tabTache = new ArrayList<Tache>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tache);
 
-
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
 
+
         td = new TacheDAO(this);
-        tabTache = td.listeTache();
+        /*tabTache = td.listeTache();
         final int N = tabTache.size();
         final RelativeLayout[] myLinear = new RelativeLayout[N];
 
@@ -102,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
            dateTache.setLayoutParams(dateParam);
 
 
-        }
+        }*/
 
     }
 
@@ -112,9 +106,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void button_ajoutGroupe(View view)
-    {
-        Intent intent = new Intent(MainActivity.this, FormAddGroup.class);
-        startActivity(intent);
-    }
+
 }

@@ -1,15 +1,15 @@
 package com.elbejaj.sharetm;
 
 import android.content.ContentValues;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Date;
 
 /**
  * Created by Bejaj on 03/12/2016.
@@ -70,6 +70,9 @@ public class TacheDAO{
 
     public ArrayList <Tache> listeTache()
     {
+        //Format des dates
+        DateFormat format = new SimpleDateFormat("Y-m-d");
+
         ArrayList<Tache> listeT = new ArrayList<Tache>();
         db = dbm.getWritableDatabase();
         Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance"},null,null,null,null,null);
@@ -80,10 +83,14 @@ public class TacheDAO{
             t.setNom(c.getString(1));
             t.setContenu(c.getString(2));
             t.setPriorite(c.getInt(3));
-            SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-            String string  = c.getString(4);
-            Date date = format.parse(string);
-            t.setEcheance(c.getString(4));
+            String strEcheance   = c.getString(4);
+            Date dateEcheance = null;
+            try {
+                dateEcheance = format.parse(strEcheance);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            t.setEcheance(dateEcheance);
             listeT.add(t);
             c.moveToNext();
         }
