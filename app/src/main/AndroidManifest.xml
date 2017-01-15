@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_lauch"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -37,6 +37,13 @@
         <intent-filter>
             <action android:name=".UPDATETACHEACTIVITY" />
         </intent-filter>
+        </activity>
+
+        <!-- Affichage groupee  Activity -->
+        <activity android:name=".GroupeActivity">
+            <intent-filter>
+                <action android:name=".GROUPEACTIVITY" />
+            </intent-filter>
         </activity>
 
         <!-- Splash -->

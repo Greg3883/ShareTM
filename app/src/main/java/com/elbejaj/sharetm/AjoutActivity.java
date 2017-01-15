@@ -30,6 +30,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     EditText ajout_contenu;
     EditText ajout_priorite;
     TextView ajout_echeance;
+    TextView ajout_etat;
     TacheDAO td;
     Tache tache;
     private DatePicker datePicker;
@@ -47,6 +48,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         ajout_nom = (EditText) findViewById(R.id.ajout_input_nom);
         ajout_contenu = (EditText) findViewById(R.id.ajout_input_contenu);
         ajout_priorite = (EditText) findViewById(R.id.ajout_input_priorite);
+        ajout_etat = (EditText) findViewById(R.id.ajout_input_etat);
 
         ajout_echeance = (TextView) findViewById(R.id.ajout_input_echeance);
         calendar = Calendar.getInstance();
@@ -70,9 +72,11 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         tache = new Tache();
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
+        int etat = Integer.parseInt(ajout_etat.getText().toString());
         int priorite = Integer.parseInt(ajout_priorite.getText().toString());
         String strEcheance  = ajout_echeance.getText().toString();
 
+        tache.setEtat(etat);
         tache.setNom(nom);
         tache.setContenu(contenu);
         tache.setPriorite(priorite);

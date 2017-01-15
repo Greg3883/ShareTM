@@ -7,6 +7,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_layout"
         android:orientation="vertical"
+        android:background="@color/prio_blanc"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -61,7 +62,8 @@
                     android:textSize="14dp"
                     android:textStyle="bold"
                     android:text=" MES GROUPES"
-                    android:textColor="@color/prio_blanc"/>
+                    android:textColor="@color/prio_blanc"
+                    android:onClick="intent_groupe"/>
 
             </RelativeLayout>
         </LinearLayout>

@@ -21,7 +21,7 @@ public class TacheDAO{
 
     public TacheDAO(Context ctx)
     {
-        dbm = new DBManager(ctx, "base", null, 1);
+        dbm = new DBManager(ctx, "base", null, 4);
     }
 
 
@@ -42,6 +42,8 @@ public class TacheDAO{
         vals.put("contenu", t.getContenu());
         vals.put("priorite", t.getPriorite());
         vals.put("echeance", reportDate);
+        vals.put("etat", t.getEtat());
+        vals.put("groupe", t.getGroupe());
         return db.insert("Tache", null , vals);
     }
 
@@ -60,7 +62,7 @@ public class TacheDAO{
     {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Tache t = null;
-        Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance"},"id="+id,null,null,null,null);
+        Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance","etat","groupe"},"id="+id,null,null,null,null);
         if (c.moveToFirst())
         {
             t = new Tache();
@@ -68,6 +70,8 @@ public class TacheDAO{
             t.setNom(c.getString(1));
             t.setContenu(c.getString(2));
             t.setPriorite(c.getInt(3));
+            t.setEtat(c.getInt(5));
+            t.setGroupe(c.getInt(6));
             String strEcheance   = c.getString(4);
             Date dateEcheance = null;
             try {
@@ -89,7 +93,7 @@ public class TacheDAO{
 
         ArrayList<Tache> listeT = new ArrayList<Tache>();
         db = dbm.getWritableDatabase();
-        Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance"},null,null,null,null,null);
+        Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance","etat","groupe"},null,null,null,null,null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
@@ -97,6 +101,8 @@ public class TacheDAO{
             t.setNom(c.getString(1));
             t.setContenu(c.getString(2));
             t.setPriorite(c.getInt(3));
+            t.setEtat(c.getInt(5));
+            t.setGroupe(c.getInt(6));
             String strEcheance   = c.getString(4);
             Date dateEcheance = null;
             try {

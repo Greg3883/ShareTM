@@ -31,6 +31,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     EditText ajout_nom;
     EditText ajout_contenu;
     EditText ajout_priorite;
+    EditText ajout_etat;
     TextView ajout_echeance;
     TacheDAO td;
     Tache tache;
@@ -49,16 +50,34 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         ajout_nom = (EditText) findViewById(R.id.ajout_input_nom);
         ajout_contenu = (EditText) findViewById(R.id.ajout_input_contenu);
         ajout_priorite = (EditText) findViewById(R.id.ajout_input_priorite);
-
+        ajout_etat = (EditText) findViewById(R.id.ajout_input_etat);
         ajout_echeance = (TextView) findViewById(R.id.ajout_input_echeance);
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
 
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        String idTache;
+        Bundle extras = getIntent().getExtras();
+        idTache = extras.getString("idtu");
+        int idTacheI = Integer.parseInt(idTache);
+        td = new TacheDAO(this);
+        td.open();
+        Tache tachet = td.trouverTache(idTacheI);
+        td.close();
+        ajout_nom.setText(tachet.getNom());
+        String eta = String.valueOf(tachet.getEtat());
+        ajout_priorite.setText(eta);
+        ajout_contenu.setText(tachet.getContenu());
+        String prio = String.valueOf(tachet.getPriorite());
+        ajout_priorite.setText(prio);
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(tachet.getEcheance());
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
 
-        td = new TacheDAO(this);
     }
 
 
@@ -72,15 +91,18 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
         int priorite = Integer.parseInt(ajout_priorite.getText().toString());
+        int etat = Integer.parseInt(ajout_etat.getText().toString());
         String strEcheance  = ajout_echeance.getText().toString();
         tache.setNom(nom);
         tache.setContenu(contenu);
+        tache.setEtat(etat);
         tache.setPriorite(priorite);
         ContentValues cv = new ContentValues();
         cv.put("nom", tache.getNom());
         cv.put("contenu", tache.getContenu());
         cv.put("priorite", tache.getPriorite());
         cv.put("echeance", strEcheance);
+        cv.put("etat", tache.getEtat());
         String idTache;
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idtu");

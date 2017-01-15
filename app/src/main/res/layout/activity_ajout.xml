@@ -95,6 +95,29 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
+        <TextView
+            android:id="@+id/ajout_text_etat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Etat (1-2) :"
+            android:layout_below="@id/textView3"
+            android:textColor="@color/prio_red"
+            android:textSize="28dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/ajout_input_etat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_below="@id/ajout_text_etat"
+            android:background="@drawable/border"
+            android:layout_weight=".75" />
+
+
+
+
+
 
         <Button
             android:id="@+id/ajout_button"
@@ -102,7 +125,7 @@
             android:layout_height="wrap_content"
             android:text="AJOUTER !"
             android:layout_gravity="center_vertical"
-            android:layout_below="@+id/ajout_input_echeance"/>
+            android:layout_below="@+id/ajout_input_etat"/>
 
     </RelativeLayout>
 

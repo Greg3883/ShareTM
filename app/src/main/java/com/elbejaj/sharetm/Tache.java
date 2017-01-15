@@ -14,11 +14,14 @@ public class Tache {
     private static final AtomicInteger count = new AtomicInteger(0);
     private String nom;
     private String contenu;
+    private int groupe;
+    private int etat;
     private int priorite;
     private Date echeance;
 
     public Tache(){
         super();
+        groupe = 1;
         id = count.incrementAndGet();
     }
 
@@ -28,6 +31,14 @@ public class Tache {
 
     public int getPriorite(){
         return priorite;
+    }
+
+    public int getGroupe(){
+        return groupe;
+    }
+
+    public int getEtat(){
+        return etat;
     }
 
     public String getNom(){
@@ -46,6 +57,14 @@ public class Tache {
 
     public void setNom(String tname){
         nom = tname;
+    }
+
+    public void setGroupe(int tgroupe){
+        groupe = tgroupe;
+    }
+
+    public void setEtat(int tetat){
+        etat = tetat;
     }
 
     public void setPriorite(int tprio){
