@@ -3,13 +3,15 @@ package com.elbejaj.sharetm;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by Bejaj on 21/11/2016.
  */
 
 public class Tache {
     private int id;
-    private static int counter = 0;
+    private static final AtomicInteger count = new AtomicInteger(0);
     private String nom;
     private String contenu;
     private int priorite;
@@ -17,7 +19,7 @@ public class Tache {
 
     public Tache(){
         super();
-        counter ++;
+        id = count.incrementAndGet();
     }
 
     public int getId(){
@@ -40,7 +42,7 @@ public class Tache {
         return echeance;
     }
 
-    public void setId() { id = counter;}
+    public void setId(int tid) { id = tid;}
 
     public void setNom(String tname){
         nom = tname;

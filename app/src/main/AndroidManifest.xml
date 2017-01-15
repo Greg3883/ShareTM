@@ -25,6 +25,15 @@
             </intent-filter>
         </activity>
 
+        <!-- Affichage Tache  Activity -->
+        <activity android:name=".AffichageTacheActivity">
+            <intent-filter>
+                <action android:name=".AFFICHAGETACHEACTIVITY" />
+            </intent-filter>
+        </activity>
+
+        <!-- Affichage Tache  Activity -->
+
         <!-- Splash -->
         <activity android:name=".Splash">
             <intent-filter>

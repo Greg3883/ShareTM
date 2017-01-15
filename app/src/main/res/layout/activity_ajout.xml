@@ -76,13 +76,23 @@
             android:textSize="28dp"
             android:textStyle="bold"/>
 
-        <EditText
+        <Button
             android:id="@+id/ajout_input_echeance"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ajout_text_echeance"
-            android:background="@drawable/border"
-            android:layout_weight=".75" />
+            android:layout_centerHorizontal="true"
+            android:onClick="setDate"
+            android:text="@string/date_button_set" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ajout_input_echeance"
+            android:layout_marginTop="72dp"
+            android:text="@string/date_selected"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
 

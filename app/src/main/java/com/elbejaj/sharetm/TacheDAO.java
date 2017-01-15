@@ -35,7 +35,7 @@ public class TacheDAO{
 
     public long ajouterTache(Tache t){
         ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String reportDate = df.format( t.getEcheance());
         vals.put("id", t.getId());
         vals.put("nom", t.getNom());
@@ -50,8 +50,14 @@ public class TacheDAO{
         return db.delete("Tache", "id="+id, null);
     }
 
-   /* public Tache trouverTache(int id)
+    public int updateTache (int id, ContentValues cv)
     {
+        return db.update("Tache",cv,"id="+id, null);
+    }
+
+   public Tache trouverTache(int id)
+    {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Tache t = null;
         Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance"},"id="+id,null,null,null,null);
         if (c.moveToFirst())
@@ -61,17 +67,24 @@ public class TacheDAO{
             t.setNom(c.getString(1));
             t.setContenu(c.getString(2));
             t.setPriorite(c.getInt(3));
-            t.setEcheance(c.getString(4));
+            String strEcheance   = c.getString(4);
+            Date dateEcheance = null;
+            try {
+                dateEcheance = format.parse(strEcheance);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            t.setEcheance(dateEcheance);
         }
 
 
         return t;
-    }*/
+    }
 
     public ArrayList <Tache> listeTache()
     {
         //Format des dates
-        DateFormat format = new SimpleDateFormat("Y-m-d");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         ArrayList<Tache> listeT = new ArrayList<Tache>();
         db = dbm.getWritableDatabase();
@@ -91,6 +104,7 @@ public class TacheDAO{
                 e.printStackTrace();
             }
             t.setEcheance(dateEcheance);
+            t.setId(c.getInt(0));
             listeT.add(t);
             c.moveToNext();
         }

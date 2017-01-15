@@ -5,4 +5,6 @@
     <string name="nb_tache">Vous avez 3 tâches actuellement</string>
     <string name="new_tache">Nouvelle tâche</string>
     <string name="delete_tache">Supprimer tâche</string>
+    <string name="date_selected"></string>
+    <string name="date_button_set">Set Date</string>
 </resources>

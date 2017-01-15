@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:id="@+id/ajout_text_nom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom de la tâche :"
+            android:textColor="@color/prio_red"
+            android:textSize="28dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/ajout_input_nom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ajout_text_nom"
+            android:background="@drawable/border"
+            android:layout_weight=".75" />
+
+        <TextView
+            android:id="@+id/ajout_text_contenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description de la tâche :"
+            android:layout_below="@id/ajout_input_nom"
+            android:textColor="@color/prio_red"
+            android:textSize="28dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/ajout_input_contenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ajout_text_contenu"
+            android:background="@drawable/border"
+            android:layout_weight=".75" />
+
+        <TextView
+            android:id="@+id/ajout_text_priorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Priorite (1-2-3-4) :"
+            android:layout_below="@id/ajout_input_contenu"
+            android:textColor="@color/prio_red"
+            android:textSize="28dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_weight=".75"
+            android:inputType="number"
+            android:layout_below="@id/ajout_text_priorite"
+            android:ems="10"
+            android:id="@+id/ajout_input_priorite" />
+
+        <TextView
+            android:id="@+id/ajout_text_echeance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date d'écheance :"
+            android:layout_below="@id/ajout_input_priorite"
+            android:textColor="@color/prio_red"
+            android:textSize="28dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/ajout_input_echeance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ajout_text_echeance"
+            android:layout_centerHorizontal="true"
+            android:onClick="setDate"
+            android:text="@string/date_button_set" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ajout_input_echeance"
+            android:layout_marginTop="72dp"
+            android:text="@string/date_selected"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+        <Button
+            android:id="@+id/ajout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AJOUTER !"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/ajout_input_echeance"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

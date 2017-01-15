@@ -4,11 +4,19 @@ package com.elbejaj.sharetm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import android.app.DatePickerDialog;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,23 +35,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.tache);
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
-
+        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         td = new TacheDAO(this);
-        /*tabTache = td.listeTache();
+        tabTache = td.listeTache();
         final int N = tabTache.size();
-        final RelativeLayout[] myLinear = new RelativeLayout[N];
+        final LinearLayout[] myLinear = new LinearLayout[N];
 
 
 
 
        for (int i = 0; i < N; i++) {
            //Creation du Linear Layout de la tâche
-           final RelativeLayout rowLinear = new RelativeLayout(this);
+           final LinearLayout rowLinear = new LinearLayout(this);
 
            //Paramètre du Linear
-           RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
            lp.setMargins(30, 50, 30, 0);
+           final String idToPass = Integer.toString(tabTache.get(i).getId());
+           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+           rowLinear.setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View v) {
+                   Intent intentAff = new Intent(MainActivity.this, AffichageTacheActivity.class);
+                   String strName = null;
+                   intentAff.putExtra("idpass", idToPass);
+                   startActivity(intentAff);
+               }
+           });
            rowLinear.setLayoutParams(lp);
 
            if (tabTache.get(i).getPriorite() == 1) {
@@ -70,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
            nomTache.setTextSize(18);
            nomTache.setId(R.id.nomTache);
            nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
-           RelativeLayout.LayoutParams nomParam = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,70);
+           LinearLayout.LayoutParams nomParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
            nomParam.setMargins(20, 20, 20, 10);
            nomTache.setLayoutParams(nomParam);
 
@@ -79,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
            contenuTache.setId(R.id.contenuTache);
            rowLinear.addView(contenuTache);
            contenuTache.setText(tabTache.get(i).getContenu());
-           RelativeLayout.LayoutParams contenuParam = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-           contenuParam.addRule(RelativeLayout.BELOW, R.id.dateTache);
+           LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
            contenuParam.setMargins(20, 0, 20, 30);
            contenuTache.setLayoutParams(contenuParam);
 
@@ -90,13 +109,12 @@ public class MainActivity extends AppCompatActivity {
            rowLinear.addView(dateTache);
            dateTache.setText(String.valueOf(tabTache.get(i).getId()));
            dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
-           RelativeLayout.LayoutParams dateParam = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-           dateParam.addRule(RelativeLayout.BELOW, R.id.nomTache);
+           LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
            dateParam.setMargins(20, 0, 20, 10);
            dateTache.setLayoutParams(dateParam);
 
 
-        }*/
+        }
 
     }
 
@@ -105,6 +123,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, AjoutActivity.class);
         startActivity(intent);
     }
-
 
 }

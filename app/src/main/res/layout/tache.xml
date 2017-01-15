@@ -10,22 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+
+        <ImageView
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:background="@color/prio_red"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
-            android:text="Ajout"
-            android:textColor="#ecf0f1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/button_add"
             android:onClick="button_ajout"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/prio_red"
-            android:layout_marginBottom="10dp"
-            android:text="Ajout groupe"
-            android:textColor="#ecf0f1"
-            android:onClick="button_ajoutGroupe"/>
     </LinearLayout>
+
 </ScrollView>
