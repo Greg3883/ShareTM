@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -66,33 +67,31 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
         //Format des dates
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
         td.open();
         tache = new Tache();
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
         int priorite = Integer.parseInt(ajout_priorite.getText().toString());
         String strEcheance  = ajout_echeance.getText().toString();
-
         tache.setNom(nom);
         tache.setContenu(contenu);
         tache.setPriorite(priorite);
-        Date echeance = null;
-        try {
-            echeance = format.parse(strEcheance);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        tache.setEcheance(echeance);
         ContentValues cv = new ContentValues();
         cv.put("nom", tache.getNom());
+        cv.put("contenu", tache.getContenu());
+        cv.put("priorite", tache.getPriorite());
+        cv.put("echeance", strEcheance);
         String idTache;
         Bundle extras = getIntent().getExtras();
-        idTache = extras.getString("idpass");
+        idTache = extras.getString("idtu");
+        Log.i("INSIDE LIST", idTache);
         int idTacheI = Integer.parseInt(idTache);
+        Log.i("INSIDE LIST", "1");
         long lg = td.updateTache(idTacheI,cv);
+
         td.close();
         Intent intent = new Intent(UpdateTacheActivity.this, MainActivity.class);
+        Log.i("INSIDE LIST", "1");
         startActivity(intent);
     }
 

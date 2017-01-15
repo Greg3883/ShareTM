@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="6bc26a421bcb2b158afa31f8dcd0702ee044cc1a">
+        sha1="106fe4f6298d8049105d58d27cdd94f44c43d9c2">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_24229317d29710712b34cda4cda90a4cc2cf6279\classes.dex" />
     </item>
     <item
@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="7d5964e49e6f254dda0b1b65c19c10ae7f591de4">
+        sha1="2854a7cf4601dac17bf4e42f0f28692495dc5017">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0d89d45fa8edb2a9b121bd0df66d6a5909a1188b\classes.dex" />
     </item>
     <item

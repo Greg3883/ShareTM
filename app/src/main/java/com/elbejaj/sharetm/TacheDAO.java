@@ -52,7 +52,8 @@ public class TacheDAO{
 
     public int updateTache (int id, ContentValues cv)
     {
-        return db.update("Tache",cv,"id="+id, null);
+        String nid = String.valueOf(id);
+        return db.update("Tache",cv,"id="+nid, null);
     }
 
    public Tache trouverTache(int id)

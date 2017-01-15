@@ -33,6 +33,11 @@
         </activity>
 
         <!-- Affichage Tache  Activity -->
+        <activity android:name=".UpdateTacheActivity">
+        <intent-filter>
+            <action android:name=".UPDATETACHEACTIVITY" />
+        </intent-filter>
+        </activity>
 
         <!-- Splash -->
         <activity android:name=".Splash">

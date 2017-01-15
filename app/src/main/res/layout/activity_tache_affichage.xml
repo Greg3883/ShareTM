@@ -19,6 +19,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/button_modif"/>
+        android:src="@drawable/button_modif"
+        android:onClick="button_upd"/>
 
 </LinearLayout>

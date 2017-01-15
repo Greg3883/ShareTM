@@ -115,7 +115,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void button_upd(View view)
+    public void button_upd(View view)
     {
         Intent intent = new Intent(AffichageTacheActivity.this, UpdateTacheActivity.class);
         String idTache;
@@ -123,6 +123,6 @@ public class AffichageTacheActivity extends AppCompatActivity {
         idTache = extras.getString("idpass");
         intent.putExtra("idtu", idTache);
         startActivity(intent);
-    }*/
+    }
 
 }
