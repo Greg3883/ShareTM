@@ -5,27 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp">
+        android:background="@drawable/dr_form_add"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp">
+
+
+
 
         <TextView
             android:id="@+id/ajout_text_nom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
             android:text="Nom de la tâche :"
-            android:textColor="@color/prio_red"
-            android:textSize="28dp"
-            android:textStyle="bold"/>
+            android:textColor="#282830"
+            android:textSize="22dp"
+            android:textStyle="italic"/>
 
         <EditText
             android:id="@+id/ajout_input_nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ajout_text_nom"
             android:background="@drawable/border"
+            android:layout_below="@id/ajout_text_nom"
+            android:layout_marginTop="5dp"
             android:layout_weight=".75" />
 
         <TextView
@@ -33,10 +43,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description de la tâche :"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/ajout_input_nom"
-            android:textColor="@color/prio_red"
-            android:textSize="28dp"
-            android:textStyle="bold"/>
+            android:textColor="#282830"
+            android:textSize="22dp"
+            android:textStyle="italic"/>
 
         <EditText
             android:id="@+id/ajout_input_contenu"
@@ -50,78 +61,73 @@
             android:id="@+id/ajout_text_priorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Priorite (1-2-3-4) :"
+            android:layout_marginTop="5dp"
+            android:text="Priorité :"
             android:layout_below="@id/ajout_input_contenu"
-            android:textColor="@color/prio_red"
-            android:textSize="28dp"
-            android:textStyle="bold"/>
+            android:textColor="#282830"
+            android:textSize="22dp"
+            android:textStyle="italic"/>
 
-        <EditText
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
-            android:layout_weight=".75"
-            android:inputType="number"
-            android:layout_below="@id/ajout_text_priorite"
-            android:ems="10"
-            android:id="@+id/ajout_input_priorite" />
+            android:id="@+id/ajout_priorite" />
+
 
         <TextView
             android:id="@+id/ajout_text_echeance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Date d'écheance :"
-            android:layout_below="@id/ajout_input_priorite"
-            android:textColor="@color/prio_red"
-            android:textSize="28dp"
-            android:textStyle="bold"/>
+            android:layout_below="@id/ajout_priorite"
+            android:textColor="#282830"
+            android:textSize="22dp"
+            android:textStyle="italic"/>
 
         <Button
             android:id="@+id/ajout_input_echeance"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border"
             android:layout_below="@id/ajout_text_echeance"
-            android:layout_centerHorizontal="true"
             android:onClick="setDate"
             android:text="@string/date_button_set" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ajout_input_echeance"
-            android:layout_marginTop="72dp"
-            android:text="@string/date_selected"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/ajout_text_etat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Etat (1-2) :"
-            android:layout_below="@id/textView3"
-            android:textColor="@color/prio_red"
-            android:textSize="28dp"
-            android:textStyle="bold"/>
+            android:text="Etat :"
+            android:layout_below="@id/ajout_input_echeance"
+            android:textColor="#282830"
+            android:textSize="22dp"
+            android:textStyle="italic"/>
 
-        <EditText
-            android:id="@+id/ajout_input_etat"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_below="@id/ajout_text_etat"
             android:background="@drawable/border"
-            android:layout_weight=".75" />
+            android:id="@+id/ajout_etat" />
+
 
         <Button
             android:id="@+id/ajout_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AJOUTER !"
+            android:layout_marginTop="5dp"
+            android:text="MODIFIER !"
+            android:textColor="#ecf0f1"
+            android:background="@drawable/border_add"
             android:layout_gravity="center_vertical"
-            android:layout_below="@+id/ajout_input_etat"/>
+            android:layout_below="@+id/ajout_etat"/>
 
-    </RelativeLayout>
+
+
+    </LinearLayout>
 
 
 

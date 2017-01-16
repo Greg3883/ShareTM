@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
            //Paramètre du Linear
            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
            lp.setMargins(30, 50, 30, 0);
+           rowLinear.setOrientation(LinearLayout.VERTICAL);
            final String idToPass = Integer.toString(tabTache.get(i).getId());
            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
            rowLinear.setOnClickListener(new View.OnClickListener() {
@@ -88,12 +89,17 @@ public class MainActivity extends AppCompatActivity {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
            }else if (tabTache.get(i).getPriorite() == 2) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-           }else if (tabTache.get(i).getPriorite() == 3) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_yellow));
-           }
-           else if (tabTache.get(i).getPriorite() == 4) {
+           } else if (tabTache.get(i).getPriorite() == 3) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
            }
+
+           if (tabTache.get(i).getEtat() == 2) {
+               rowLinear.setBackgroundColor(getResources().getColor(R.color.en_attente));
+           } else if (tabTache.get(i).getEtat() == 3) {
+               rowLinear.setBackgroundColor(getResources().getColor(R.color.bleu_flat));
+           }
+
+
 
            //Ajout des layout tâche
             main_layout.addView(rowLinear);
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
            nomTache.setId(R.id.nomTache);
            nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
            LinearLayout.LayoutParams nomParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-           nomParam.setMargins(20, 20, 20, 10);
+           nomParam.setMargins(20, 20, 0, 0);
            nomTache.setLayoutParams(nomParam);
 
            //Création du contenu
@@ -118,16 +124,17 @@ public class MainActivity extends AppCompatActivity {
            rowLinear.addView(contenuTache);
            contenuTache.setText(tabTache.get(i).getContenu());
            LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
+           contenuParam.setMargins(20, 0, 0, 0);
            contenuTache.setLayoutParams(contenuParam);
 
            //Création du date
            final TextView dateTache = new TextView(this);
            dateTache.setId(R.id.dateTache);
            rowLinear.addView(dateTache);
-           dateTache.setText(String.valueOf(tabTache.get(i).getId()));
+           dateTache.setText(String.valueOf(tabTache.get(i).getEcheance()));
            dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
            LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
-           dateParam.setMargins(20, 0, 20, 10);
+           dateParam.setMargins(20, 0, 0, 0);
            dateTache.setLayoutParams(dateParam);
 
 

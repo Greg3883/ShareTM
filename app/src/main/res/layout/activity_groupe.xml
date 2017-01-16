@@ -55,8 +55,7 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:text=" MES GROUPES"
-                android:textColor="@color/prio_red"
-                android:onClick="intent_groupe"/>
+                android:textColor="@color/prio_red" />
 
         </RelativeLayout>
     </LinearLayout>
