@@ -21,6 +21,7 @@ import java.util.Calendar;
 import android.app.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
            final LinearLayout rowLinear = new LinearLayout(this);
 
            //Paramètre du Linear
-           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
+           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
            lp.setMargins(30, 50, 30, 0);
            rowLinear.setOrientation(LinearLayout.VERTICAL);
            final String idToPass = Integer.toString(tabTache.get(i).getId());
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
            nomTache.setText(tabTache.get(i).getNom());
            nomTache.setTextSize(18);
            nomTache.setId(R.id.nomTache);
+           nomTache.setTextSize(20);
            nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
            LinearLayout.LayoutParams nomParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
            nomParam.setMargins(20, 20, 0, 0);
@@ -122,20 +124,45 @@ public class MainActivity extends AppCompatActivity {
            final TextView contenuTache = new TextView(this);
            contenuTache.setId(R.id.contenuTache);
            rowLinear.addView(contenuTache);
+           contenuTache.setTextSize(18);
            contenuTache.setText(tabTache.get(i).getContenu());
-           LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
-           contenuParam.setMargins(20, 0, 0, 0);
+           LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+           contenuParam.setMargins(20, 0, 20, 0);
            contenuTache.setLayoutParams(contenuParam);
 
            //Création du date
            final TextView dateTache = new TextView(this);
            dateTache.setId(R.id.dateTache);
            rowLinear.addView(dateTache);
-           dateTache.setText(String.valueOf(tabTache.get(i).getEcheance()));
+           dateTache.setTextSize(16);
+           Date preDate = tabTache.get(i).getEcheance();
+           SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
+           String newDate = preDateb.format( preDate );
+           dateTache.setText(newDate);
            dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
-           LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 70);
+           LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
            dateParam.setMargins(20, 0, 0, 0);
            dateTache.setLayoutParams(dateParam);
+
+           //Création de l'état
+           final TextView etaTache = new TextView(this);
+           etaTache.setId(R.id.etaTach);
+           rowLinear.addView(etaTache);
+           int etat_ru = tabTache.get(i).getEtat();
+           String etat_rs;
+           if (etat_ru == 1){
+               etat_rs = "En cours";
+           } else if(etat_ru == 2){
+                etat_rs = "En attente";
+           } else {
+                etat_rs = "Validée";
+           }
+           etaTache.setText(etat_rs);
+           etaTache.setTextSize(14);
+           etaTache.setTypeface(null, etaTache.getTypeface().ITALIC);
+           LinearLayout.LayoutParams etaParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+           etaParam.setMargins(20, 0, 0, 20);
+           etaTache.setLayoutParams(etaParam);
 
 
         }

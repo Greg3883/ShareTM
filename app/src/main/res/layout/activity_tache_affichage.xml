@@ -4,22 +4,49 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"
-    android:src="@drawable/button_del"
-    android:onClick="button_suppr"/>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/button_modif"
-        android:onClick="button_upd"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="SUPPRIMER !"
+            android:textColor="#ecf0f1"
+            android:background="@drawable/border_add"
+            android:layout_gravity="center_vertical"
+            android:onClick="button_suppr"/>
+
+        <Button
+            android:id="@+id/ajout_button"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="MODIFIER"
+            android:textColor="#ecf0f1"
+            android:background="@drawable/border_add"
+            android:layout_gravity="center_vertical"
+            android:onClick="button_upd"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_affichage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical"
+        android:background="@drawable/dr_form_add"></LinearLayout>
 
 </LinearLayout>

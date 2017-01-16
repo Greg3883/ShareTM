@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Bejaj on 14/01/2017.
@@ -27,7 +30,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tache_affichage);
 
-        main_layout = (LinearLayout) findViewById(R.id.affichage_tache_layout);
+        main_layout = (LinearLayout) findViewById(R.id.layout_affichage);
         td = new TacheDAO(this);
         tabTache = td.listeTache();
         final int N = tabTache.size();
@@ -49,15 +52,6 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     lp.setMargins(30, 50, 30, 0);
                     rowLinear.setLayoutParams(lp);
 
-                    if (tabTache.get(i).getPriorite() == 1) {
-                        rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
-                    } else if (tabTache.get(i).getPriorite() == 2) {
-                        rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-                    } else if (tabTache.get(i).getPriorite() == 3) {
-                        rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_yellow));
-                    } else if (tabTache.get(i).getPriorite() == 4) {
-                        rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
-                    }
 
                     //Ajout des layout tâche
                     main_layout.addView(rowLinear);
@@ -68,8 +62,8 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     //Création du nom de la tache
                     final TextView nomTache = new TextView(this);
                     rowLinear.addView(nomTache);
-                    nomTache.setText(tabTache.get(i).getNom());
-                    nomTache.setTextSize(18);
+                    nomTache.setText(tabTache.get(i).getNom().toUpperCase());
+                    nomTache.setTextSize(24);
                     nomTache.setId(R.id.nomTache);
                     nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
                     RelativeLayout.LayoutParams nomParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 70);
@@ -90,12 +84,17 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     final TextView dateTache = new TextView(this);
                     dateTache.setId(R.id.dateTache);
                     rowLinear.addView(dateTache);
-                    dateTache.setText(String.valueOf(tabTache.get(i).getEcheance()));
+                    Date preDate = tabTache.get(i).getEcheance();
+                    SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
+                    String newDate = preDateb.format( preDate );
+                    dateTache.setText(newDate);
                     dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
                     RelativeLayout.LayoutParams dateParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     dateParam.addRule(RelativeLayout.BELOW, R.id.nomTache);
                     dateParam.setMargins(20, 0, 20, 10);
                     dateTache.setLayoutParams(dateParam);
+
+                    
 
                 }
             }
