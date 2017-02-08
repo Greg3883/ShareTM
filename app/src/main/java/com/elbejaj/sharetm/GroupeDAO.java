@@ -1,4 +1,4 @@
-package baalamorapp.sharetm;
+package com.elbejaj.sharetm;
 
 /**
  * Created by Baalamor on 05/02/2017.
