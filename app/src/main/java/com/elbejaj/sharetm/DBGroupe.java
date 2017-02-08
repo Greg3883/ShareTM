@@ -1,4 +1,4 @@
-package baalamorapp.sharetm;
+package com.elbejaj.sharetm;
 
 /**
  * Created by Baalamor on 08/02/2017.
@@ -8,8 +8,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static baalamorapp.sharetm.DBManager.TACHE_TABLE_CREATE;
-import static baalamorapp.sharetm.DBManager.TACHE_TABLE_NAME;
 
 public class DBGroupe extends SQLiteOpenHelper {
 
@@ -23,7 +21,6 @@ public class DBGroupe extends SQLiteOpenHelper {
                     GROUPE_NOM + " TEXT, " +
                     GROUPE_DCREATION + " TEXT);";
 
-    public static final String TACHE_TABLE_DROP = "DROP TABLE IF EXISTS " + TACHE_TABLE_NAME + ";";
     public static final String GROUPE_TABLE_DROP = "DROP TABLE IF EXISTS " + GROUPE_TABLE_NAME + ";";
 
     public DBGroupe(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
