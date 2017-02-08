@@ -1,4 +1,4 @@
-package baalamorapp.sharetm;
+package com.elbejaj.sharetm;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -15,7 +15,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static baalamorapp.sharetm.R.layout.tache;
 
 /**
  * Created by Baalamor on 08/02/2017.
