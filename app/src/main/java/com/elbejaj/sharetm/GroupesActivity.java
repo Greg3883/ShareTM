@@ -48,7 +48,7 @@ public class GroupesActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intentAff = new Intent(GroupesActivity.this, baalamorapp.sharetm.AffichageGroupeActivity.class);
+                    Intent intentAff = new Intent(GroupesActivity.this, AffichageGroupeActivity.class);
                     String strName = null;
                     intentAff.putExtra("idpass", idToPass);
                     intentAff.putExtra("pos",pos);
