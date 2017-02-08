@@ -1,4 +1,4 @@
-package baalamorapp.sharetm;
+package com.elbejaj.sharetm;
 
 /**
  * Created by Baalamor on 08/02/2017.
@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.R.attr.format;
-import static baalamorapp.sharetm.R.layout.tache;
+
 
 
 public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickListener {
