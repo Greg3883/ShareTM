@@ -24,8 +24,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.R.attr.format;
-
 
 
 public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickListener {
