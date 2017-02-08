@@ -16,11 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
-import static baalamorapp.sharetm.R.id.nomTache;
-import static baalamorapp.sharetm.R.layout.groupes;
-
 
 public class AffichageGroupeActivity extends AppCompatActivity {
 
