@@ -1,4 +1,4 @@
-package baalamorapp.sharetm;
+package com.elbejaj.sharetm;
 
 /**
  * Created by Baalamor on 15/01/2017.
@@ -14,10 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import static baalamorapp.sharetm.R.id.main_layout;
-import static baalamorapp.sharetm.R.id.nomTache;
-
 
 public class GroupesActivity extends AppCompatActivity {
 
