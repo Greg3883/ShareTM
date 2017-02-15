@@ -1,5 +1,6 @@
 package com.elbejaj.sharetm;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import android.app.DatePickerDialog;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -88,7 +87,12 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
 
-        td = new TacheDAO(this);
+        //@LAURIE
+        //td = new TacheDAO(this);
+        //Si on arrive dans cette activité, c'est qu'on est connecté
+        TacheDAO td = new TacheDAO(this,true);
+        //-----------------------------------
+
     }
 
 

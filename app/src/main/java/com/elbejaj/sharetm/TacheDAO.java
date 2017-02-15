@@ -4,47 +4,107 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Bejaj on 03/12/2016.
  */
 
-public class TacheDAO{
-    DBManager dbm;
-    SQLiteDatabase db;
+public class TacheDAO {
+    private DBManager dbmLocal;          //Gestionnaire de la BDD en local
+    private SQLiteDatabase db;           //BDD en local
+    private ApiInterface apiService;     //Communication avec l'API
 
-    public TacheDAO(Context ctx)
+    //@LAURIE
+    /**
+     * Constructeur de TacheDAO
+     * @param ctx : Contexte dans lequel on se trouve
+     * @param isConnected : Détermine si le terminal est connecté à internet
+     */
+    public TacheDAO(Context ctx,boolean isConnected)
     {
-        dbm = new DBManager(ctx, "base", null, 4);
+        dbmLocal = new DBManager(ctx, "base", null, 4);
+        db = dbmLocal.getWritableDatabase();
+
+        //Si connexion, on instancie le gestionnaire de BDD en ligne
+        if(isConnected) {
+            Log.i("test","Instanciation du service API");
+            this.apiService = STMAPI.getClient().create(ApiInterface.class);
+        }
+
     }
 
-
     public void open(){
-        db = dbm.getWritableDatabase();
+        db = dbmLocal.getWritableDatabase();
     }
 
     public void close() {
         db.close();
     }
 
+    /**
+     * Met à jour les tâches sur le serveur local
+     */
+    public void syncTasks() {
+
+        List<Tache> listeTaches = null;
+        Call<List<Tache>> call = apiService.getAllTasks();
+
+        call.enqueue(new Callback<List<Tache>>() {
+
+            @Override
+            public void onResponse(Call<List<Tache>> call, Response<List<Tache>> response) {
+                List<Tache> lesTaches = response.body();
+                for(int i=0;i<lesTaches.size();i++) {
+                    ajouterTache(lesTaches.get(i));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tache>>call, Throwable t) {}
+        });
+
+
+    }
+
+
     public long ajouterTache(Tache t){
-        ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String reportDate = df.format( t.getEcheance());
-        vals.put("id", t.getId());
-        vals.put("nom", t.getNom());
-        vals.put("contenu", t.getContenu());
-        vals.put("priorite", t.getPriorite());
-        vals.put("echeance", reportDate);
-        vals.put("etat", t.getEtat());
-        vals.put("groupe", t.getGroupe());
-        return db.insert("Tache", null , vals);
+
+        Long result = null;
+
+        if(t!=null) {
+            Log.i("test","la tâche n'est pas nulle");
+            ContentValues vals = new ContentValues();
+
+            //DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+            //String reportDate = df.format( t.getEcheance());
+            vals.put("id", t.getId());
+            vals.put("nom", t.getNom());
+            vals.put("contenu", t.getContenu());
+            vals.put("priorite", t.getPriorite());
+            //vals.put("echeance", reportDate);
+            vals.put("etat", t.getEtat());
+            vals.put("groupe", t.getGroupe());
+            result = db.insert("Tache", null , vals);
+
+        } else {
+            Log.i("test", "la tâche est nulle");
+        }
+
+        return result;
+
     }
 
     public int supprimerTache (int id)
@@ -89,10 +149,10 @@ public class TacheDAO{
     public ArrayList <Tache> listeTache()
     {
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        //DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         ArrayList<Tache> listeT = new ArrayList<Tache>();
-        db = dbm.getWritableDatabase();
+        db = dbmLocal.getWritableDatabase();
         Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance","etat","groupe"},null,null,null,null,null);
         c.moveToFirst();
         while (!c.isAfterLast())
@@ -105,12 +165,14 @@ public class TacheDAO{
             t.setGroupe(c.getInt(6));
             String strEcheance   = c.getString(4);
             Date dateEcheance = null;
+            /*
             try {
                 dateEcheance = format.parse(strEcheance);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            t.setEcheance(dateEcheance);
+            */
+            //t.setEcheance(dateEcheance);
             t.setId(c.getInt(0));
             listeT.add(t);
             c.moveToNext();

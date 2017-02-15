@@ -1,6 +1,9 @@
 package com.elbejaj.sharetm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,7 +31,15 @@ public class AffichageTacheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tache_affichage);
 
         main_layout = (LinearLayout) findViewById(R.id.affichage_tache_layout);
-        td = new TacheDAO(this);
+
+        //@LAURIE
+        //Vérification de la connexion
+        boolean isConnected = hasActiveInternetConnection();
+        TacheDAO td = new TacheDAO(this,isConnected);
+
+
+        //td = new TacheDAO(this);
+        //----------------------------
         tabTache = td.listeTache();
         final int N = tabTache.size();
         final RelativeLayout[] myLinear = new RelativeLayout[N];
@@ -125,4 +136,23 @@ public class AffichageTacheActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public boolean hasActiveInternetConnection() {
+        Context context;
+        Boolean isConnected = false;
+        ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connect!=null) {
+
+            NetworkInfo[] information = connect.getAllNetworkInfo();
+            if(information!=null) {
+                for (int x = 0; x < information.length; x++) {
+                    if (information[x].getState() == NetworkInfo.State.CONNECTED) {
+                        isConnected = true;
+                    }
+                }
+            } else {
+                isConnected = false;
+            }
+        }
+        return isConnected;
+    }
 }

@@ -23,7 +23,7 @@ public class Splash extends Activity {
         Thread chrono = new Thread(){
             public void run(){
                 try{
-                    sleep(6000);
+                    sleep(3);
                 } catch (InterruptedException e){
                     e.printStackTrace();
                 } finally {

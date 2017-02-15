@@ -1,5 +1,6 @@
 package com.elbejaj.sharetm;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,18 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import android.app.DatePickerDialog;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -62,7 +59,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idtu");
         int idTacheI = Integer.parseInt(idTache);
-        td = new TacheDAO(this);
+        td = new TacheDAO(this,true); //Si on accède à cette activité, on est en ligne
         td.open();
         Tache tachet = td.trouverTache(idTacheI);
         td.close();
