@@ -54,9 +54,9 @@
         </activity>
 
         <!-- Affichage groupee  Activity -->
-        <activity android:name=".GroupeActivity">
+        <activity android:name=".GroupesActivity">
             <intent-filter>
-                <action android:name=".GROUPEACTIVITY" />
+                <action android:name=".GROUPESACTIVITY" />
             </intent-filter>
         </activity>
         <activity android:name=".AjoutGrpActivity"/>

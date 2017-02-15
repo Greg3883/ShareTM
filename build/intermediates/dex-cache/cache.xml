@@ -70,7 +70,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="f850b6e634960000925677f450fa9eea59d70433">
+        sha1="fe2a15f697754ec8af64b8cee26eb37a5d5eae56">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0d89d45fa8edb2a9b121bd0df66d6a5909a1188b\classes.dex" />
     </item>
     <item
@@ -93,15 +93,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_d1588cf462094f53d4271cf4af438837ac2687e7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
@@ -111,11 +102,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_d1588cf462094f53d4271cf4af438837ac2687e7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="20c4ebe35d0d52fb34d2baf2a95a773ed745e902">
+        sha1="698bcac4e5465f0a7ca15594312aaa4b2c07f80c">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_24229317d29710712b34cda4cda90a4cc2cf6279\classes.dex" />
     </item>
     <item

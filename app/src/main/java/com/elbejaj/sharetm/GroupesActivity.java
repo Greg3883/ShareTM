@@ -96,7 +96,7 @@ public class GroupesActivity extends AppCompatActivity {
 
     public void mes_taches(View view)
     {
-        Intent intent = new Intent(GroupesActivity.this, MesTachesActivity.class);
+        Intent intent = new Intent(GroupesActivity.this, TacheGroupActivity.class);
         startActivity(intent);
     }
 

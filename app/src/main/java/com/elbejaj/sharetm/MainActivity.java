@@ -49,19 +49,7 @@ public class MainActivity extends AppCompatActivity {
         final int N = tabTache.size();
         final LinearLayout[] myLinear = new LinearLayout[N];
 
-        Groupe g = new Groupe();
-        g.setNomGroupe("Personnel");
-        g.setIdGroupe(1);
 
-        Groupe gb = new Groupe();
-
-        gd.open();
-            gb = gd.trouverGroupe(1);
-            if (gb == null) {
-                Log.i("INSIDE LIST", "AJOUT");
-                long lg = gd.ajouterGroupe(g);
-            }
-        gd.close();
 
 
 
@@ -210,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void intent_groupe(View view)
     {
-        Intent intent = new Intent(MainActivity.this, GroupeActivity.class);
+        Intent intent = new Intent(MainActivity.this, GroupesActivity.class);
         startActivity(intent);
     }
 
