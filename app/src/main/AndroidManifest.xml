@@ -9,6 +9,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
+
+        <!-- Main Activity -->
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name=".LOGINACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
         <!-- Main Activity -->
         <activity android:name=".MainActivity">
             <intent-filter>

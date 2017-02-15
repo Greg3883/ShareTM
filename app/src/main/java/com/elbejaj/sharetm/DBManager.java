@@ -44,6 +44,24 @@ public class DBManager extends SQLiteOpenHelper {
 
     public static final String GROUPE_TABLE_DROP = "DROP TABLE IF EXISTS " + GROUPE_TABLE_NAME + ";";
 
+    public static final String UTILISATEUR_ID = "idUtilisateur";
+    public static final String UTILISATEUR_NOMU = "nomU";
+    public static final String UTILISATEUR_EMAIL = "email";
+    public static final String UTILISATEUR_MDPHASH = "mdpHash";
+    public static final String UTILISATEUR_APIKEY ="apiKey";
+    public static final String UTILISATEUR_DATECREATION = "dateCreationU";
+    public static final String UTILISATEUR_TABLE_CREATE =
+            "CREATE TABLE " + "Utilisateur" + " (" +
+                    UTILISATEUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UTILISATEUR_NOMU + " TEXT, " +
+                    UTILISATEUR_EMAIL + " TEXT, " +
+                    UTILISATEUR_MDPHASH + " TEXT, "+
+                    UTILISATEUR_APIKEY + " TEXT, "+
+                    UTILISATEUR_DATECREATION + " TEXT "+");";
+
+    public static final String UTILISATEUR_TABLE_DROP = "DROP TABLE IF EXISTS " + "Utilisateur" + ";";
+
+
 
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -53,12 +71,14 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TACHE_TABLE_CREATE);
         db.execSQL(GROUPE_TABLE_CREATE);
+        db.execSQL(UTILISATEUR_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(TACHE_TABLE_DROP);
         db.execSQL(GROUPE_TABLE_DROP);
+        db.execSQL(UTILISATEUR_TABLE_DROP);
         onCreate(db);
     }
 }

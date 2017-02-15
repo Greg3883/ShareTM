@@ -21,7 +21,7 @@ public class TacheDAO{
 
     public TacheDAO(Context ctx)
     {
-        dbm = new DBManager(ctx, "base", null, 4);
+        dbm = new DBManager(ctx, "base", null, 12);
     }
 
 

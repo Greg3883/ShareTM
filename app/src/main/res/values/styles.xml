@@ -8,5 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/prio_blanc</item>
+        <item name="android:textColorPrimary">@color/prio_blanc2</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
 
 </resources>

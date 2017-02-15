@@ -22,7 +22,7 @@ public class GroupeDAO {
 
     public GroupeDAO(Context ctx)
     {
-        dbm = new DBGroupe(ctx, "baseGrp", null, 1);
+        dbm = new DBGroupe(ctx, "baseGrp", null, 12);
     }
 
 
