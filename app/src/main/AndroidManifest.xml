@@ -48,6 +48,9 @@
                 <action android:name=".GROUPEACTIVITY" />
             </intent-filter>
         </activity>
+        <activity android:name=".AjoutGrpActivity"/>
+        <activity android:name=".AffichageGroupeActivity"/>
+        <activity android:name=".UpdateGroupeActivity"/>
 
         <!-- Splash -->
 
