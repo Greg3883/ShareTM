@@ -17,8 +17,6 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static android.R.attr.tag;
-
 public class LoginActivity extends AppCompatActivity {
     UtilisateurDAO ud;
     TextView login_incorrect;
@@ -37,19 +35,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+
         Utilisateur default_utilisateur = new Utilisateur();
         default_utilisateur.setEmail("greg");
         default_utilisateur.setNomU("greg");
         default_utilisateur.setMdpHash("azze");
-        default_utilisateur.setIdUtilisateur(98);
+        default_utilisateur.setIdUtilisateur(56);
         default_utilisateur.setApiKey("frere");
         java.text.DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
         default_utilisateur.setDateCreationU(currentDate);
         ud = new UtilisateurDAO(this);
+
         ud.open();
         Log.d("fzfez", "Message validé");
-        ud.ajouterUtilisateur(default_utilisateur);
+        //ud.ajouterUtilisateur(default_utilisateur);
         ud.close();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -133,6 +133,10 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
     }
 
+    /**
+     * @TODO : Vérifier la vérification d'un email ("a" ne fonctionne pas mais "greg" fonctionne)
+     * @return
+     */
     public boolean validate() {
         UtilisateurDAO ud;
         boolean valid = true;

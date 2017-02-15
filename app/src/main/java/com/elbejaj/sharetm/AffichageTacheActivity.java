@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +30,8 @@ public class AffichageTacheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tache_affichage);
 
         main_layout = (LinearLayout) findViewById(R.id.layout_affichage);
-        td = new TacheDAO(this);
+        //@TODO Changer ca
+        td = new TacheDAO(this,true);
         tabTache = td.listeTache();
         final int N = tabTache.size();
         final RelativeLayout[] myLinear = new RelativeLayout[N];

@@ -3,29 +3,19 @@ package com.elbejaj.sharetm;
 //LAURIE
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import android.app.DatePickerDialog;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +55,8 @@ public class TacheGroupActivityB extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tri_spinner.setAdapter(adapter);
 
-        td = new TacheDAO(this);
+        //TODO : A changer
+        td = new TacheDAO(this, true);
         gd = new GroupeDAO(this);
         tabTache = td.listeTache();
         Collections.sort(tabTache, Tache.TachePrioComparator);

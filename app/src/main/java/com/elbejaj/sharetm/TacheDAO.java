@@ -4,29 +4,51 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Bejaj on 03/12/2016.
  */
 
 public class TacheDAO{
-    DBManager dbm;
-    SQLiteDatabase db;
+    private DBManager dbmLocal;          //Gestionnaire de la BDD en local
+    private SQLiteDatabase db;           //BDD en local
+    private ApiInterface apiService;     //Communication avec l'API
 
-    public TacheDAO(Context ctx)
+    /**
+     * Constructeur de TacheDAO
+     * @param ctx : Contexte dans lequel on se trouve
+     * @param isConnected : Détermine si le terminal est connecté à internet
+     */
+    public TacheDAO(Context ctx,boolean isConnected)
     {
-        dbm = new DBManager(ctx, "base", null, 12);
-    }
+
+        dbmLocal = new DBManager(ctx, "base", null, 12);
+        db = dbmLocal.getWritableDatabase();
+     
+
+        //Si connexion, on instancie le gestionnaire de BDD en ligne
+        if(isConnected) {
+            Log.i("test","Instanciation du service API");
+            this.apiService = STMAPI.getClient().create(ApiInterface.class);
+        }
+
+}
 
 
     public void open(){
-        db = dbm.getWritableDatabase();
+        db = dbmLocal.getWritableDatabase();
     }
 
     public void close() {
@@ -92,7 +114,7 @@ public class TacheDAO{
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         ArrayList<Tache> listeT = new ArrayList<Tache>();
-        db = dbm.getWritableDatabase();
+        db = dbmLocal.getWritableDatabase();
         Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance","etat","groupe"},null,null,null,null,null);
         c.moveToFirst();
         while (!c.isAfterLast())
@@ -117,6 +139,36 @@ public class TacheDAO{
         }
 
         return listeT;
+    }
+
+    /**
+     * Met à jour les tâches sur le serveur local
+     */
+    public void syncTasks() {
+
+        Log.i("test","Je suis dans la synchronisation de tâches");
+
+        List<Tache> listeTaches = null;
+        Call<List<Tache>> call = apiService.getAllTasks();
+
+        //@TODO : Trouver pourquoi on ne va pas plus loin...
+
+        call.enqueue(new Callback<List<Tache>>() {
+
+            @Override
+            public void onResponse(Call<List<Tache>> call, Response<List<Tache>> response) {
+                Log.i("Test","Je vais récupérer les tâches");
+                List<Tache> lesTaches = response.body();
+                for (int i = 0; i < lesTaches.size(); i++) {
+                    Log.i("test","Je vais ajouter une tâche !");
+                    ajouterTache(lesTaches.get(i));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tache>> call, Throwable t) {
+            }
+        });
     }
 
 
