@@ -32,6 +32,20 @@
             </intent-filter>
         </activity>
 
+        <!-- Affichage Tache  GRoupe Activity -->
+        <activity android:name=".TacheGroupActivity">
+            <intent-filter>
+                <action android:name=".TACHEGROUPACTIVITY" />
+            </intent-filter>
+        </activity>
+
+        <!-- Affichage TacheB  GRoupe Activity -->
+        <activity android:name=".TacheGroupActivityB">
+            <intent-filter>
+                <action android:name=".TACHEGROUPACTIVITY" />
+            </intent-filter>
+        </activity>
+
         <!-- Affichage Tache  Activity -->
         <activity android:name=".UpdateTacheActivity">
         <intent-filter>

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -65,12 +66,36 @@ public class MainActivity extends AppCompatActivity {
 
 
        for (int i = 0; i < N; i++) {
+
            //Creation du Linear Layout de la tâche
+           final LinearLayout principLinear = new LinearLayout(this);
+
+           //Creation du Linear Layout des infos
            final LinearLayout rowLinear = new LinearLayout(this);
 
+           //Creation du Linear Layout des états
+           final LinearLayout rowEtat = new LinearLayout(this);
+
            //Paramètre du Linear
-           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-           lp.setMargins(30, 50, 30, 0);
+           LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 300);
+           lpb.setMargins(30, 50, 0, 0);
+           final String idToPassb = Integer.toString(tabTache.get(i).getId());
+           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+           rowEtat.setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View v) {
+                   Intent intentAff = new Intent(MainActivity.this, AffichageTacheActivity.class);
+                   String strName = null;
+                   intentAff.putExtra("idpass", idToPassb);
+                   startActivity(intentAff);
+               }
+           });
+           rowEtat.setLayoutParams(lpb);
+
+           //Paramètre du Linear
+           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
+           lp.setMargins(0, 50, 30, 0);
            rowLinear.setOrientation(LinearLayout.VERTICAL);
            final String idToPass = Integer.toString(tabTache.get(i).getId());
            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
@@ -85,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                }
            });
            rowLinear.setLayoutParams(lp);
-
+            tabTache.get(i).estRetard();
            if (tabTache.get(i).getPriorite() == 1) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
            }else if (tabTache.get(i).getPriorite() == 2) {
@@ -94,16 +119,15 @@ public class MainActivity extends AppCompatActivity {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
            }
 
-           if (tabTache.get(i).getEtat() == 2) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.en_attente));
-           } else if (tabTache.get(i).getEtat() == 3) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.bleu_flat));
+           if (tabTache.get(i).getPriorite() == 1) {
+               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_red));
+           }else if (tabTache.get(i).getPriorite() == 2) {
+               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_orange));
+           } else if (tabTache.get(i).getPriorite() == 3) {
+               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_green));
            }
 
 
-
-           //Ajout des layout tâche
-            main_layout.addView(rowLinear);
 
            //On stock les taches
             myLinear[i] = rowLinear;
@@ -144,25 +168,34 @@ public class MainActivity extends AppCompatActivity {
            dateParam.setMargins(20, 0, 0, 0);
            dateTache.setLayoutParams(dateParam);
 
-           //Création de l'état
-           final TextView etaTache = new TextView(this);
-           etaTache.setId(R.id.etaTach);
-           rowLinear.addView(etaTache);
-           int etat_ru = tabTache.get(i).getEtat();
-           String etat_rs;
-           if (etat_ru == 1){
-               etat_rs = "En cours";
-           } else if(etat_ru == 2){
-                etat_rs = "En attente";
-           } else {
-                etat_rs = "Validée";
+
+           ImageView etatImg = new ImageView(this);
+           int state = tabTache.get(i).getEtat();
+           if (state == 1) {
+               etatImg.setImageResource(R.drawable.encours);
+           } else if (state == 2) {
+               etatImg.setImageResource(R.drawable.attente);
+           } else if (state == 3) {
+               etatImg.setImageResource(R.drawable.valide);
+           } else if (state == 4) {
+               etatImg.setImageResource(R.drawable.retard);
            }
-           etaTache.setText(etat_rs);
-           etaTache.setTextSize(14);
-           etaTache.setTypeface(null, etaTache.getTypeface().ITALIC);
-           LinearLayout.LayoutParams etaParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-           etaParam.setMargins(20, 0, 0, 20);
-           etaTache.setLayoutParams(etaParam);
+
+           rowEtat.addView(etatImg);
+           etatImg.getLayoutParams().height = 150;
+           etatImg.getLayoutParams().width = 150;
+           etatImg.requestLayout();
+           LinearLayout.LayoutParams lpc = new LinearLayout.LayoutParams(150, LinearLayout.LayoutParams.WRAP_CONTENT);
+           lpc.setMargins(10, 0, 0, 0);
+           etatImg.setLayoutParams(lpc);
+           //Ajout des layout tâche
+           principLinear.addView(rowEtat);
+
+           //Ajout des layout tâche
+           principLinear.addView(rowLinear);
+
+           //Ajout des layout tâche
+           main_layout.addView(principLinear);
 
 
         }
@@ -178,6 +211,12 @@ public class MainActivity extends AppCompatActivity {
     public void intent_groupe(View view)
     {
         Intent intent = new Intent(MainActivity.this, GroupeActivity.class);
+        startActivity(intent);
+    }
+
+    public void intent_tachegroup(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, TacheGroupActivity.class);
         startActivity(intent);
     }
 

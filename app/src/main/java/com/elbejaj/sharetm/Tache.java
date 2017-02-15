@@ -1,5 +1,6 @@
 package com.elbejaj.sharetm;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Bejaj on 21/11/2016.
  */
 
-public class Tache {
+public class Tache implements Comparable<Tache>{
     private int id;
     private static final AtomicInteger count = new AtomicInteger(0);
     private String nom;
@@ -63,6 +64,20 @@ public class Tache {
         groupe = tgroupe;
     }
 
+    public void estRetard()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date echance = this.getEcheance();
+        Date curTime= new Date();
+        Boolean etat;
+
+        if (curTime.compareTo(echance) > 0) {
+            this.setEtat(4);
+        }
+    }
+
+
+
     public void setEtat(int tetat){
         etat = tetat;
     }
@@ -78,4 +93,58 @@ public class Tache {
     public void setEcheance( Date teche){
         echeance = teche;
     }
+
+    public int compareTo(Tache t2) {
+        int i;
+        if (this.getEcheance().compareTo(t2.getEcheance()) < 0){
+            i = -1; // T1 est avant
+        } else if (this.getEcheance().compareTo(t2.getEcheance()) > 0){
+            i = 1; // T2 est avant
+        } else {
+            i = 0;
+        }
+        return i;
+    }
+
+    public static Comparator<Tache> TacheDateComparator = new Comparator<Tache>() {
+        public int compare(Tache t1, Tache t2) {
+            int i;
+            if (t1.getEcheance().compareTo(t2.getEcheance()) < 0){
+                i = -1; // T1 est avant
+            } else if (t1.getEcheance().compareTo(t2.getEcheance()) > 0){
+                i = 1; // T2 est avant
+            } else {
+                i = 0;
+            }
+            return i;
+        }
+    };
+
+    public static Comparator<Tache> TacheEtatComparator = new Comparator<Tache>() {
+        public int compare(Tache t1, Tache t2) {
+            int i;
+            if (t1.getEtat() < t2.getEtat()){
+                i = -1; // T1 est avant
+            } else if (t1.getEtat() > t2.getEtat()){
+                i = 1; // T2 est avant
+            } else {
+                i = 0;
+            }
+            return i;
+        }
+    };
+
+    public static Comparator<Tache> TachePrioComparator = new Comparator<Tache>() {
+        public int compare(Tache t1, Tache t2) {
+            int i;
+            if (t1.getPriorite() < t2.getPriorite()){
+                i = -1; // T1 est avant
+            } else if (t1.getPriorite() > t2.getPriorite()){
+                i = 1; // T2 est avant
+            } else {
+                i = 0;
+            }
+            return i;
+        }
+    };
 }

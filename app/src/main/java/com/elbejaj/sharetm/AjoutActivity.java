@@ -125,6 +125,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         tache.setEtat(etat);
         tache.setNom(nom);
         tache.setContenu(contenu);
+        tache.setGroupe(1);
         tache.setPriorite(priorite);
         Date echeance = null;
         try {

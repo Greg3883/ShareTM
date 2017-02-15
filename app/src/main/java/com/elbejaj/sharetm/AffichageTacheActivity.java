@@ -94,7 +94,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     dateParam.setMargins(20, 0, 20, 10);
                     dateTache.setLayoutParams(dateParam);
 
-                    
+
 
                 }
             }

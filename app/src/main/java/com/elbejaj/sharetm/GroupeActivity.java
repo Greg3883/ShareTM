@@ -22,4 +22,10 @@ public class GroupeActivity extends AppCompatActivity {
         Intent intent = new Intent(GroupeActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void intent_tachegroup(View view)
+    {
+        Intent intent = new Intent(GroupeActivity.this, TacheGroupActivity.class);
+        startActivity(intent);
+    }
 }
