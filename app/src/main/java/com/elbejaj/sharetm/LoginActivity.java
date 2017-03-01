@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ud.open();
         Log.d("fzfez", "Message validé");
-        //ud.ajouterUtilisateur(default_utilisateur);
+        ud.ajouterUtilisateur(default_utilisateur);
         ud.close();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 

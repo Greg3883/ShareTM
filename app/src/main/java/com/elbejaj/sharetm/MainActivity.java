@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         if(isConnected) {
             Log.i("test","La personne est connectée");
 
+
         } else {
             Log.i("test","La personne est hors-ligne");
         }

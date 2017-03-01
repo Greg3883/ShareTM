@@ -150,6 +150,7 @@ public class TacheDAO{
 
         List<Tache> listeTaches = null;
         Call<List<Tache>> call = apiService.getAllTasks();
+        Log.i("test","Je suis après le getAllATasks");
 
         //@TODO : Trouver pourquoi on ne va pas plus loin...
 
@@ -167,6 +168,8 @@ public class TacheDAO{
 
             @Override
             public void onFailure(Call<List<Tache>> call, Throwable t) {
+                Log.i("test","Ca n'a pas fonctionné");
+                Log.i("test",t.getMessage());
             }
         });
     }
