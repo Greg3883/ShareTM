@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBGroupe extends SQLiteOpenHelper {
 
-    public static final String GROUPE_ID = "id";
+    public static final String GROUPE_ID = "idGroupe";
     public static final String GROUPE_NOM = "nom";
     public static final String GROUPE_DCREATION = "d_creation";
     public static final String GROUPE_TABLE_NAME = "Groupe";

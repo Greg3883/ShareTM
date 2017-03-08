@@ -23,11 +23,13 @@ public class Splash extends Activity {
         Thread chrono = new Thread(){
             public void run(){
                 try{
-                    sleep(6000);
+                    sleep(1);
+
                 } catch (InterruptedException e){
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(".LOGINACTIVITY");
+                    //Intent i = new Intent(".LOGINACTIVITY");
+                    Intent i = new Intent(".MAINACTIVITY");
                     startActivity(i);
                 }
             }

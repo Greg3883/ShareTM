@@ -37,13 +37,12 @@ public class AffichageTacheActivity extends AppCompatActivity {
         final RelativeLayout[] myLinear = new RelativeLayout[N];
 
             for (int i = 0; i < N; i++) {
-                String idTache;
+                String idTacheI;
                 Bundle extras = getIntent().getExtras();
-                idTache = extras.getString("idpass");
-                int idTacheI = Integer.parseInt(idTache);
+                idTacheI = extras.getString("idpass");
                 Log.i("INSIDE LIST", String.valueOf(idTacheI));
-                Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
-                if (idTacheI == tabTache.get(i).getId()) {
+                Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
+                if (idTacheI.equals(tabTache.get(i).getIdTache())) {
                     //Creation du Linear Layout de la tâche
                     final RelativeLayout rowLinear = new RelativeLayout(this);
 
@@ -62,7 +61,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     //Création du nom de la tache
                     final TextView nomTache = new TextView(this);
                     rowLinear.addView(nomTache);
-                    nomTache.setText(tabTache.get(i).getNom().toUpperCase());
+                    nomTache.setText(tabTache.get(i).getIntituleT().toUpperCase());
                     nomTache.setTextSize(24);
                     nomTache.setId(R.id.nomTache);
                     nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
@@ -74,7 +73,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     final TextView contenuTache = new TextView(this);
                     contenuTache.setId(R.id.contenuTache);
                     rowLinear.addView(contenuTache);
-                    contenuTache.setText(tabTache.get(i).getContenu());
+                    contenuTache.setText(tabTache.get(i).getDescriptionT());
                     RelativeLayout.LayoutParams contenuParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     contenuParam.addRule(RelativeLayout.BELOW, R.id.dateTache);
                     contenuParam.setMargins(20, 0, 20, 30);
@@ -84,7 +83,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     final TextView dateTache = new TextView(this);
                     dateTache.setId(R.id.dateTache);
                     rowLinear.addView(dateTache);
-                    Date preDate = tabTache.get(i).getEcheance();
+                    Date preDate = tabTache.get(i).getEcheanceT();
                     SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
                     String newDate = preDateb.format( preDate );
                     dateTache.setText(newDate);

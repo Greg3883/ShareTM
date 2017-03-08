@@ -4,8 +4,6 @@ package com.elbejaj.sharetm;
  * Created by Baalamor on 08/02/2017.
  */
 
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,13 +36,12 @@ public class AffichageGroupeActivity extends AppCompatActivity {
         final RelativeLayout[] myLinear = new RelativeLayout[N];
 
         for (int i = 0; i < N; i++) {
-            String idGroupe;
+            String id;
             Bundle extras = getIntent().getExtras();
-            idGroupe = extras.getString("idpass");
-            int idGrpI = Integer.parseInt(idGroupe);
-            Log.i("INSIDE LIST", String.valueOf(idGrpI));
-            Log.i("ID du groupe", String.valueOf(tabGroupe.get(i).getId()));
-            if (idGrpI == tabGroupe.get(i).getId()) {
+            id = extras.getString("idpass");
+            Log.i("INSIDE LIST", String.valueOf(id));
+            Log.i("ID du groupe", tabGroupe.get(i).getIdGroupe());
+            if (id.equals(tabGroupe.get(i).getIdGroupe())) {
                 //Creation du Linear Layout du groupe
                 final RelativeLayout rowLinear = new RelativeLayout(this);
 

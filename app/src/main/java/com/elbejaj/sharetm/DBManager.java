@@ -3,63 +3,82 @@ package com.elbejaj.sharetm;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Bejaj on 03/12/2016.
  */
 
 public class DBManager extends SQLiteOpenHelper {
-    public static final String TACHE_ID = "id";
-    public static final String TACHE_NOM = "nom";
-    public static final String TACHE_CONTENU = "contenu";
-    public static final String TACHE_PRIORITE = "priorite";
-    public static final String TACHE_ECHEANCE = "echeance";
-    public static final String TACHE_ETAT = "etat";
-    public static final String TACHE_GROUPE = "groupe";
 
-    public static final String TACHE_TABLE_NAME = "Tache";
+    //POUR LA TABLE TACHE
+    public static final String TACHE_TABLE_NAME = "tache";
+
+    public static final String TACHE_ID = "idTache";
+    public static final String TACHE_INTITULE = "intituleT";
+    public static final String TACHE_DATECREATION = "dateCreationT";
+    public static final String TACHE_DESCRIPTION = "descriptionT";
+    public static final String TACHE_PRIORITE = "prioriteT";
+    public static final String TACHE_ETAT = "etatT";
+    public static final String TACHE_ECHEANCE = "echeanceT";
+    public static final String TACHE_REFGROUPE = "refGroupe";
 
 
 
+
+    //Requête pour la création de la table Tache
     public static final String TACHE_TABLE_CREATE =
             "CREATE TABLE " + TACHE_TABLE_NAME + " (" +
-                    TACHE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    TACHE_NOM + " TEXT, " +
-                    TACHE_CONTENU + " TEXT, " +
-                    TACHE_PRIORITE + " INTEGER, " + TACHE_ECHEANCE + " TEXT, "  +
-                    TACHE_ETAT + " INTEGER, " + TACHE_GROUPE + " INTEGER " + ");";
+                    TACHE_ID + " TEXT PRIMARY KEY, " +
+                    TACHE_INTITULE + " TEXT, " +
+                    TACHE_DATECREATION + " TEXT," +
+                    TACHE_DESCRIPTION + " TEXT, " +
+                    TACHE_PRIORITE + " INTEGER, " +
+                    TACHE_ECHEANCE + " TEXT, "  +
+                    TACHE_ETAT + " INTEGER, " +
+                    TACHE_REFGROUPE + " TEXT" + ");";
 
+    //Requête pour la suppression de la table Tache
     public static final String TACHE_TABLE_DROP = "DROP TABLE IF EXISTS " + TACHE_TABLE_NAME + ";";
 
 
+    //POUR LA TABLE GROUPE
+    public static final String GROUPE_TABLE_NAME = "groupe";
+
     public static final String GROUPE_ID = "idGroupe";
     public static final String GROUPE_NOM = "nomGroupe";
+    public static final String GROUPE_DATECREATION = "dateCreationGroupe";
 
-    public static final String GROUPE_TABLE_NAME = "Groupe";
-
+    //Requête pour la création de la table groupe
     public static final String GROUPE_TABLE_CREATE =
             "CREATE TABLE " + GROUPE_TABLE_NAME + " (" +
-                    GROUPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    GROUPE_NOM + " TEXT " + ");";
+                    GROUPE_ID + " TEXT PRIMARY KEY, " +
+                    GROUPE_NOM + " TEXT, " +
+                    GROUPE_DATECREATION + "TEXT "+ ");";
 
+    //Requête pour la suppression de la table groupe
     public static final String GROUPE_TABLE_DROP = "DROP TABLE IF EXISTS " + GROUPE_TABLE_NAME + ";";
 
+    //POUR LA TABLE UTILISATEUR
     public static final String UTILISATEUR_ID = "idUtilisateur";
     public static final String UTILISATEUR_NOMU = "nomU";
     public static final String UTILISATEUR_EMAIL = "email";
     public static final String UTILISATEUR_MDPHASH = "mdpHash";
     public static final String UTILISATEUR_APIKEY ="apiKey";
     public static final String UTILISATEUR_DATECREATION = "dateCreationU";
+
+    //Requête pour la création de la table Utilisateur
     public static final String UTILISATEUR_TABLE_CREATE =
-            "CREATE TABLE " + "Utilisateur" + " (" +
-                    UTILISATEUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE " + "utilisateur" + " (" +
+                    UTILISATEUR_ID + " TEXT PRIMARY KEY, " +
                     UTILISATEUR_NOMU + " TEXT, " +
                     UTILISATEUR_EMAIL + " TEXT, " +
                     UTILISATEUR_MDPHASH + " TEXT, "+
                     UTILISATEUR_APIKEY + " TEXT, "+
                     UTILISATEUR_DATECREATION + " TEXT "+");";
 
-    public static final String UTILISATEUR_TABLE_DROP = "DROP TABLE IF EXISTS " + "Utilisateur" + ";";
+    //Requête pour la suppression de la table
+    public static final String UTILISATEUR_TABLE_DROP = "DROP TABLE IF EXISTS " + "utilisateur" + ";";
 
 
 
@@ -69,9 +88,15 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TACHE_TABLE_CREATE);
-        db.execSQL(GROUPE_TABLE_CREATE);
-        db.execSQL(UTILISATEUR_TABLE_CREATE);
+        try{
+            db.execSQL(TACHE_TABLE_CREATE);
+            db.execSQL(GROUPE_TABLE_CREATE);
+            db.execSQL(UTILISATEUR_TABLE_CREATE);
+        } catch (Exception e) {
+            Log.i("test","Problème création DB, " + e.getMessage());
+        }
+
+
     }
 
     @Override

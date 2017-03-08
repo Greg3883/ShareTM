@@ -19,7 +19,7 @@ public class UtilisateurDAO{
 
     public UtilisateurDAO(Context ctx)
     {
-        dbm = new DBManager(ctx, "base", null, 12);
+        dbm = new DBManager(ctx, "base", null, 13);
     }
 
 
@@ -64,7 +64,7 @@ public class UtilisateurDAO{
         if (c.moveToFirst())
         {
             u = new Utilisateur();
-            u.setIdUtilisateur(c.getInt(0));
+            u.setIdUtilisateur(c.getString(0));
             u.setNomU(c.getString(1));
             u.setEmail(c.getString(2));
             u.setMdpHash(c.getString(3));
@@ -83,16 +83,16 @@ public class UtilisateurDAO{
 
      ArrayList<Tache> listeT = new ArrayList<Tache>();
      db = dbm.getWritableDatabase();
-     Cursor c = db.query("Tache", new String[] {"id","nom","contenu","priorite","echeance","etat","groupe"},null,null,null,null,null);
+     Cursor c = db.query("Tache", new String[] {"idGroupe","nom","contenu","priorite","echeance","etat","groupe"},null,null,null,null,null);
      c.moveToFirst();
      while (!c.isAfterLast())
      {
      Tache t = new Tache();
-     t.setNom(c.getString(1));
-     t.setContenu(c.getString(2));
-     t.setPriorite(c.getInt(3));
-     t.setEtat(c.getInt(5));
-     t.setGroupe(c.getInt(6));
+     t.setIntituleT(c.getString(1));
+     t.setDescriptionT(c.getString(2));
+     t.setPrioriteT(c.getInt(3));
+     t.setEtatT(c.getInt(5));
+     t.setRefGroupe(c.getInt(6));
      String strEcheance   = c.getString(4);
      Date dateEcheance = null;
      try {
@@ -100,8 +100,8 @@ public class UtilisateurDAO{
      } catch (ParseException e) {
      e.printStackTrace();
      }
-     t.setEcheance(dateEcheance);
-     t.setId(c.getInt(0));
+     t.setEcheanceT(dateEcheance);
+     t.setIdGroupe(c.getInt(0));
      listeT.add(t);
      c.moveToNext();
      }

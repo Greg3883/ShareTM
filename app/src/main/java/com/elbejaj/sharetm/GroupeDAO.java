@@ -22,7 +22,7 @@ public class GroupeDAO {
 
     public GroupeDAO(Context ctx)
     {
-        dbm = new DBGroupe(ctx, "baseGrp", null, 12);
+        dbm = new DBGroupe(ctx, "baseGrp", null, 13);
     }
 
 
@@ -39,7 +39,7 @@ public class GroupeDAO {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
         String reportDate = df.format( c.getTime());
-        vals.put("id", g.getId());
+        vals.put("idGroupe", g.getIdGroupe());
         vals.put("nom", g.getNom());
         vals.put("d_creation", reportDate);
         return db.insert("Groupe", null , vals);
@@ -47,24 +47,24 @@ public class GroupeDAO {
 
     public int supprimerGroupe (int id)
     {
-        return db.delete("Groupe", "id="+id, null);
+        return db.delete("Groupe", "idGroupe="+id, null);
     }
 
     public int updateGroupe (int id, ContentValues cv)
     {
         String nid = String.valueOf(id);
-        return db.update("Groupe",cv,"id="+nid, null);
+        return db.update("Groupe",cv,"idGroupe="+nid, null);
     }
 
     public Groupe trouverGroupe(int id)
     {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Groupe g = null;
-        Cursor c = db.query("Groupe", new String[] {"id","nom","d_creation"},"id="+id,null,null,null,null);
+        Cursor c = db.query("Groupe", new String[] {"idGroupe","nom","d_creation"},"idGroupe="+id,null,null,null,null);
         if (c.moveToFirst())
         {
             g = new Groupe();
-            g.setId(c.getInt(0));
+            g.setIdGroupe(c.getString(0));
             g.setNom(c.getString(1));
             String strdc  = c.getString(2);
             Calendar dc = null;
@@ -73,7 +73,7 @@ public class GroupeDAO {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            g.setDateC(dc);
+            g.setDateCreationGroupe(dc);
         }
 
 
@@ -87,7 +87,7 @@ public class GroupeDAO {
 
         ArrayList<Groupe> listeG = new ArrayList<Groupe>();
         db = dbm.getWritableDatabase();
-        Cursor c = db.query("Groupe", new String[] {"id","nom","d_creation"},null,null,null,null,null);
+        Cursor c = db.query("Groupe", new String[] {"idGroupe","nom","d_creation"},null,null,null,null,null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
@@ -100,8 +100,8 @@ public class GroupeDAO {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            g.setDateC(dateC);
-            g.setId(c.getInt(0));
+            g.setDateCreationGroupe(dateC);
+            g.setIdGroupe(c.getString(0));
             listeG.add(g);
             c.moveToNext();
         }

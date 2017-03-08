@@ -44,7 +44,7 @@ public class UpdateGroupeActivity extends AppCompatActivity implements View.OnCl
         idGrp = extras.getString("idtu");
         pos = extras.getInt("position");
         /*String anciennom = trouverNom();
-        ajout_nom = (EditText) findViewById(R.id.ajout_input_nom);
+        ajout_nom = (EditText) findViewById(R.idGroupe.ajout_input_nom);
         ajout_nom.setText(anciennom);*/
 
         gd = new GroupeDAO(this);
@@ -76,7 +76,7 @@ public class UpdateGroupeActivity extends AppCompatActivity implements View.OnCl
     }
 
   /*  public String trouverNom() {
-        return gd.listeGroupe().get(pos).getNom();
+        return gd.listeGroupe().get(pos).getIntituleT();
     }*/
 
 }

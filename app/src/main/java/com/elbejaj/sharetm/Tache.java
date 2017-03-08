@@ -1,104 +1,123 @@
 package com.elbejaj.sharetm;
 
-import java.util.Comparator;
-import java.util.Date;
+//@TODO : Gérer l'ajout de l'attribut de la date de création
+
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Comparator;
+import java.util.Date;
 
 /**
  * Created by Bejaj on 21/11/2016.
  */
 
 public class Tache implements Comparable<Tache>{
-    private int id;
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private String nom;
-    private String contenu;
-    private int groupe;
-    private int etat;
-    private int priorite;
-    private Date echeance;
+    private String idTache;
+    //private static final AtomicInteger count = new AtomicInteger(0);
+    private String intituleT;
+    private String descriptionT;
+    private Date dateCreationT;
+    private String refGroupe;
+    private int etatT;
+    private int prioriteT;
+    private Date echeanceT;
 
-    public Tache(){
+    public Tache() {
+        this.idTache = "";
+        this.intituleT = "";
+        this.descriptionT = "";
+        this.dateCreationT = null;
+        this.refGroupe = "";
+        this.etatT = 0;
+        this.prioriteT = 0;
+        this.echeanceT = null;
+    }
+
+    public Tache(String idTache, String refGroupe){
         super();
-        groupe = 1;
-        id = count.incrementAndGet();
+        this.refGroupe = refGroupe;
+        this.idTache = idTache;
+        //idTache = count.incrementAndGet();
     }
 
-    public int getId(){
-        return id;
+    public String getIdTache(){
+        return this.idTache;
     }
 
-    public int getPriorite(){
-        return priorite;
+    public Date getDateCreationT() {return this.dateCreationT;};
+
+    public int getPrioriteT(){
+        return this.prioriteT;
     }
 
-    public int getGroupe(){
-        return groupe;
+    public String getRefGroupe(){
+        return this.refGroupe;
     }
 
-    public int getEtat(){
-        return etat;
+    public int getEtatT(){
+        return etatT;
     }
 
-    public String getNom(){
-        return nom;
+    public String getIntituleT(){
+        return intituleT;
     }
 
-    public String getContenu(){
-        return contenu;
+    public String getDescriptionT(){
+        return descriptionT;
     }
 
-    public Date getEcheance(){
-        return echeance;
+    public Date getEcheanceT(){
+        return echeanceT;
     }
 
-    public void setId(int tid) { id = tid;}
+    public void setIdTache(String idTache) { this.idTache = idTache;}
 
-    public void setNom(String tname){
-        nom = tname;
+    public void setDateCreationT(Date dateCreationT) {this.dateCreationT = dateCreationT;}
+
+    public void setIntituleT(String intituleT){
+        this.intituleT = intituleT;
     }
 
-    public void setGroupe(int tgroupe){
-        groupe = tgroupe;
+    public void setRefGroupe(String refGroupe){
+        this.refGroupe = refGroupe;
     }
 
     public void estRetard()
     {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date echance = this.getEcheance();
+        Date echeance = this.getEcheanceT();
+        Log.i("test","echeance = "+echeance.toString());
         Date curTime= new Date();
         Boolean etat;
 
-        if (curTime.compareTo(echance) > 0) {
-            this.setEtat(4);
+        if (curTime.compareTo(echeance) > 0) {
+            this.setEtatT(4);
         }
     }
 
-
-
-    public void setEtat(int tetat){
-        etat = tetat;
+    public void setEtatT(int tetat){
+        etatT = tetat;
     }
 
-    public void setPriorite(int tprio){
-        priorite = tprio;
+    public void setPrioriteT(int tprio){
+        prioriteT = tprio;
     }
 
-    public void setContenu( String tcon){
-        contenu = tcon;
+    public void setDescriptionT(String tcon){
+        descriptionT = tcon;
     }
 
-    public void setEcheance( Date teche){
-        echeance = teche;
+    public void setEcheanceT(Date teche){
+        echeanceT = teche;
     }
 
     public int compareTo(Tache t2) {
         int i;
-        if (this.getEcheance().compareTo(t2.getEcheance()) < 0){
+        if (this.getEcheanceT().compareTo(t2.getEcheanceT()) < 0){
             i = -1; // T1 est avant
-        } else if (this.getEcheance().compareTo(t2.getEcheance()) > 0){
+        } else if (this.getEcheanceT().compareTo(t2.getEcheanceT()) > 0){
             i = 1; // T2 est avant
         } else {
             i = 0;
@@ -109,9 +128,9 @@ public class Tache implements Comparable<Tache>{
     public static Comparator<Tache> TacheDateComparator = new Comparator<Tache>() {
         public int compare(Tache t1, Tache t2) {
             int i;
-            if (t1.getEcheance().compareTo(t2.getEcheance()) < 0){
+            if (t1.getEcheanceT().compareTo(t2.getEcheanceT()) < 0){
                 i = -1; // T1 est avant
-            } else if (t1.getEcheance().compareTo(t2.getEcheance()) > 0){
+            } else if (t1.getEcheanceT().compareTo(t2.getEcheanceT()) > 0){
                 i = 1; // T2 est avant
             } else {
                 i = 0;
@@ -123,9 +142,9 @@ public class Tache implements Comparable<Tache>{
     public static Comparator<Tache> TacheEtatComparator = new Comparator<Tache>() {
         public int compare(Tache t1, Tache t2) {
             int i;
-            if (t1.getEtat() < t2.getEtat()){
+            if (t1.getEtatT() < t2.getEtatT()){
                 i = -1; // T1 est avant
-            } else if (t1.getEtat() > t2.getEtat()){
+            } else if (t1.getEtatT() > t2.getEtatT()){
                 i = 1; // T2 est avant
             } else {
                 i = 0;
@@ -137,9 +156,9 @@ public class Tache implements Comparable<Tache>{
     public static Comparator<Tache> TachePrioComparator = new Comparator<Tache>() {
         public int compare(Tache t1, Tache t2) {
             int i;
-            if (t1.getPriorite() < t2.getPriorite()){
+            if (t1.getPrioriteT() < t2.getPrioriteT()){
                 i = -1; // T1 est avant
-            } else if (t1.getPriorite() > t2.getPriorite()){
+            } else if (t1.getPrioriteT() > t2.getPrioriteT()){
                 i = 1; // T2 est avant
             } else {
                 i = 0;
@@ -147,4 +166,20 @@ public class Tache implements Comparable<Tache>{
             return i;
         }
     };
+
+    /**
+     * Renvoie une chaîne de caractères représentant une tâche
+     * @return
+     */
+    public String afficherTache() {
+
+        String result = "";
+        result = result + "Id de la tâche : " + this.getIdTache();
+        result = result + "Intitulé de la tâche : " + this.getIntituleT();
+        result = result + "Description de la tâche : " + this.getDescriptionT();
+        result = result + "Date de création de la tâche : " + this.getDateCreationT();
+        return result;
+
+
+    }
 }

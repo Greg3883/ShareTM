@@ -21,11 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.lang.Thread.sleep;
+
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout main_layout;
-    //TacheDAO td;
-    //GroupeDAO gd;
     TextView aff_name_tache;
     TextView aff_content_tache;
     Button ajout_button;                   //Bouton d'ajout d'une tâche
@@ -54,10 +54,20 @@ public class MainActivity extends AppCompatActivity {
         Log.i("test","Je vais synchroniser les tâches");
         td.syncTasks();
 
+
+        //On attend la fin d'exécution de la tâche de synchronisation
+        try {
+            Log.i("test","Je vais attendre 5000");
+            sleep(5000);
+            Log.i("test","Attente terminée");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Log.i("test","Je suis après le sync");
 
         tabTache = td.listeTache();
-
+        Log.i("test","normalement ca marche");
         final int N = tabTache.size();
 
         //Si on est hors ligne, on ne peut pas voir le bouton d'ajout d'une tâche
@@ -74,38 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
         final LinearLayout[] myLinear = new LinearLayout[N];
 
-
-        //@TODO : A corriger - Valentin
-        /*
-        Log.i("test","Je suis avant le groupe");
-        Groupe gb = new Groupe();
-        Log.i("test","Je suis après le nouveau groupe");
-
-        GroupeDAO gd = new GroupeDAO(this);
-
-        Log.i("test","Je suis avant l'ouverture du gd");
-
-        gd.open();
-        Log.i("test","Je viens d'ouvrir un gd");
-        gb = gd.trouverGroupe(1);
-        Log.i("test","J'ai trouvé le groupe");
-        if (gb == null) {
-            Log.i("test","gb est null");
-            Log.i("INSIDE LIST", "AJOUT");
-            long lg = gd.ajouterGroupe(gb);
-        } else {
-            Log.i("test","gb n'est pas null");
-        }
-        gd.close();
-        Log.i("test","Je viens de fermer de gd");
-        */
-
-
-
-
        for (int i = 0; i < N; i++) {
 
-           Log.i("test","Je suis dans le for");
+           Log.i("test","Je suis dans le for du mainActivity");
 
            //Creation du Linear Layout de la tâche
            final LinearLayout principLinear = new LinearLayout(this);
@@ -119,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
            //Paramètre du Linear
            LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 300);
            lpb.setMargins(30, 50, 0, 0);
-           final String idToPassb = Integer.toString(tabTache.get(i).getId());
-           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+           final String idToPassb = tabTache.get(i).getIdTache();
+           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
            rowEtat.setOnClickListener(new View.OnClickListener() {
 
                @Override
@@ -137,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
            lp.setMargins(0, 50, 30, 0);
            rowLinear.setOrientation(LinearLayout.VERTICAL);
-           final String idToPass = Integer.toString(tabTache.get(i).getId());
-           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+           final String idToPass = tabTache.get(i).getIdTache();
+           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
            rowLinear.setOnClickListener(new View.OnClickListener() {
 
                @Override
@@ -149,33 +130,37 @@ public class MainActivity extends AppCompatActivity {
                    startActivity(intentAff);
                }
            });
+
+
+
+
            rowLinear.setLayoutParams(lp);
             tabTache.get(i).estRetard();
-           if (tabTache.get(i).getPriorite() == 1) {
+           if (tabTache.get(i).getPrioriteT() == 1) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
-           }else if (tabTache.get(i).getPriorite() == 2) {
+           }else if (tabTache.get(i).getPrioriteT() == 2) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-           } else if (tabTache.get(i).getPriorite() == 3) {
+           } else if (tabTache.get(i).getPrioriteT() == 3) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
            }
 
-           if (tabTache.get(i).getPriorite() == 1) {
+           if (tabTache.get(i).getPrioriteT() == 1) {
                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_red));
-           }else if (tabTache.get(i).getPriorite() == 2) {
+           }else if (tabTache.get(i).getPrioriteT() == 2) {
                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-           } else if (tabTache.get(i).getPriorite() == 3) {
+           } else if (tabTache.get(i).getPrioriteT() == 3) {
                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_green));
            }
 
 
-
            //On stock les taches
+
             myLinear[i] = rowLinear;
 
            //Création du nom de la tache
            final TextView nomTache = new TextView(this);
            rowLinear.addView(nomTache);
-           nomTache.setText(tabTache.get(i).getNom());
+           nomTache.setText(tabTache.get(i).getIntituleT());
            nomTache.setTextSize(18);
            nomTache.setId(R.id.nomTache);
            nomTache.setTextSize(20);
@@ -189,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
            contenuTache.setId(R.id.contenuTache);
            rowLinear.addView(contenuTache);
            contenuTache.setTextSize(18);
-           contenuTache.setText(tabTache.get(i).getContenu());
+           contenuTache.setText(tabTache.get(i).getDescriptionT());
            LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
            contenuParam.setMargins(20, 0, 20, 0);
            contenuTache.setLayoutParams(contenuParam);
@@ -199,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
            dateTache.setId(R.id.dateTache);
            rowLinear.addView(dateTache);
            dateTache.setTextSize(16);
-           Date preDate = tabTache.get(i).getEcheance();
+           Date preDate = tabTache.get(i).getEcheanceT();
            SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
            String newDate = preDateb.format( preDate );
            dateTache.setText(newDate);
@@ -210,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
 
            ImageView etatImg = new ImageView(this);
-           int state = tabTache.get(i).getEtat();
+           int state = tabTache.get(i).getEtatT();
            if (state == 1) {
                etatImg.setImageResource(R.drawable.encours);
            } else if (state == 2) {
@@ -240,7 +225,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
+
+
+        Log.i("test","Je suis après le for");
+
     }
+
+
 
     public void button_ajout(View view)
     {

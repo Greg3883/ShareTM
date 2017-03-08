@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -98,6 +99,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         //Format des dates
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
+        Log.i("test",td.toString());
         td.open();
         tache = new Tache();
         String nom = ajout_nom.getText().toString();
@@ -122,18 +124,18 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         }
         String strEcheance  = ajout_echeance.getText().toString();
 
-        tache.setEtat(etat);
-        tache.setNom(nom);
-        tache.setContenu(contenu);
-        tache.setGroupe(1);
-        tache.setPriorite(priorite);
+        tache.setEtatT(etat);
+        tache.setIntituleT(nom);
+        tache.setDescriptionT(contenu);
+        tache.setRefGroupe("1");
+        tache.setPrioriteT(priorite);
         Date echeance = null;
         try {
             echeance = format.parse(strEcheance);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        tache.setEcheance(echeance);
+        tache.setEcheanceT(echeance);
         long lg = td.ajouterTache(tache);
         td.close();
         Intent intent = new Intent(AjoutActivity.this, MainActivity.class);

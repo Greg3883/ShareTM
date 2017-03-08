@@ -762,7 +762,7 @@ Display #0 (activities from top to bottom):
   Stack #1:
   mFullscreen=true
   mBounds=null
-    Task id #95
+    Task idGroupe #95
     mFullscreen=true
     mBounds=null
     mMinWidth=-1
@@ -783,7 +783,7 @@ Display #0 (activities from top to bottom):
   Stack #0:
   mFullscreen=true
   mBounds=null
-    Task id #78
+    Task idGroupe #78
     mFullscreen=true
     mBounds=null
     mMinWidth=-1

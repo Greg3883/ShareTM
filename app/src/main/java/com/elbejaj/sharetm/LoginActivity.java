@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         default_utilisateur.setEmail("greg");
         default_utilisateur.setNomU("greg");
         default_utilisateur.setMdpHash("azze");
-        default_utilisateur.setIdUtilisateur(56);
+        default_utilisateur.setIdUtilisateur("56");
         default_utilisateur.setApiKey("frere");
         java.text.DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ud.open();
         Log.d("fzfez", "Message validé");
-        ud.ajouterUtilisateur(default_utilisateur);
+        //ud.ajouterUtilisateur(default_utilisateur);
         ud.close();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 

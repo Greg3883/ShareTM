@@ -41,9 +41,9 @@ public class GroupesActivity extends AppCompatActivity {
             //Paramètre du Linear
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.setMargins(30, 50, 30, 0);
-            final String idToPass = Integer.toString(tabGroupe.get(i).getId());
+            final String idToPass = tabGroupe.get(i).getIdGroupe();
             final int pos = i;
-            Log.i("ID du groupe", String.valueOf(tabGroupe.get(i).getId()));
+            Log.i("ID du groupe", String.valueOf(tabGroupe.get(i).getIdGroupe()));
             rowLinear.setOnClickListener(new View.OnClickListener() {
 
                 @Override

@@ -1,15 +1,14 @@
 package com.elbejaj.sharetm;
 
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Boubaker-Sédike on 08/02/2017.
  */
 
 public class Utilisateur {
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private int idUtilisateur;
+    //private static final AtomicInteger count = new AtomicInteger(0);
+    private String idUtilisateur;
     private String nomU;
     private String email;
     private String mdpHash;
@@ -18,14 +17,14 @@ public class Utilisateur {
 
     public Utilisateur(){
         super();
-        idUtilisateur = count.incrementAndGet();
+        //idUtilisateur = count.incrementAndGet();
     }
 
-    public int getIdUtilisateur() {
-        return idUtilisateur;
+    public String getIdUtilisateur() {
+        return this.idUtilisateur;
     }
 
-    public void setIdUtilisateur(int idUtilisateur) {
+    public void setIdUtilisateur(String idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
     }
 

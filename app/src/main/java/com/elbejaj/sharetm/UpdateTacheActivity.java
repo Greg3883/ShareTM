@@ -58,14 +58,13 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         String idTache;
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idtu");
-        int idTacheI = Integer.parseInt(idTache);
         //@TODO : A changer
         td = new TacheDAO(this, true);
         td.open();
-        Tache tachet = td.trouverTache(idTacheI);
+        Tache tachet = td.trouverTache(idTache);
         td.close();
-        ajout_nom.setText(tachet.getNom());
-        int priob = tachet.getPriorite();
+        ajout_nom.setText(tachet.getIntituleT());
+        int priob = tachet.getPrioriteT();
         List spinnerPrio = new ArrayList();
         if (priob == 1) {
             spinnerPrio.add("Urgent");
@@ -91,7 +90,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         ajout_priorite.setAdapter(adapter);
 
 
-        int etab = tachet.getEtat();
+        int etab = tachet.getEtatT();
         List spinnerEtat = new ArrayList();
         if (etab == 1) {
             spinnerEtat.add("En cours");
@@ -116,12 +115,12 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
         adapterb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ajout_etat.setAdapter(adapterb);
-        ajout_contenu.setText(tachet.getContenu());
-        String prio = String.valueOf(tachet.getPriorite());
+        ajout_contenu.setText(tachet.getDescriptionT());
+        String prio = String.valueOf(tachet.getPrioriteT());
 
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(tachet.getEcheance());
+        cal.setTime(tachet.getEcheanceT());
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
@@ -158,16 +157,16 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
             etat = 3;
         }
         String strEcheance  = ajout_echeance.getText().toString();
-        tache.setNom(nom);
-        tache.setContenu(contenu);
-        tache.setEtat(etat);
-        tache.setPriorite(priorite);
+        tache.setIntituleT(nom);
+        tache.setDescriptionT(contenu);
+        tache.setEtatT(etat);
+        tache.setPrioriteT(priorite);
         ContentValues cv = new ContentValues();
-        cv.put("nom", tache.getNom());
-        cv.put("contenu", tache.getContenu());
-        cv.put("priorite", tache.getPriorite());
+        cv.put("nom", tache.getIntituleT());
+        cv.put("contenu", tache.getDescriptionT());
+        cv.put("priorite", tache.getPrioriteT());
         cv.put("echeance", strEcheance);
-        cv.put("etat", tache.getEtat());
+        cv.put("etat", tache.getEtatT());
         String idTache;
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idtu");

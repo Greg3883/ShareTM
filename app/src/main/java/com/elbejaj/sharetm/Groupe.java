@@ -15,52 +15,53 @@ public class Groupe {
 
     //attributs
     private static final AtomicInteger count = new AtomicInteger(0);
-    public int id;
-    private String nomG;
-    private Calendar dateC;
+    public String idGroupe;
+    private String nomGroupe;
+    private Calendar dateCreationGroupe;
 
-    //private static int id = 0;
+    //private static int idGroupe = 0;
 
 
-    //construteurs
-    public Groupe(String nomG, Calendar date) {
-        this.id = id++;
-        this.nomG = nomG;
-        this.dateC = date;
+    public Groupe() {
+        this.idGroupe = "";
+        this.nomGroupe = "";
+        this.dateCreationGroupe = null;
+        
     }
-
-    public Groupe(){
-        super();
-        id = count.incrementAndGet();
+    //construteurs
+    public Groupe(String idGroupe, String nomGroupe, Calendar date) {
+        this.idGroupe = idGroupe;
+        this.nomGroupe = nomGroupe;
+        this.dateCreationGroupe = date;
     }
 
     //getters and setters
-    public int getId() {
-        return id;
+    public String getIdGroupe() {
+        return idGroupe;
     }
 
-    public void setId(int i) {
-         this.id = i;
+    public void setIdGroupe(String idGroupe) {
+         this.idGroupe = idGroupe;
     }
 
     public String getNom() {
-        return nomG;
+        return nomGroupe;
     }
 
     public void setNom(String nomG) {
-        this.nomG = nomG;
+        this.nomGroupe = nomG;
     }
 
-    public Calendar getDateC() {
-        return dateC;
+    public Calendar getDateCreationGroupe() {
+        return dateCreationGroupe;
     }
 
-    public void setDateC(Calendar d) {
-        this.dateC = d;
+    public void setDateCreationGroupe(Calendar d) {
+        this.dateCreationGroupe = d;
     }
 
     public String date_toString() {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return df.format(dateC.getTime());
+        return df.format(dateCreationGroupe.getTime());
     }
 }

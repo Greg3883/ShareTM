@@ -83,8 +83,8 @@ public class TacheGroupActivity extends AppCompatActivity {
             //Paramètre du Linear
             LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 300);
             lpb.setMargins(30, 50, 0, 0);
-            final String idToPassb = Integer.toString(tabTache.get(i).getId());
-            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+            final String idToPassb = tabTache.get(i).getIdTache();
+            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
             rowEtat.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -101,8 +101,8 @@ public class TacheGroupActivity extends AppCompatActivity {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
             lp.setMargins(0, 50, 30, 0);
             rowLinear.setOrientation(LinearLayout.VERTICAL);
-            final String idToPass = Integer.toString(tabTache.get(i).getId());
-            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getId()));
+            final String idToPass = tabTache.get(i).getIdTache();
+            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
             rowLinear.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -115,19 +115,19 @@ public class TacheGroupActivity extends AppCompatActivity {
             });
             rowLinear.setLayoutParams(lp);
             tabTache.get(i).estRetard();
-            if (tabTache.get(i).getPriorite() == 1) {
+            if (tabTache.get(i).getPrioriteT() == 1) {
                 rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
-            }else if (tabTache.get(i).getPriorite() == 2) {
+            }else if (tabTache.get(i).getPrioriteT() == 2) {
                 rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-            } else if (tabTache.get(i).getPriorite() == 3) {
+            } else if (tabTache.get(i).getPrioriteT() == 3) {
                 rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
             }
 
-            if (tabTache.get(i).getPriorite() == 1) {
+            if (tabTache.get(i).getPrioriteT() == 1) {
                 rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_red));
-            }else if (tabTache.get(i).getPriorite() == 2) {
+            }else if (tabTache.get(i).getPrioriteT() == 2) {
                 rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-            } else if (tabTache.get(i).getPriorite() == 3) {
+            } else if (tabTache.get(i).getPrioriteT() == 3) {
                 rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_green));
             }
 
@@ -139,7 +139,7 @@ public class TacheGroupActivity extends AppCompatActivity {
             //Création du nom de la tache
             final TextView nomTache = new TextView(this);
             rowLinear.addView(nomTache);
-            nomTache.setText(tabTache.get(i).getNom());
+            nomTache.setText(tabTache.get(i).getIntituleT());
             nomTache.setTextSize(18);
             nomTache.setId(R.id.nomTache);
             nomTache.setTextSize(20);
@@ -153,7 +153,7 @@ public class TacheGroupActivity extends AppCompatActivity {
             contenuTache.setId(R.id.contenuTache);
             rowLinear.addView(contenuTache);
             contenuTache.setTextSize(18);
-            contenuTache.setText(tabTache.get(i).getContenu());
+            contenuTache.setText(tabTache.get(i).getDescriptionT());
             LinearLayout.LayoutParams contenuParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             contenuParam.setMargins(20, 0, 20, 0);
             contenuTache.setLayoutParams(contenuParam);
@@ -163,7 +163,7 @@ public class TacheGroupActivity extends AppCompatActivity {
             dateTache.setId(R.id.dateTache);
             rowLinear.addView(dateTache);
             dateTache.setTextSize(16);
-            Date preDate = tabTache.get(i).getEcheance();
+            Date preDate = tabTache.get(i).getEcheanceT();
             SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
             String newDate = preDateb.format( preDate );
             dateTache.setText(newDate);
@@ -174,7 +174,7 @@ public class TacheGroupActivity extends AppCompatActivity {
 
 
             ImageView etatImg = new ImageView(this);
-            int state = tabTache.get(i).getEtat();
+            int state = tabTache.get(i).getEtatT();
             if (state == 1) {
                 etatImg.setImageResource(R.drawable.encours);
             } else if (state == 2) {
