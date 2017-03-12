@@ -78,6 +78,8 @@
         <activity android:name=".AffichageGroupeActivity"/>
         <activity android:name=".UpdateGroupeActivity"/>
 
+        <activity android:name=".SynchronisationTachesTask"/>
+
         <!-- Splash -->
         <activity android:name=".Splash">
             <intent-filter>

@@ -21,8 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static java.lang.Thread.sleep;
-
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout main_layout;
@@ -51,21 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
         TacheDAO td = new TacheDAO(this,isConnected);
 
-        Log.i("test","Je vais synchroniser les tâches");
-        td.syncTasks();
-
-
-        //On attend la fin d'exécution de la tâche de synchronisation
-        try {
-            Log.i("test","Je vais attendre 5000");
-            sleep(5000);
-            Log.i("test","Attente terminée");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(isConnected) {
+            Log.i("test","Je vais synchroniser les tâches");
+            new SynchronisationTachesTask(this,td).execute();
+            Log.i("test","J'ai terminé la synchronisation des tâches");
+        } else {
+            Log.i("test","La personne n'est pas connectée, on ne peut pas synchroniser les tâches");
         }
 
-        Log.i("test","Je suis après le sync");
 
+        Log.i("test","Je suis après le sync");
         tabTache = td.listeTache();
         Log.i("test","normalement ca marche");
         final int N = tabTache.size();

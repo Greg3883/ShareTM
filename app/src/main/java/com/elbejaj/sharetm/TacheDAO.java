@@ -191,6 +191,7 @@ public class TacheDAO {
     /**
      * Met à jour les tâches sur le serveur local
      */
+    //@TODO : Supprimer si on ne s'en sert pas
     public void syncTasks() {
 
         Log.i("test","Je suis dans la synchronisation de tâches");
