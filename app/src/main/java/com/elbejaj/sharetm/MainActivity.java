@@ -41,14 +41,13 @@ public class MainActivity extends AppCompatActivity {
         boolean isConnected = hasActiveInternetConnection();
         if(isConnected) {
             Log.i("test","La personne est connectée");
-
-
         } else {
             Log.i("test","La personne est hors-ligne");
         }
 
         TacheDAO td = new TacheDAO(this,isConnected);
 
+        //Si on est connecté, on synchronise les tâches avec le serveur
         if(isConnected) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationTachesTask(this,td).execute();
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.i("test","Je suis après le isConnected");
-
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
         DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

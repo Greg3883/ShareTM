@@ -14,6 +14,8 @@ import retrofit2.Response;
 
 /**
  * Created by Laurie on 08/03/2017.
+ * Classe permettant de récupérer les tâches qui viennent du serveur vers la base de données
+ * en local
  */
 
 public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
@@ -72,7 +74,7 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
 
     @Override
     protected void onProgressUpdate(Void... progress) {
-        //@TODO : Voir pourquoi ça n'affiche rien 
+        //@TODO : Voir pourquoi ça n'affiche rien
         this.progressDialog.show();
     }
 

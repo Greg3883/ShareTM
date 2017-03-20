@@ -25,6 +25,7 @@ public class TacheDAO {
     private DBManager dbmLocal;          //Gestionnaire de la BDD en local
     private SQLiteDatabase db;           //BDD en local
     private ApiInterface apiService;     //Communication avec l'API
+    private boolean isConnected;         //Indique si l'utilisateur est connecté à Internet
 
     /**
      * Constructeur de TacheDAO
@@ -33,8 +34,6 @@ public class TacheDAO {
      */
     public TacheDAO(Context ctx,boolean isConnected)
     {
-
-
         dbmLocal = new DBManager(ctx, "base", null, 13);
 
         db = dbmLocal.getWritableDatabase();
@@ -45,6 +44,9 @@ public class TacheDAO {
         if(isConnected) {
             Log.i("test","Instanciation du service API");
             this.apiService = STMAPI.getClient().create(ApiInterface.class);
+            this.isConnected = true;
+        } else {
+            this.isConnected = false;
         }
 
 }
@@ -59,7 +61,7 @@ public class TacheDAO {
     }
 
     public long ajouterTache(Tache t){
-        Log.i("test",t.toString());
+
         ContentValues vals = new ContentValues();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String reportDate = df.format( t.getEcheanceT());
@@ -72,6 +74,12 @@ public class TacheDAO {
         vals.put("echeanceT", reportDate);
         vals.put("etatT", t.getEtatT());
         vals.put("refGroupe", t.getRefGroupe());
+
+        //Si on est connecté, on ajoute la tâche à la base de données sur le serveur
+        if(isConnected) {
+            
+        }
+
         return db.insert("tache", null , vals);
 
     }

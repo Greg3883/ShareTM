@@ -1,7 +1,7 @@
 package com.elbejaj.sharetm;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,15 +11,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/*
+ * Activité d'inscription/connexion de l'application
+ */
+
 public class LoginActivity extends AppCompatActivity {
+
     UtilisateurDAO ud;
     TextView login_incorrect;
+    ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
+    Boolean isConnected;
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -35,71 +41,97 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        //Récupération de la variable isConnected
+        Bundle extras = getIntent().getExtras();
+        if(extras==null) {
+            this.isConnected = null;
+        } else {
+            this.isConnected=extras.getBoolean("isConnected");
+        }
 
-        Utilisateur default_utilisateur = new Utilisateur();
-        default_utilisateur.setEmail("greg");
-        default_utilisateur.setNomU("greg");
-        default_utilisateur.setMdpHash("azze");
-        default_utilisateur.setIdUtilisateur("56");
-        default_utilisateur.setApiKey("frere");
-        java.text.DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date currentDate = new Date();
-        default_utilisateur.setDateCreationU(currentDate);
-        ud = new UtilisateurDAO(this);
 
-        ud.open();
-        Log.d("fzfez", "Message validé");
-        //ud.ajouterUtilisateur(default_utilisateur);
-        ud.close();
+        this.ud = new UtilisateurDAO(this,this.isConnected);
+
+        //Si on clique sur le bouton Login, on peut se logger et on lance la méthode login()
         _loginButton.setOnClickListener(new View.OnClickListener() {
+
+             @Override
+             public void onClick(View v) {
+                    login();
+                }
+             }
+        );
+
+        //Si on clique sur le bouton SignUp, on va sur la page d'inscription
+        /*
+        _signupLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                login();
+            // Start the Signup activity
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
+            finish();
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
-        /**  _signupLink.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-        // Start the Signup activity
-        Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
-        finish();
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-        }
-        });**/
+        */
     }
 
+    /**
+     * Fonction pour se connecter à l'application
+     */
     public void login() {
 
+        //@TODO : Remettre la vérification des champs du formulaire
+        /*
         if (!validate()) {
             onLoginFailed();
             return;
-        }
+        }*/
 
-        _loginButton.setEnabled(false);
 
+        //@TODO : Désactivation du bouton de Login
+        //_loginButton.setEnabled(false);
+
+        //Dialogue de chargement (cercle qui tourne)
+        /*
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
+        */
 
+        //Récupération de l'email et du mot de passe
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        Boolean valid_uutilisateur = false;
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        //Exécution de la connexion
+        Log.i("test","loginActivity : Je vais exécuter le loginTask");
+        AsyncTask loginTask = new LoginTask(this,this.ud).execute(email,password);
+        Object aFonctionne = false;
+        try {
+            aFonctionne = loginTask.get();
+            Log.i("test","loginActivity : Résultat du task : "+aFonctionne.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Boolean loginAFonctionne = (Boolean) aFonctionne;
+
+        //Avant de démarrer le MainActivity, on vérifie si le login a fonctionné
+        if(loginAFonctionne==true) {
+            //On lance l'activité MainActivity pour avoir accès à l'application
+            Intent i = new Intent (".MAINACTIVITY");
+            i.putExtra("isConnected",isConnected);
+            startActivity(i);
+        } else {
+            Toast.makeText(this,"Problème lors de la connexion. Veuillez réessayer.",Toast.LENGTH_LONG).show();
+        }
+
     }
 
 
@@ -121,6 +153,9 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
+    /*
+     * Fonction appelée lorsque la connexion a fonctionné
+     */
     public void onLoginSuccess() {
         Intent i = new Intent(".MAINACTIVITY");
         startActivity(i);
@@ -138,7 +173,8 @@ public class LoginActivity extends AppCompatActivity {
      * @return
      */
     public boolean validate() {
-        UtilisateurDAO ud;
+        return true;
+        /*UtilisateurDAO ud;
         boolean valid = true;
         boolean valid_uutilisateur;
         String email = _emailText.getText().toString();
@@ -163,5 +199,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+*/
     }
 }

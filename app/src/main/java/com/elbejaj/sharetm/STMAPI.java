@@ -20,10 +20,12 @@ public class STMAPI {
 
         //Pour la conversion d'objets JSON
         Gson gson = new GsonBuilder()
+                .setDateFormat("dd-mm-yyyy")
                 .setLenient()
                 .create();
 
         if (retrofit==null) {
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))

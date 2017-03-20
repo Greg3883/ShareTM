@@ -14,12 +14,24 @@ import java.text.SimpleDateFormat;
  */
 
 public class UtilisateurDAO{
-    DBManager dbm;
-    SQLiteDatabase db;
+    private DBManager dbm;
+    private SQLiteDatabase db;
+    private ApiInterface apiService;     //Communication avec l'API
+    private boolean isConnected;         //Indique si l'utilisateur est connecté à Internet
 
-    public UtilisateurDAO(Context ctx)
+    public UtilisateurDAO(Context ctx, boolean isConnected)
     {
         dbm = new DBManager(ctx, "base", null, 13);
+        db = dbm.getWritableDatabase();
+
+        //Si connexion, on instancie le gestionnaire de BDD en ligne
+        if(isConnected) {
+            Log.i("test","Instanciation du service API");
+            this.apiService = STMAPI.getClient().create(ApiInterface.class);
+            this.isConnected = true;
+        } else {
+            this.isConnected = false;
+        }
     }
 
 
@@ -31,17 +43,39 @@ public class UtilisateurDAO{
         db.close();
     }
 
-    public long ajouterUtilisateur(Utilisateur u){
-        Log.d("grgre", "AJOUT VALIDEEEEEEEEEEE");
-        ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String reportDate = df.format( u.getDateCreationU());
-        vals.put("idUtilisateur", u.getIdUtilisateur());
-        vals.put("nomU", u.getNomU());
-        vals.put("email", u.getEmail());
-        vals.put("mdpHash", u.getMdpHash());
-        vals.put("apiKey", u.getApiKey());
-        return db.insert("Utilisateur", null , vals);
+    /*
+     *@brief : Fonction d'ajout d'un utilisateur
+     * Retourne un long, résultat de l'insertion
+     */
+    public void ajouterUtilisateur(Utilisateur u){
+
+        //@TODO : Ajouter un test pour voir si l'utilisateur n'existe pas
+
+        long result;
+
+        if(u!=null) {
+            Log.i("test","u n'est pas null");
+
+            //Instanciation des valeurs à donner à l'utilisateur
+            ContentValues vals = new ContentValues();
+
+            //Récupération de la date de création dans une chaîne de caractères
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String dateCreation = df.format(u.getDateCreationU());
+
+            vals.put("idUtilisateur", u.getIdUtilisateur());
+            vals.put("nomU", u.getNomU());
+            vals.put("email", u.getEmail());
+            vals.put("mdpHash", u.getMdpHash());
+            vals.put("apiKey", u.getApiKey());
+            vals.put("dateCreationU", dateCreation);
+            result =  db.insert("utilisateur", null, vals);
+
+        } else {
+            Log.i("test","Utilisateur null lors de l'ajout");
+        }
+
+
     }
 
     public int supprimerUtilisateur (int id)
@@ -57,23 +91,26 @@ public class UtilisateurDAO{
 
     public Boolean trouverUtilisateur(String email)
     {
-        Boolean valide = false;
+        Boolean trouve = false;
+        Utilisateur user = null;
+
+        //Instanciation du format de date pour la dateCreationU
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Utilisateur u = null;
-        Cursor c = db.query("Utilisateur", new String[] {"idUtilisateur","nomU","email","mdpHash","apiKey","dateCreationU"},"email="+"'"+email+"'",null,null,null,null);
-        if (c.moveToFirst())
-        {
-            u = new Utilisateur();
-            u.setIdUtilisateur(c.getString(0));
-            u.setNomU(c.getString(1));
-            u.setEmail(c.getString(2));
-            u.setMdpHash(c.getString(3));
-            u.setApiKey(c.getString(4));
-            valide = true;
+
+        //Requête mySql (local)
+        String[] projectionIn = {"idUtilisateur","nomU","email","mdpHash","apiKey","dateCreationU"};
+        String selection = "email='"+email+"'";
+        String[] selectionArgs = null;
+        String groupBy = null;
+        String having = null;
+        String setOrder = null;
+        Cursor c = db.query("utilisateur",projectionIn, selection, selectionArgs, groupBy, having, setOrder);
+
+        if(c.getCount() > 0) {
+            trouve = true;
         }
 
-
-        return valide;
+        return trouve;
     }
 
     /**public ArrayList <Tache> listeTache()
