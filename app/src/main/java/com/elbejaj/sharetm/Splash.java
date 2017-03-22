@@ -45,6 +45,7 @@ public class Splash extends Activity{
                     Boolean isConnected = hasActiveInternetConnection();
                     Intent i;
 
+                    //Récupération de la valeur de userConnected dans les préférences
                     boolean userConnected = mesPreferences.getBoolean("userConnected",false);
 
                     Log.i("test","SPLASH : On va voir si on est connecté");
