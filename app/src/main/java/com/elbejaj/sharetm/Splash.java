@@ -47,6 +47,7 @@ public class Splash extends Activity{
 
                     //Récupération de la valeur de userConnected dans les préférences
                     boolean userConnected = mesPreferences.getBoolean("userConnected",false);
+                    String idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
 
                     Log.i("test","SPLASH : On va voir si on est connecté");
                     if(isConnected && !userConnected) { //Connecté à Internet et pas enregistré ->Page de login

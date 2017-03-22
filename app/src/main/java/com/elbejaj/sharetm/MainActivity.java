@@ -4,6 +4,7 @@ package com.elbejaj.sharetm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Tache> tabTache = new ArrayList<Tache>();
 
+    private SharedPreferences mesPreferences;
+    private boolean userConnected;
+    private String idRegisteredUser;
+    private boolean isConnected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,9 +43,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tache);
 
-        Log.i("test","Je vais tester la connexion");
-        boolean isConnected = hasActiveInternetConnection();
-        if(isConnected) {
+        //Récupération des données dans préférences
+        mesPreferences = getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.userConnected = mesPreferences.getBoolean("userConnected",false);
+        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+
+        //Récupération des informations envoyées à l'activité
+        Bundle extras = getIntent().getExtras();
+        if(extras==null) {
+            this.isConnected = false;
+        } else {
+            this.isConnected=extras.getBoolean("isConnected");
+        }
+
+        Log.i("test","MAINACTIVITY - ID de l'utilisateur :"+this.idRegisteredUser);
+
+        if(this.isConnected) {
             Log.i("test","La personne est connectée");
         } else {
             Log.i("test","La personne est hors-ligne");

@@ -54,7 +54,8 @@ public class LoginTask extends AsyncTask<String,Void,Boolean> {
                  SharedPreferences settings = myContext.getSharedPreferences("ShareTaskManagerPreferences", 0);
                  SharedPreferences.Editor editor = settings.edit();
                  editor.putBoolean("userConnected", true);
-                //@TODO : Stocker l'email de l'utilisateur actuellement connecté
+                String idRegisteredUser = currentUtilisateur.getIdUtilisateur();
+                editor.putString("idRegisteredUser",idRegisteredUser);
                  editor.commit();
                 Log.i("test","Variables userConnected maj");
                 aFonctionne = true;
