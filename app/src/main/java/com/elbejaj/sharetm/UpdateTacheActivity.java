@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -120,7 +121,11 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(tachet.getEcheanceT());
+        try {
+            cal.setTime(tachet.getEcheanceT());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
@@ -162,18 +167,16 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         tache.setEtatT(etat);
         tache.setPrioriteT(priorite);
         ContentValues cv = new ContentValues();
-        cv.put("nom", tache.getIntituleT());
-        cv.put("contenu", tache.getDescriptionT());
-        cv.put("priorite", tache.getPrioriteT());
-        cv.put("echeance", strEcheance);
-        cv.put("etat", tache.getEtatT());
+        cv.put("intituleT", tache.getIntituleT());
+        cv.put("descriptionT", tache.getDescriptionT());
+        cv.put("prioriteT", tache.getPrioriteT());
+        cv.put("echeanceT", strEcheance);
+        cv.put("etatT", tache.getEtatT());
         String idTache;
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idtu");
-        Log.i("INSIDE LIST", idTache);
-        int idTacheI = Integer.parseInt(idTache);
-        Log.i("INSIDE LIST", "1");
-        long lg = td.updateTache(idTacheI,cv);
+        //int idTacheI = Integer.parseInt(idTache);
+        long lg = td.updateTache(idTache,cv);
 
         td.close();
         Intent intent = new Intent(UpdateTacheActivity.this, MainActivity.class);

@@ -117,10 +117,12 @@ public class AffichageTacheActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(AffichageTacheActivity.this, UpdateTacheActivity.class);
         String idTache;
+        Log.i("test","Date des test324");
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idpass");
         intent.putExtra("idtu", idTache);
         startActivity(intent);
+        Log.i("test","Date des test");
     }
 
 }

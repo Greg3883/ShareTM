@@ -89,10 +89,10 @@ public class TacheDAO {
         return db.delete("Tache", "idTache="+id, null);
     }
 
-    public int updateTache (int id, ContentValues cv)
+    public int updateTache (String id, ContentValues cv)
     {
         String nid = String.valueOf(id);
-        return db.update("Tache",cv,"idTache="+nid, null);
+        return db.update("Tache",cv,"idTache='"+nid+"'", null);
     }
 
     /**
@@ -123,9 +123,7 @@ public class TacheDAO {
     {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Tache t = null;
-        Log.i("test","tests");
-        Cursor c = db.query("tache", new String[] {"idTache","intituleT","dateCreationT","descriptionT","prioriteT","echeanceT","etatT","refGroupe"},"id="+id,null,null,null,null);
-        Log.i("test","test");
+        Cursor c = db.query("tache", new String[] {"idTache","intituleT","dateCreationT","descriptionT","prioriteT","echeanceT","etatT","refGroupe"},"idTache='"+id+"'",null,null,null,null);
         if (c.moveToFirst())
         {
             t = new Tache();
@@ -136,6 +134,7 @@ public class TacheDAO {
             t.setEtatT(c.getInt(5));
             t.setRefGroupe(c.getString(6));
             String strEcheance   = c.getString(4);
+            Log.i("test","Test des dates");
             Date dateEcheance = null;
             try {
                 dateEcheance = format.parse(strEcheance);
