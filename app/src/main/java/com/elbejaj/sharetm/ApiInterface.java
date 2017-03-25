@@ -18,6 +18,16 @@ public interface ApiInterface {
     // GESTION UTILISATEUR
     //*****************************************
 
+    //Inscription d'un utilisateur
+    //Connexion d'un utilisateur
+    @FormUrlEncoded
+    @POST("register")
+    Call<Utilisateur> login(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
     //Connexion d'un utilisateur
     @FormUrlEncoded
     @POST("login")
@@ -26,6 +36,18 @@ public interface ApiInterface {
             @Field("password") String mdpHash
     );
 
+    //Récupération d'un utilisateur par son email
+    @FormUrlEncoded
+    @POST("getUserByEmail")
+    Call<Utilisateur> getUserByEmail(
+            @Field("email") String email
+    );
+    //Récupération des utilisateurs d'un groupe
+    @FormUrlEncoded
+    @POST("getUsersByGroupe")
+    Call<List<Utilisateur>> getUsersByGroupe(
+            @Field("idGroupe") String idGroupe
+    );
     //*****************************************
     // GESTION TACHE
     //*****************************************
