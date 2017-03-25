@@ -44,7 +44,7 @@ public interface ApiInterface {
     );
     //Récupération des utilisateurs d'un groupe
     @FormUrlEncoded
-    @POST("getUsersByGroupe")
+    @GET("getUsersByGroupe")
     Call<List<Utilisateur>> getUsersByGroupe(
             @Field("idGroupe") String idGroupe
     );
@@ -70,23 +70,34 @@ public interface ApiInterface {
 
     //Récupération d'une tache par ID
     @FormUrlEncoded
-    @POST("getTaskById")
+    @GET("getTaskById")
     Call<Tache> getTaskById(
             @Field("idTache") String idTache
             );
 
     //Récupération des tâches par utilisateur
     @FormUrlEncoded
-    @POST("getTaskByUser")
+    @GET("getTasksByUser")
     Call<List<Tache>> getTaskByUser(
             @Field("idUtilisateur") String idUtilisateur
     );
 
     //Récupération des tâches par groupe
     @FormUrlEncoded
-    @POST("getTaskByGroup")
+    @GET("getTasksByGroup")
     Call<List<Tache>> getTaskByGroup(
             @Field("idGroupe") String idGroupe
+    );
+
+    //*****************************************
+    // GESTION GROUPE
+    //*****************************************
+
+    //Récupération des tâches par groupe
+    @FormUrlEncoded
+    @POST("createGroupe")
+    Call<Groupe> createGroupe(
+            @Field("nomGroupe") String nomGroupe
     );
 
     //*****************************************
