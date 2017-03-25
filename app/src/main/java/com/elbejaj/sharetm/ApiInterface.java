@@ -46,6 +46,13 @@ public interface ApiInterface {
             @Field("refGroupe") String refGroupe
     );
 
+    //Récupération d'une tache par ID
+    @FormUrlEncoded
+    @POST("getTaskById")
+    Call<Tache> getTaskById(
+            @Field("idTache") String idTache
+            );
+
     //*****************************************
     // GESTION AFFECTATIONTACHE
     //*****************************************
