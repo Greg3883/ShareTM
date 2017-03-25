@@ -10,7 +10,13 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="44c1f8c0-3be0-4780-b7ad-6dc35a1731d2" name="Default" comment="" />
+=======
+    <list default="true" id="44c1f8c0-3be0-4780-b7ad-6dc35a1731d2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/elbejaj/sharetm/ApiInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/elbejaj/sharetm/ApiInterface.java" />
+    </list>
+>>>>>>> origin/master
     <ignored path="ShareTM.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,8 +77,13 @@
       <file leaf-file-name="ApiInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/elbejaj/sharetm/ApiInterface.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="306">
               <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+=======
+            <state relative-caret-position="1249">
+              <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+>>>>>>> origin/master
               <folding />
             </state>
           </provider>
@@ -2863,8 +2874,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/elbejaj/sharetm/ApiInterface.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="306">
           <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+=======
+        <state relative-caret-position="1249">
+          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+>>>>>>> origin/master
           <folding />
         </state>
       </provider>

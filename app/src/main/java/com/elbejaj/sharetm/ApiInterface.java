@@ -18,6 +18,16 @@ public interface ApiInterface {
     // GESTION UTILISATEUR
     //*****************************************
 
+    //Inscription d'un utilisateur
+    //Connexion d'un utilisateur
+    @FormUrlEncoded
+    @POST("register")
+    Call<Utilisateur> login(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
     //Connexion d'un utilisateur
     @FormUrlEncoded
     @POST("login")
@@ -26,6 +36,18 @@ public interface ApiInterface {
             @Field("password") String mdpHash
     );
 
+    //Récupération d'un utilisateur par son email
+    @FormUrlEncoded
+    @POST("getUserByEmail")
+    Call<Utilisateur> getUserByEmail(
+            @Field("email") String email
+    );
+    //Récupération des utilisateurs d'un groupe
+    @FormUrlEncoded
+    @GET("getUsersByGroupe")
+    Call<List<Utilisateur>> getUsersByGroupe(
+            @Field("idGroupe") String idGroupe
+    );
     //*****************************************
     // GESTION TACHE
     //*****************************************
@@ -46,6 +68,63 @@ public interface ApiInterface {
             @Field("refGroupe") String refGroupe
     );
 
+    //Récupération d'une tache par ID
+    @FormUrlEncoded
+    @GET("getTaskById")
+    Call<Tache> getTaskById(
+            @Field("idTache") String idTache
+            );
+
+    //Récupération des tâches par utilisateur
+    @FormUrlEncoded
+    @GET("getTasksByUser")
+    Call<List<Tache>> getTaskByUser(
+            @Field("idUtilisateur") String idUtilisateur
+    );
+
+    //Récupération des tâches par groupe
+    @FormUrlEncoded
+    @GET("getTasksByGroup")
+    Call<List<Tache>> getTaskByGroup(
+            @Field("idGroupe") String idGroupe
+    );
+
+    //*****************************************
+    // GESTION GROUPE
+    //*****************************************
+
+    //Récupération des tâches par groupe
+    @FormUrlEncoded
+    @POST("createGroupe")
+    Call<Groupe> createGroupe(
+            @Field("nomGroupe") String nomGroupe
+    );
+
+    //*****************************************
+    // GESTION AFFECTATIONTACHE
+    //*****************************************
+
+    //Création d'une affectationTâche
+    @FormUrlEncoded
+    @POST("createAffectationTache")
+    Call<Tache> createAffectationTache(
+            @Field("idUtilisateur") String idUtilisateur,
+            @Field("idTache") String idTache,
+            @Field("estAdmin") int estAdmin
+    );
+
+    //*****************************************
+    // GESTION MEMBREGROUPE
+    //*****************************************
+
+    //Création d'une affectationTâche
+    @FormUrlEncoded
+    @POST("createMembreGroupe")
+    Call<Tache> createMembreGroupe(
+            @Field("idUtilisateur") String idUtilisateur,
+            @Field("idGroupe") String idGroupe,
+            @Field("estAdmin") int estAdmin
+    );
 
 
 
