@@ -28,7 +28,8 @@ public class GroupesActivity extends AppCompatActivity {
         setContentView(R.layout.groupes);
 
 
-        gd = new GroupeDAO(this);
+        //@TODO : A modifier, réuperer le isConnected du main
+        gd = new GroupeDAO(this, false);
         tabGroupe = gd.listeGroupe();
         final int N = tabGroupe.size();
         final LinearLayout[] myLinear = new LinearLayout[N];

@@ -30,7 +30,8 @@ public class AffichageGroupeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_groupe_affichage);
 
         main_layout = (LinearLayout) findViewById(R.id.affichage_groupe_layout);
-        gd = new GroupeDAO(this);
+        //@TODO : A modifier, récupérer le isConnected du main
+        gd = new GroupeDAO(this, false);
         tabGroupe = gd.listeGroupe();
         final int N = tabGroupe.size();
         final RelativeLayout[] myLinear = new RelativeLayout[N];

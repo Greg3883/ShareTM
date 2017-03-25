@@ -2,6 +2,7 @@ package com.elbejaj.sharetm;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -18,11 +19,16 @@ public class UtilisateurDAO{
     private SQLiteDatabase db;
     private ApiInterface apiService;     //Communication avec l'API
     private boolean isConnected;         //Indique si l'utilisateur est connecté à Internet
+    private Context ctx;
+    private SharedPreferences mesPreferences; //Préférences de l'application
+    private String idRegisteredUser;
+
 
     public UtilisateurDAO(Context ctx, boolean isConnected)
     {
         dbm = new DBManager(ctx, "base", null, 13);
         db = dbm.getWritableDatabase();
+        this.ctx = ctx;
 
         //Si connexion, on instancie le gestionnaire de BDD en ligne
         if(isConnected) {
@@ -32,6 +38,11 @@ public class UtilisateurDAO{
         } else {
             this.isConnected = false;
         }
+
+        //Récupération des données dans préférences
+        this.mesPreferences = ctx.getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+        Log.i("test","CREATION UTILISATEUR DAO : ID de l'utilisateur courant : "+this.idRegisteredUser);
     }
 
 

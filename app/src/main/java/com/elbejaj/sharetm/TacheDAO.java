@@ -2,6 +2,7 @@ package com.elbejaj.sharetm;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -26,6 +27,9 @@ public class TacheDAO {
     private SQLiteDatabase db;           //BDD en local
     private ApiInterface apiService;     //Communication avec l'API
     private boolean isConnected;         //Indique si l'utilisateur est connecté à Internet
+    private String idRegisteredUser;     //Identifiant de l'utilisateur courant (enregistré)
+    private SharedPreferences mesPreferences; //Préférences de l'application
+    private Context ctx;
 
     /**
      * Constructeur de TacheDAO
@@ -34,11 +38,9 @@ public class TacheDAO {
      */
     public TacheDAO(Context ctx,boolean isConnected)
     {
+        this.ctx = ctx;
         dbmLocal = new DBManager(ctx, "base", null, 13);
-
         db = dbmLocal.getWritableDatabase();
-        Log.i("test","Je suis dans le constructeur de TacheDAO");
-     
 
         //Si connexion, on instancie le gestionnaire de BDD en ligne
         if(isConnected) {
@@ -48,6 +50,11 @@ public class TacheDAO {
         } else {
             this.isConnected = false;
         }
+
+        //Récupération des données dans préférences
+        this.mesPreferences = ctx.getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+        Log.i("test","CREATION TACHE DAO : ID de l'utilisateur courant : "+this.idRegisteredUser);
 
 }
 
@@ -77,7 +84,8 @@ public class TacheDAO {
 
         //Si on est connecté, on ajoute la tâche à la base de données sur le serveur
         if(isConnected) {
-            
+            //Ajouter la tache sur le serveur avec l'URL /createTask avec 'idUtilisateur','intitule','description','priorite','etat','echeance','refGroupe'
+            //Ajouter affectation tache sur le serveur avec l'URL /createAffectationTache avec
         }
 
         return db.insert("tache", null , vals);

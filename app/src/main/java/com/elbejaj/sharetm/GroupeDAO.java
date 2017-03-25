@@ -5,8 +5,10 @@ package com.elbejaj.sharetm;
  */
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.text.DateFormat;
@@ -17,14 +19,35 @@ import java.util.ArrayList;
 
 public class GroupeDAO {
 
-    DBGroupe dbm;
-    SQLiteDatabase db;
 
-    public GroupeDAO(Context ctx)
+    private DBGroupe dbm;          //Gestionnaire de la BDD en local
+    private SQLiteDatabase db;           //BDD en local
+    private ApiInterface apiService;     //Communication avec l'API
+    private boolean isConnected;         //Indique si l'utilisateur est connecté à Internet
+    private String idRegisteredUser;     //Identifiant de l'utilisateur courant (enregistré)
+    private SharedPreferences mesPreferences; //Préférences de l'application
+    private Context ctx;
+
+    public GroupeDAO(Context ctx, boolean isConnected)
     {
+        this.ctx = ctx;
         dbm = new DBGroupe(ctx, "baseGrp", null, 13);
-    }
 
+        //Si connexion, on instancie le gestionnaire de BDD en ligne
+        if(isConnected) {
+            Log.i("test","Instanciation du service API");
+            this.apiService = STMAPI.getClient().create(ApiInterface.class);
+            this.isConnected = true;
+        } else {
+            this.isConnected = false;
+        }
+
+        //Récupération des données dans préférences
+        this.mesPreferences = ctx.getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+        Log.i("test","CREATION GROUPE DAO : ID de l'utilisateur courant : "+this.idRegisteredUser);
+
+    }
 
     public void open(){
         db = dbm.getWritableDatabase();

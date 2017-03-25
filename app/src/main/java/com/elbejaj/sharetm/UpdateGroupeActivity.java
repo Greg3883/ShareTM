@@ -1,6 +1,5 @@
 package com.elbejaj.sharetm;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 
 /**
@@ -47,7 +44,8 @@ public class UpdateGroupeActivity extends AppCompatActivity implements View.OnCl
         ajout_nom = (EditText) findViewById(R.idGroupe.ajout_input_nom);
         ajout_nom.setText(anciennom);*/
 
-        gd = new GroupeDAO(this);
+        //@TODO : A modifier, récupérer le isCOnnected du main
+        gd = new GroupeDAO(this, false);
     }
 
 

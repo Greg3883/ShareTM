@@ -14,6 +14,10 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
+    //*****************************************
+    // GESTION UTILISATEUR
+    //*****************************************
+
     //Connexion d'un utilisateur
     @FormUrlEncoded
     @POST("login")
@@ -22,9 +26,27 @@ public interface ApiInterface {
             @Field("password") String mdpHash
     );
 
+    //*****************************************
+    // GESTION TACHE
+    //*****************************************
+
     //Récupération de toutes les tâches de la BDD
     @GET("allTasks")
     Call<List<Tache>> getAllTasks();
+
+    //Création d'une tâche
+    @FormUrlEncoded
+    @POST("createTask")
+    Call<Tache> createTask(
+            @Field("intituleT") String intituleT,
+            @Field("descriptionT") String descriptionT,
+            @Field("prioriteT") int prioriteT,
+            @Field("etatT") int etatT,
+            @Field("echeanceT") String echeanceT,
+            @Field("refGroupe") String refGroupe
+    );
+
+
 
 
 

@@ -9,6 +9,7 @@ package com.elbejaj.sharetm;
 
 public class AffectationTache {
 
+    private String idAffectationTache;
     private String idUtilisateur;
     private String idTache;
     private boolean estAdminTache; //Par défaut, on est à faux

@@ -11,13 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -48,7 +46,8 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
 
         dateC.setText(datestr);
 
-        gd = new GroupeDAO(this);
+        //@TODO : A modifier, récupérer le isCOnnected du main
+        gd = new GroupeDAO(this, false);
 
         grp = new Groupe();
         grp.setDateCreationGroupe(date);

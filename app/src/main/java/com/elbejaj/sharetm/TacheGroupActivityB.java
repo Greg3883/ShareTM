@@ -57,7 +57,8 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
         //TODO : A changer
         td = new TacheDAO(this, true);
-        gd = new GroupeDAO(this);
+        //TODO : A modifier, ajouter le isConnected du main
+        gd = new GroupeDAO(this,false);
         tabTache = td.listeTache();
         Collections.sort(tabTache, Tache.TachePrioComparator);
         final int N = tabTache.size();
