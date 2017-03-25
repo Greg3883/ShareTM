@@ -46,6 +46,18 @@ public interface ApiInterface {
             @Field("refGroupe") String refGroupe
     );
 
+    //*****************************************
+    // GESTION AFFECTATIONTACHE
+    //*****************************************
+
+    //Création d'une affectationTâche
+    @FormUrlEncoded
+    @POST("createAffectationTache")
+    Call<Tache> createAffectationTache(
+            @Field("idUtilisateur") String idUtilisateur,
+            @Field("idTache") String idTache,
+            @Field("estAdmin") int estAdmin
+    );
 
 
 
