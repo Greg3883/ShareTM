@@ -53,6 +53,13 @@ public interface ApiInterface {
             @Field("idTache") String idTache
             );
 
+    //Récupération d'une tache par utilisateur
+    @FormUrlEncoded
+    @POST("getTaskByUser")
+    Call<List<Tache>> getTaskByUser(
+            @Field("idUtilisateur") String idUtilisateur
+    );
+
     //*****************************************
     // GESTION AFFECTATIONTACHE
     //*****************************************
