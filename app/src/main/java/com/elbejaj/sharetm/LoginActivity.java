@@ -168,6 +168,13 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
     }
 
+
+    public void signUpLink(View view)
+    {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * @TODO : Vérifier la vérification d'un email ("a" ne fonctionne pas mais "greg" fonctionne)
      * @return
