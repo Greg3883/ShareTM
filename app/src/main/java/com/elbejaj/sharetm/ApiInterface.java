@@ -21,8 +21,8 @@ public interface ApiInterface {
     //Inscription d'un utilisateur
     //Connexion d'un utilisateur
     @FormUrlEncoded
-    @POST("register")
-    Call<Utilisateur> login(
+    @POST("inscription")
+    Call<Utilisateur> register(
             @Field("name") String name,
             @Field("email") String email,
             @Field("password") String password
@@ -30,7 +30,7 @@ public interface ApiInterface {
 
     //Connexion d'un utilisateur
     @FormUrlEncoded
-    @POST("login")
+    @POST("connexion")
     Call<Utilisateur> login(
             @Field("email") String email,
             @Field("password") String mdpHash
@@ -38,13 +38,13 @@ public interface ApiInterface {
 
     //Récupération d'un utilisateur par son email
     @FormUrlEncoded
-    @POST("getUserByEmail")
+    @POST("getUtilisateurByEmail")
     Call<Utilisateur> getUserByEmail(
             @Field("email") String email
     );
     //Récupération des utilisateurs d'un groupe
     @FormUrlEncoded
-    @GET("getUsersByGroupe")
+    @GET("getUtilisateursByGroupe")
     Call<List<Utilisateur>> getUsersByGroupe(
             @Field("idGroupe") String idGroupe
     );
@@ -53,12 +53,12 @@ public interface ApiInterface {
     //*****************************************
 
     //Récupération de toutes les tâches de la BDD
-    @GET("allTasks")
+    @GET("getAllTaches")
     Call<List<Tache>> getAllTasks();
 
     //Création d'une tâche
     @FormUrlEncoded
-    @POST("createTask")
+    @POST("creerTache")
     Call<Tache> createTask(
             @Field("intituleT") String intituleT,
             @Field("descriptionT") String descriptionT,
@@ -70,21 +70,21 @@ public interface ApiInterface {
 
     //Récupération d'une tache par ID
     @FormUrlEncoded
-    @GET("getTaskById")
+    @GET("getTacheById")
     Call<Tache> getTaskById(
             @Field("idTache") String idTache
             );
 
     //Récupération des tâches par utilisateur
     @FormUrlEncoded
-    @GET("getTasksByUser")
+    @GET("getTacheByUtilisateur")
     Call<List<Tache>> getTaskByUser(
             @Field("idUtilisateur") String idUtilisateur
     );
 
     //Récupération des tâches par groupe
     @FormUrlEncoded
-    @GET("getTasksByGroup")
+    @GET("getTachesByGroupe")
     Call<List<Tache>> getTaskByGroup(
             @Field("idGroupe") String idGroupe
     );
@@ -95,7 +95,7 @@ public interface ApiInterface {
 
     //Récupération des tâches par groupe
     @FormUrlEncoded
-    @POST("createGroupe")
+    @POST("creerGroupe")
     Call<Groupe> createGroupe(
             @Field("nomGroupe") String nomGroupe
     );
@@ -106,7 +106,7 @@ public interface ApiInterface {
 
     //Création d'une affectationTâche
     @FormUrlEncoded
-    @POST("createAffectationTache")
+    @POST("creerAffectationTache")
     Call<Tache> createAffectationTache(
             @Field("idUtilisateur") String idUtilisateur,
             @Field("idTache") String idTache,
@@ -119,7 +119,7 @@ public interface ApiInterface {
 
     //Création d'une affectationTâche
     @FormUrlEncoded
-    @POST("createMembreGroupe")
+    @POST("creerMembreGroupe")
     Call<Tache> createMembreGroupe(
             @Field("idUtilisateur") String idUtilisateur,
             @Field("idGroupe") String idGroupe,
