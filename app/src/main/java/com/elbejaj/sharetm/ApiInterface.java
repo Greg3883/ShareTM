@@ -68,6 +68,18 @@ public interface ApiInterface {
             @Field("refGroupe") String refGroupe
     );
 
+    //Modification d'une tâche
+    @FormUrlEncoded
+    @POST("modifierTache")
+    Call<Tache> updateTask(
+            @Field("idTache") String idTache,
+            @Field("intituleT") String intituleT,
+            @Field("descriptionT") String descriptionT,
+            @Field("prioriteT") int prioriteT,
+            @Field("etatT") int etatT,
+            @Field("echeanceT") String echeanceT,
+    );
+
     //Récupération d'une tache par ID
     @FormUrlEncoded
     @GET("getTacheById")
