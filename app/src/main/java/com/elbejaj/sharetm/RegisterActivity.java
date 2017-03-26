@@ -20,15 +20,17 @@ import butterknife.Bind;
 
 public class RegisterActivity extends AppCompatActivity {
 
+
+    /*useless*/
     UtilisateurDAO ud;
     TextView login_incorrect;
     ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
-    Boolean isConnected;
 
     @Bind(R.id.input_mail) EditText _mailText;
     @Bind(R.id.input_pwd) EditText _pwdText;
     @Bind(R.id.input_confirmpwd) EditText _confirmPwdText;
     @Bind(R.id.btn_valider) Button _validerButton;
+
 
 
 
@@ -89,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!(pwdstr.length() == 0)){
             if (!(confpwdstr.length() == 0 )) {
                 if (!confpwdstr.equals(pwdstr)) {
-                    Toast.makeText(RegisterActivity.this, "Mots de passes différents", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Mots de passe différents", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 else return true;
@@ -112,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!isEmptyName()) {
             if (isEmailValide()) {
                 if (isPasswordValide()) {
-                    Toast.makeText(RegisterActivity.this, "Validation complete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Validé", Toast.LENGTH_SHORT).show();
                 }
             }
         }
