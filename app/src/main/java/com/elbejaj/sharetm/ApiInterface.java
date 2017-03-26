@@ -77,7 +77,7 @@ public interface ApiInterface {
             @Field("descriptionT") String descriptionT,
             @Field("prioriteT") int prioriteT,
             @Field("etatT") int etatT,
-            @Field("echeanceT") String echeanceT,
+            @Field("echeanceT") String echeanceT
     );
 
     //Récupération d'une tache par ID
