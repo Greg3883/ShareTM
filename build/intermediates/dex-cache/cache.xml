@@ -3,7 +3,6 @@
 
     <item
         is-multidex="true"
-<<<<<<< HEAD
         jar="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -217,7 +216,7 @@
         revision="24.0.3"
         sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
         <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.6.0_8951055fd903bd9243feb56fc157c90e253110f2\classes.dex" />
-=======
+
         jar="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -431,7 +430,6 @@
         revision="24.0.3"
         sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
         <dex dex="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_441a9d8b1447dd6d4948b2fe36851abe120a8db2\classes.dex" />
->>>>>>> origin/master
     </item>
 
 </items>
