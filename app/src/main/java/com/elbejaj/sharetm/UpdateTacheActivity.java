@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,14 +15,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Bejaj on 03/12/2016.
@@ -41,12 +41,16 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     private Calendar calendar;
     private int year, month, day;
 
+    //Pour les appels aux services de l'API
+    ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_tache);
 
+        //Initialisation des champs
         ajout_tache = (Button) findViewById(R.id.ajout_button);
         ajout_tache.setOnClickListener(this);
         ajout_nom = (EditText) findViewById(R.id.ajout_input_nom);
@@ -55,17 +59,25 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         ajout_etat = (Spinner) findViewById(R.id.ajout_etat);
         ajout_echeance = (TextView) findViewById(R.id.ajout_input_echeance);
 
-
-        String idTache;
-        Bundle extras = getIntent().getExtras();
-        idTache = extras.getString("idtu");
-        //@TODO : A changer
+        //Instanciation du TacheDAO
         td = new TacheDAO(this, true);
         td.open();
-        Tache tachet = td.trouverTache(idTache);
+
+        //Récupération de l'ID de la tâche en modification
+        Bundle extras = getIntent().getExtras();
+        String idTache = extras.getString("idtu");
+
+        Log.i("test","tata");
+
+        //Recherche de la tâche en ligne
+        this.tache = td.trouverTache(idTache);
         td.close();
-        ajout_nom.setText(tachet.getIntituleT());
-        int priob = tachet.getPrioriteT();
+
+        Log.i("test","toto");
+
+        //Instanciation des valeurs des champs en fonction de celles de la tâche
+        ajout_nom.setText(this.tache.getIntituleT());
+        int priob = this.tache.getPrioriteT();
         List spinnerPrio = new ArrayList();
         if (priob == 1) {
             spinnerPrio.add("Urgent");
@@ -91,7 +103,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         ajout_priorite.setAdapter(adapter);
 
 
-        int etab = tachet.getEtatT();
+        int etab = this.tache.getEtatT();
         List spinnerEtat = new ArrayList();
         if (etab == 1) {
             spinnerEtat.add("En cours");
@@ -116,20 +128,34 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
         adapterb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ajout_etat.setAdapter(adapterb);
-        ajout_contenu.setText(tachet.getDescriptionT());
-        String prio = String.valueOf(tachet.getPrioriteT());
+        ajout_contenu.setText(this.tache.getDescriptionT());
+        Log.i("test","updateTacheActivity - DescriptionT: "+this.tache.getDescriptionT());
+        String prio = String.valueOf(this.tache.getPrioriteT());
 
 
         Calendar cal = Calendar.getInstance();
         try {
-            cal.setTime(tachet.getEcheanceT());
+            Log.i("test","getEcheance : "+this.tache.getEcheanceT());
+            cal.setTime(this.tache.getEcheanceT());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
+        Boolean ajoutZeroMonth = false;
+        Boolean ajoutZeroDay = false;
+        if(month<10) {
+            ajoutZeroMonth = true;
+        }
+        if(day<10) {
+            ajoutZeroDay = true;
+        }
         day = cal.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
+
+
+
 
     }
 
@@ -138,12 +164,15 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
 
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         td.open();
-        tache = new Tache();
+
+        //Récupération des nouvelles valeurs
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
         String value_prio = ajout_priorite.getSelectedItem().toString();
+
+        //Récupération de la priorité
         int priorite;
         if (value_prio == "Urgent"){
             priorite = 1;
@@ -152,6 +181,8 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         } else {
             priorite = 3;
         }
+
+        //Récupération de l'état
         String value_etat = ajout_etat.getSelectedItem().toString();
         int etat;
         if (value_etat == "En cours"){
@@ -161,22 +192,43 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         } else {
             etat = 3;
         }
+
+        //Récupération de l'échéance
         String strEcheance  = ajout_echeance.getText().toString();
+        Log.i("test","echence : "+strEcheance);
+
+        //Modification de la tâche en local
         tache.setIntituleT(nom);
         tache.setDescriptionT(contenu);
         tache.setEtatT(etat);
         tache.setPrioriteT(priorite);
+
         ContentValues cv = new ContentValues();
         cv.put("intituleT", tache.getIntituleT());
         cv.put("descriptionT", tache.getDescriptionT());
         cv.put("prioriteT", tache.getPrioriteT());
+        Log.i("test","updateTacheActivity dans modification, strEcheance : "+strEcheance);
         cv.put("echeanceT", strEcheance);
-        cv.put("etatT", tache.getEtatT());
-        String idTache;
+        setContentValue(cv);
         Bundle extras = getIntent().getExtras();
-        idTache = extras.getString("idtu");
+        String idTache = extras.getString("idtu");
         //int idTacheI = Integer.parseInt(idTache);
         long lg = td.updateTache(idTache,cv);
+
+        //Modification de la tâche en question sur le serveur
+        Log.i("test","updateTacheActivity : Je vais exécuter le updateTacheTask");
+        AsyncTask updateTacheTask = new UpdateTacheTask(this,this.td).execute(idTache,nom,contenu,priorite,etat,strEcheance);
+
+
+        Object aFonctionne = false;
+        try {
+            aFonctionne = updateTacheTask.get();
+            Log.i("test","updateTacheActivity : Résultat du task : "+aFonctionne.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         td.close();
         Intent intent = new Intent(UpdateTacheActivity.this, MainActivity.class);
@@ -184,17 +236,31 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         startActivity(intent);
     }
 
+    private void setContentValue(ContentValues cv) {
+        cv.put("etatT", tache.getEtatT());
+    }
+
     private void showDate(int year, int month, int day) {
-        ajout_echeance.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+
+        String strDay = String.valueOf(day);
+        String strMonth = String.valueOf(month);
+
+        if (day<10) {
+            strDay = "0" + strDay;
+        }
+
+        if(month<10) {
+            strMonth = "0" + strMonth;
+        }
+
+
+        ajout_echeance.setText(new StringBuilder().append(strDay).append("-")
+                .append(strMonth).append("-").append(year));
     }
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "ca",
-                Toast.LENGTH_SHORT)
-                .show();
     }
 
     @Override

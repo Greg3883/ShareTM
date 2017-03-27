@@ -59,7 +59,7 @@ public class GroupeDAO {
 
     public long ajouterGroupe(Groupe g){
         ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
         String reportDate = df.format( c.getTime());
         vals.put("idGroupe", g.getIdGroupe());
@@ -81,7 +81,7 @@ public class GroupeDAO {
 
     public Groupe trouverGroupe(int id)
     {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         Groupe g = null;
         Cursor c = db.query("Groupe", new String[] {"idGroupe","nom","d_creation"},"idGroupe="+id,null,null,null,null);
         if (c.moveToFirst())
@@ -106,7 +106,7 @@ public class GroupeDAO {
     public ArrayList <Groupe> listeGroupe()
     {
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
         ArrayList<Groupe> listeG = new ArrayList<Groupe>();
         db = dbm.getWritableDatabase();

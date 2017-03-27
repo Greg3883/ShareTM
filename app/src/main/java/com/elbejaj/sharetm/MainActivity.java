@@ -59,13 +59,9 @@ public class MainActivity extends AppCompatActivity {
         this.userConnected = mesPreferences.getBoolean("userConnected",false);
         this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
 
-        //Récupération des informations envoyées à l'activité
-        Bundle extras = getIntent().getExtras();
-        if(extras==null) {
-            this.isConnected = false;
-        } else {
-            this.isConnected=extras.getBoolean("isConnected");
-        }
+        //Vérifie s'il est connecté
+        this.isConnected = hasActiveInternetConnection();
+
 
         Log.i("test","MAINACTIVITY - ID de l'utilisateur :"+this.idRegisteredUser);
 
@@ -96,12 +92,14 @@ public class MainActivity extends AppCompatActivity {
         ajout_button = (Button) findViewById(R.id.ajout_button);
         if(!isConnected) {
             ajout_button.setVisibility(View.INVISIBLE);
+        } else {
+            ajout_button.setVisibility(View.VISIBLE);
         }
 
         Log.i("test","Je suis après le isConnected");
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
-        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         final LinearLayout[] myLinear = new LinearLayout[N];
 
@@ -156,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
 
            rowLinear.setLayoutParams(lp);
-            tabTache.get(i).estRetard();
+           Log.i("test","MainActivity : estRetard - "+tabTache.get(i).afficherTache() );
+           tabTache.get(i).estRetard();
            if (tabTache.get(i).getPrioriteT() == 1) {
                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
            }else if (tabTache.get(i).getPrioriteT() == 2) {
@@ -207,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
            dateTache.setTextSize(16);
            Date preDate = tabTache.get(i).getEcheanceT();
            SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
-           String newDate = preDateb.format( preDate );
+           String newDate = preDateb.format(preDate);
            dateTache.setText(newDate);
            dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
            LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -306,5 +305,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("test","Je suis juste avant le retour de la fonction");
         return isConnected;
     }
+
 
 }

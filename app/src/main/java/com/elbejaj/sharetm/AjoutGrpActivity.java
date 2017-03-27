@@ -33,7 +33,7 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajout_grp_activity);
 
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
         ajout_grp = (Button) findViewById(R.id.ajout_button);
         ajout_grp.setOnClickListener(this);

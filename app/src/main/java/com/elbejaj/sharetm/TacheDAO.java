@@ -70,7 +70,7 @@ public class TacheDAO {
     public long ajouterTache(Tache t){
 
         ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String reportDate = df.format( t.getEcheanceT());
         String dateEcheance = df.format(t.getDateCreationT());
         vals.put("idTache", t.getIdTache());
@@ -100,8 +100,10 @@ public class TacheDAO {
     public int updateTache (String id, ContentValues cv)
     {
         String nid = String.valueOf(id);
-        return db.update("Tache",cv,"idTache='"+nid+"'", null);
+        return db.update("tache",cv,"idTache='"+nid+"'", null);
     }
+
+
 
     /**
      * Retourne un booléen indiquant si la tâche existe déjà dans la base
@@ -129,29 +131,42 @@ public class TacheDAO {
 
    public Tache trouverTache(String id)
     {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Tache t = null;
-        Cursor c = db.query("tache", new String[] {"idTache","intituleT","dateCreationT","descriptionT","prioriteT","echeanceT","etatT","refGroupe"},"idTache='"+id+"'",null,null,null,null);
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Tache t = new Tache();
+        Cursor c = db.query("tache", new String[] {"idTache","intituleT","dateCreationT","descriptionT","prioriteT","etatT","echeanceT","refGroupe","dateDerniereModification"},"idTache='"+id+"'",null,null,null,null);
+
         if (c.moveToFirst())
         {
-            t = new Tache();
-            t.setIdTache(c.getString(0));
-            t.setIntituleT(c.getString(1));
-            t.setDescriptionT(c.getString(2));
-            t.setPrioriteT(c.getInt(3));
-            t.setEtatT(c.getInt(5));
-            t.setRefGroupe(c.getString(6));
-            String strEcheance   = c.getString(4);
-            Log.i("test","Test des dates");
             Date dateEcheance = null;
+            Date dateCreation = null;
+            //Date dateDerniereModification = null;
+
             try {
+                t.setIdTache(c.getString(0));
+                t.setIntituleT(c.getString(1));
+                t.setDescriptionT(c.getString(3));
+                t.setPrioriteT(c.getInt(4));
+                t.setEtatT(c.getInt(5));
+                t.setRefGroupe(c.getString(7));
+
+                //Récupération des dates
+                String strEcheance   = c.getString(6);
+                String strDateCreation = c.getString(2);
+                //String strDateDerniereModification = c.getString(8);
+
                 dateEcheance = format.parse(strEcheance);
+                dateCreation = format.parse(strDateCreation);
+                Log.i("test","tutu "+c.getString(8));
+                //dateDerniereModification = format.parse(strDateDerniereModification);
             } catch (ParseException e) {
                 e.printStackTrace();
+                Log.i("test","TacheDAO - TrouverTache() : Exception : " + e.getMessage());
             }
             t.setEcheanceT(dateEcheance);
+            t.setDateCreationT(dateCreation);
+            //t.setDateDerniereModification(dateDerniereModification);
+            Log.i("test","TacheDAO - Afficher tache : "+t.afficherTache());
         }
-
 
         return t;
     }
@@ -160,7 +175,7 @@ public class TacheDAO {
     {
         //@TODO : Récupérer la date de création
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
         ArrayList<Tache> listeT = new ArrayList<Tache>();
         db = dbmLocal.getReadableDatabase();

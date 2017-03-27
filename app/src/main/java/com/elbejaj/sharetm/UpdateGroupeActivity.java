@@ -53,7 +53,7 @@ public class UpdateGroupeActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
 
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         gd.open();
         grp = new Groupe();
         String nom = ajout_nom.getText().toString();

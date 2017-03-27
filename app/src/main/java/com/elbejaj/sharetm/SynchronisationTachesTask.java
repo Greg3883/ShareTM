@@ -57,6 +57,7 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
                 if(!tacheDAO.alreadyExists(currentTache.getIdTache())) {
                     Log.i("test","Je vais ajouter une tâche !");
                     tacheDAO.ajouterTache(lesTaches.get(i));
+                    Log.i("test","synchronisationTachesTask, infos de la tache : " +lesTaches.get(i).afficherTache() );
                 } else {
                     Log.i("test","La tache existe déjà");
                 }

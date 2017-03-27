@@ -17,12 +17,13 @@ public class Tache implements Comparable<Tache>{
     private String idTache;
     //private static final AtomicInteger count = new AtomicInteger(0);
     private String intituleT;
-    private String descriptionT;
     private Date dateCreationT;
-    private String refGroupe;
-    private int etatT;
+    private String descriptionT;
     private int prioriteT;
+    private int etatT;
     private Date echeanceT;
+    private String refGroupe;
+    private Date dateDerniereModification;
 
     public Tache() {
         this.idTache = "";
@@ -33,6 +34,7 @@ public class Tache implements Comparable<Tache>{
         this.etatT = 0;
         this.prioriteT = 0;
         this.echeanceT = null;
+        this.dateDerniereModification = null;
     }
 
     public Tache(String idTache, String refGroupe){
@@ -72,6 +74,8 @@ public class Tache implements Comparable<Tache>{
         return echeanceT;
     }
 
+    public Date getDateDerniereModification() {return dateDerniereModification;}
+
     public void setIdTache(String idTache) { this.idTache = idTache;}
 
     public void setDateCreationT(Date dateCreationT) {this.dateCreationT = dateCreationT;}
@@ -84,9 +88,13 @@ public class Tache implements Comparable<Tache>{
         this.refGroupe = refGroupe;
     }
 
+    public void setDateDerniereModification(Date dateDerniereModification) {this.dateDerniereModification = dateDerniereModification;}
+
     public void estRetard()
     {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Log.i("test","estRetard : "+this.getDescriptionT() + this.getEcheanceT().toString());
         Date echeance = this.getEcheanceT();
         Log.i("test","echeance = "+echeance.toString());
         Date curTime= new Date();
@@ -174,10 +182,11 @@ public class Tache implements Comparable<Tache>{
     public String afficherTache() {
 
         String result = "";
-        result = result + "Id de la tâche : " + this.getIdTache();
-        result = result + "Intitulé de la tâche : " + this.getIntituleT();
-        result = result + "Description de la tâche : " + this.getDescriptionT();
-        result = result + "Date de création de la tâche : " + this.getDateCreationT();
+        result = result + " Id de la tâche : " + this.getIdTache();
+        result = result + " Intitulé de la tâche : " + this.getIntituleT();
+        result = result + " Description de la tâche : " + this.getDescriptionT();
+        result = result + " Date de création de la tâche : " + this.getDateCreationT();
+        result = result + " Date d'échéance de la tâche : " + this.getEcheanceT();
         return result;
 
 

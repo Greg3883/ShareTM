@@ -40,7 +40,7 @@ public class TacheGroupActivity extends AppCompatActivity {
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
         tri_spinner = (Spinner) findViewById(R.id.tri_option);
-        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         List spinnerPrio = new ArrayList();
         spinnerPrio.add("Trier par date");

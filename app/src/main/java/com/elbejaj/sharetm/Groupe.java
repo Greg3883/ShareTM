@@ -61,7 +61,7 @@ public class Groupe {
     }
 
     public String date_toString() {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         return df.format(dateCreationGroupe.getTime());
     }
 }

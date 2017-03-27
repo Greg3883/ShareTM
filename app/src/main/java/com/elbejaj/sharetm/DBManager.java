@@ -22,6 +22,7 @@ public class DBManager extends SQLiteOpenHelper {
     public static final String TACHE_ETAT = "etatT";
     public static final String TACHE_ECHEANCE = "echeanceT";
     public static final String TACHE_REFGROUPE = "refGroupe";
+    public static final String TACHE_DATEDERNIEREMODIFICATION = "dateDerniereModification";
 
 
 
@@ -36,7 +37,8 @@ public class DBManager extends SQLiteOpenHelper {
                     TACHE_PRIORITE + " INTEGER, " +
                     TACHE_ECHEANCE + " TEXT, "  +
                     TACHE_ETAT + " INTEGER, " +
-                    TACHE_REFGROUPE + " TEXT" + ");";
+                    TACHE_REFGROUPE + " TEXT, " +
+                    TACHE_DATEDERNIEREMODIFICATION + " TEXT );";
 
     //Requête pour la suppression de la table Tache
     public static final String TACHE_TABLE_DROP = "DROP TABLE IF EXISTS " + TACHE_TABLE_NAME + ";";

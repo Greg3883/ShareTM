@@ -97,7 +97,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         //Format des dates
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
         Log.i("test",td.toString());
         td.open();

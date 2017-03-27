@@ -84,7 +84,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                     dateTache.setId(R.id.dateTache);
                     rowLinear.addView(dateTache);
                     Date preDate = tabTache.get(i).getEcheanceT();
-                    SimpleDateFormat preDateb = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat preDateb = new SimpleDateFormat("dd-MM-yyyy");
                     String newDate = preDateb.format( preDate );
                     dateTache.setText(newDate);
                     dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);

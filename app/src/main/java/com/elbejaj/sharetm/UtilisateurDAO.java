@@ -71,7 +71,7 @@ public class UtilisateurDAO{
             ContentValues vals = new ContentValues();
 
             //Récupération de la date de création dans une chaîne de caractères
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String dateCreation = df.format(u.getDateCreationU());
 
             vals.put("idUtilisateur", u.getIdUtilisateur());
@@ -106,7 +106,7 @@ public class UtilisateurDAO{
         Utilisateur user = null;
 
         //Instanciation du format de date pour la dateCreationU
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
         //Requête mySql (local)
         String[] projectionIn = {"idUtilisateur","nomU","email","mdpHash","apiKey","dateCreationU"};
