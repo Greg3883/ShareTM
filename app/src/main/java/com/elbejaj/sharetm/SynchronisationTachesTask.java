@@ -1,7 +1,9 @@
 package com.elbejaj.sharetm;
 
 import android.app.ProgressDialog;
+import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,6 +25,9 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
     private Context myContext;
     private TacheDAO tacheDAO;
     final ProgressDialog progressDialog;
+    private SharedPreferences mesPreferences;
+    private String idUtilisateurCourant;
+
 
     public SynchronisationTachesTask (Context context,TacheDAO tacheDAO){
         this.myContext = context;
@@ -32,6 +37,9 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
         progressDialog = new ProgressDialog(this.myContext, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(false);
         progressDialog.setMessage("Synchronisation...");
+        //Récupération de l'ID de l'utilisateur courant
+        mesPreferences = this.myContext.getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idUtilisateurCourant = mesPreferences.getString("idRegisteredUser","");
     }
 
     @Override
@@ -46,7 +54,12 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
 
         List<Tache> listeTaches = null;
         //@TODO : Implémenter la méthode getTasksByUser(User us)
-        Call<List<Tache>> call = apiInterface.getAllTasks();
+
+        Log.i("test","SynchronisationTachesTask, id Utilisateur courant : "+this.idUtilisateurCourant);
+        Call<List<Tache>> call = apiInterface.getTaskByUser(this.idUtilisateurCourant);
+        //Call<List<Tache>> call = apiInterface.getAllTasks();
+        Log.i("test","Je suis après le call et avant le try");
+
 
         try {
             Response<List<Tache>> response = call.execute();

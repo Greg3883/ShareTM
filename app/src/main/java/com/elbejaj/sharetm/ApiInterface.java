@@ -7,6 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Laurie on 01/02/2017.
@@ -89,10 +90,9 @@ public interface ApiInterface {
     );
 
     //Récupération des tâches par utilisateur
-    @FormUrlEncoded
-    @GET("getTacheByUtilisateur")
+    @GET("getTachesByUtilisateur")
     Call<List<Tache>> getTaskByUser(
-            @Field("idUtilisateur") String idUtilisateur
+            @Query("idUtilisateur") String idUtilisateur
     );
 
     //Récupération des tâches par groupe
