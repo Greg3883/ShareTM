@@ -22,6 +22,7 @@ public class DBManager extends SQLiteOpenHelper {
     public static final String TACHE_ETAT = "etatT";
     public static final String TACHE_ECHEANCE = "echeanceT";
     public static final String TACHE_REFGROUPE = "refGroupe";
+    public static final String TACHE_DATEDERNIEREMODIFICATION = "dateDerniereModification";
 
 
 
@@ -36,7 +37,8 @@ public class DBManager extends SQLiteOpenHelper {
                     TACHE_PRIORITE + " INTEGER, " +
                     TACHE_ECHEANCE + " TEXT, "  +
                     TACHE_ETAT + " INTEGER, " +
-                    TACHE_REFGROUPE + " TEXT" + ");";
+                    TACHE_REFGROUPE + " TEXT, " +
+                    TACHE_DATEDERNIEREMODIFICATION + " TEXT );";
 
     //Requête pour la suppression de la table Tache
     public static final String TACHE_TABLE_DROP = "DROP TABLE IF EXISTS " + TACHE_TABLE_NAME + ";";
@@ -58,25 +60,6 @@ public class DBManager extends SQLiteOpenHelper {
 
     //Requête pour la suppression de la table groupe
     public static final String GROUPE_TABLE_DROP = "DROP TABLE IF EXISTS " + GROUPE_TABLE_NAME + ";";
-
-    //POUR LA TABLE AFFTACHE
-    public static final String AFFTACHE_TABLE_NAME = "affectationTache";
-
-    public static final String AFFTACHE_ID = "idAffectTache";
-    public static final String AFFTACHE_ESTPROP = "estAdminTache";
-    public static final String AFFTACHE_IDU = "idUtilisateur";
-    public static final String AFFTACHE_IDT = "idTache";
-
-    //Requête pour la création de la table groupe
-    public static final String AFFTACHE_TABLE_CREATE =
-            "CREATE TABLE " + AFFTACHE_TABLE_NAME + " (" +
-                    AFFTACHE_ID + " TEXT PRIMARY KEY, " +
-                    AFFTACHE_ESTPROP + " INTEGER, " +
-                    AFFTACHE_IDU + " TEXT, " +
-                    AFFTACHE_IDT + "TEXT "+ ");";
-
-    //Requête pour la suppression de la table groupe
-    public static final String AFFTACHE_TABLE_DROP = "DROP TABLE IF EXISTS " + AFFTACHE_TABLE_NAME + ";";
 
     //POUR LA TABLE UTILISATEUR
     public static final String UTILISATEUR_ID = "idUtilisateur";
@@ -109,7 +92,6 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try{
             db.execSQL(TACHE_TABLE_CREATE);
-            db.execSQL(AFFTACHE_TABLE_CREATE);
             db.execSQL(GROUPE_TABLE_CREATE);
             db.execSQL(UTILISATEUR_TABLE_CREATE);
         } catch (Exception e) {
@@ -123,7 +105,6 @@ public class DBManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(TACHE_TABLE_DROP);
         db.execSQL(GROUPE_TABLE_DROP);
-        db.execSQL(AFFTACHE_TABLE_DROP);
         db.execSQL(UTILISATEUR_TABLE_DROP);
         onCreate(db);
     }

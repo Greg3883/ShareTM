@@ -65,8 +65,7 @@ public interface ApiInterface {
             @Field("prioriteT") int prioriteT,
             @Field("etatT") int etatT,
             @Field("echeanceT") String echeanceT,
-            @Field("refGroupe") String refGroupe,
-            @Field("idUtilisateur") String idUtilisateur
+            @Field("refGroupe") String refGroupe
     );
 
     //Modification d'une tâche
@@ -81,12 +80,13 @@ public interface ApiInterface {
             @Field("echeanceT") String echeanceT
     );
 
-    //Récupération d'une tache par ID
-    @FormUrlEncoded
-    @GET("getTacheById")
-    Call<Tache> getTaskById(
-            @Field("idTache") String idTache
-    );
+    //Récupération d'une tache par ID -- NE FONCTIONNE PAS
+    /*
+    @GET("getTacheById/")
+    Response getTaskById(
+            @Query("idTache") String idTache
+            );
+    */
 
     //Récupération des tâches par utilisateur
     @FormUrlEncoded
@@ -144,4 +144,3 @@ public interface ApiInterface {
 
 
 }
-

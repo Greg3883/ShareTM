@@ -127,7 +127,7 @@ public class UtilisateurDAO{
     /**public ArrayList <Tache> listeTache()
      {
      //Format des dates
-     DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
      ArrayList<Tache> listeT = new ArrayList<Tache>();
      db = dbm.getWritableDatabase();
