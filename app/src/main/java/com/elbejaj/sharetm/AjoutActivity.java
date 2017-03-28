@@ -3,6 +3,8 @@ package com.elbejaj.sharetm;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Bejaj on 03/12/2016.
@@ -35,7 +42,11 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     Spinner ajout_priorite;
     TextView ajout_echeance;
     Spinner ajout_etat;
+    private SharedPreferences mesPreferences;
     TacheDAO td;
+    AffectationTacheDAO taf;
+    private String idRegisteredUser;
+    AffectationTache affectTache;
     Tache tache;
     private DatePicker datePicker;
     private Calendar calendar;
@@ -95,12 +106,17 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
+        TacheDAO td = new TacheDAO(this, true);
+        AffectationTacheDAO taf = new AffectationTacheDAO(this,true);
+        Log.i("test","Je rentre dans le OnClick");
+        ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
         //Format des dates
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-        Log.i("test",td.toString());
+        DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date();
+        Log.i("test","Je rentk");
         td.open();
+        Log.i("test","Je rentk");
         tache = new Tache();
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
@@ -123,12 +139,19 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
             priorite = 3;
         }
         String strEcheance  = ajout_echeance.getText().toString();
-
+        try {
+            Date strEcheance2 = format2.parse(strEcheance);
+            strEcheance = format.format(strEcheance2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("////ZEEEEEEEEEEE/////", strEcheance);
         tache.setEtatT(etat);
         tache.setIntituleT(nom);
         tache.setDescriptionT(contenu);
         tache.setRefGroupe("1");
         tache.setPrioriteT(priorite);
+        tache.setDateCreationT(currentDate);
         Date echeance = null;
         try {
             echeance = format.parse(strEcheance);
@@ -136,7 +159,29 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
         tache.setEcheanceT(echeance);
-        long lg = td.ajouterTache(tache);
+        Log.i("test","dans le try");
+
+        // long lg = td.ajouterTache(tache);
+        taf.open();
+        affectTache = new AffectationTache();
+        //affectTache.setIdUtilisateur(mesPreferences.getString("idRegisteredUser",""));
+        affectTache.setIdUtilisateur("1");
+        affectTache.setEstAdminTache(1);
+        affectTache.setIdTache(tache.getIdTache());
+        //long laf = taf.ajouterAffectationTache(affectTache);
+        mesPreferences = getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+        AsyncTask loginTask = new AjoutTask(this, this.td,this.taf,this.tache,this.affectTache,idRegisteredUser).execute();
+        Object aFonctionne = false;
+        try {
+            aFonctionne = loginTask.get();
+            Log.i("test","loginActivity : Résultat du task : "+aFonctionne.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        taf.close();
         td.close();
         Intent intent = new Intent(AjoutActivity.this, MainActivity.class);
         startActivity(intent);
