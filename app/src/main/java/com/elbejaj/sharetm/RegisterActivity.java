@@ -23,7 +23,6 @@ import butterknife.Bind;
 public class RegisterActivity extends AppCompatActivity {
 
 
-    /*useless*/
     UtilisateurDAO ud;
     ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
 
@@ -107,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    //appelle tous les test sur les champs, puis la fonction d'inscription avec l'API
+    //appelle tous les tests sur les champs, puis la fonction d'inscription avec l'API
     public void register() {
         if (!isEmptyName()) {
             if (isEmailValide()) {
