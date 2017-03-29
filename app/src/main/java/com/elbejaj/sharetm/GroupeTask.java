@@ -35,7 +35,7 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
         String nom = params[0];
 
         //Instanciation de l'appel à la méthode createGroupe()
-        Call<Groupe> call = apiInterface.createGroupe(nom , "1");
+        Call<Groupe> call = apiInterface.createGroupe(nom);
 
         //Exécution de la méthode createGroupe()
         try {
