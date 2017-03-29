@@ -117,7 +117,8 @@ public interface ApiInterface {
 
     @GET("getGroupeById")
     Call<List<Tache>> getGroupById(
-            @Query("idGroupe") String idGroupe
+            @Query("idGroupe") String idGroupe);
+
 
     //*****************************************
     // GESTION AFFECTATIONTACHE
