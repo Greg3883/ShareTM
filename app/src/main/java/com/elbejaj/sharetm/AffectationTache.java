@@ -12,7 +12,7 @@ public class AffectationTache {
     private String idAffectationTache;
     private String idUtilisateur;
     private String idTache;
-    private boolean estAdminTache; //Par défaut, on est à faux
+    private int estAdminTache; //Par défaut, on est à faux
 
     public String getIdUtilisateur() {
         return idUtilisateur;
@@ -30,11 +30,13 @@ public class AffectationTache {
         this.idTache = idTache;
     }
 
-    public boolean isAdmin() {
+    public int isAdmin() {
         return estAdminTache;
     }
 
-    public void setEstAdminTache(boolean estAdminTache) {
+    public String getIdAffectationTache() { return idAffectationTache;}
+
+    public void setEstAdminTache(int estAdminTache) {
         this.estAdminTache = estAdminTache;
     }
 }

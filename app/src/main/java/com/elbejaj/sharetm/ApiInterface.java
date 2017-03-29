@@ -7,6 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Laurie on 01/02/2017.
@@ -65,7 +66,8 @@ public interface ApiInterface {
             @Field("prioriteT") int prioriteT,
             @Field("etatT") int etatT,
             @Field("echeanceT") String echeanceT,
-            @Field("refGroupe") String refGroupe
+            @Field("refGroupe") String refGroupe,
+            @Field("idUtilisateur") String idUtilisateur
     );
 
     //Modification d'une tâche
@@ -80,19 +82,17 @@ public interface ApiInterface {
             @Field("echeanceT") String echeanceT
     );
 
-    //Récupération d'une tache par ID -- NE FONCTIONNE PAS
-    /*
-    @GET("getTacheById/")
-    Response getTaskById(
-            @Query("idTache") String idTache
-            );
-    */
+    //Récupération d'une tache par ID
+    @FormUrlEncoded
+    @GET("getTacheById")
+    Call<Tache> getTaskById(
+            @Field("idTache") String idTache
+    );
 
     //Récupération des tâches par utilisateur
-    @FormUrlEncoded
-    @GET("getTacheByUtilisateur")
+    @GET("getTachesByUtilisateur")
     Call<List<Tache>> getTaskByUser(
-            @Field("idUtilisateur") String idUtilisateur
+            @Query("idUtilisateur") String idUtilisateur
     );
 
     //Récupération des tâches par groupe
@@ -144,3 +144,4 @@ public interface ApiInterface {
 
 
 }
+
