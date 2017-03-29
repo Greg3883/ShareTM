@@ -4,10 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +19,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,7 +36,7 @@ import java.util.concurrent.ExecutionException;
  * Created by Bejaj on 03/12/2016.
  */
 
-public class UpdateTacheActivity extends AppCompatActivity implements View.OnClickListener{
+public class UpdateTacheActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button ajout_tache;
     EditText ajout_nom;
@@ -43,6 +52,58 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
     //Pour les appels aux services de l'API
     ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
+
+    //Menu de l'application (haut-droite)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.new_game:
+                aprop();
+                return true;
+            case R.id.help:
+                paramBtn();
+                return true;
+            case R.id.helpe:
+                help();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void aprop() {
+
+        Intent intent = new Intent(UpdateTacheActivity.this, AproposActivity.class);
+        startActivity(intent);
+    }
+
+    private void help() {
+
+        Intent intent = new Intent(UpdateTacheActivity.this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    private void paramBtn() {
+
+        Intent intent = new Intent(UpdateTacheActivity.this, ParamActivity.class);
+        startActivity(intent);
+    }
 
 
     @Override
@@ -67,13 +128,13 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         Bundle extras = getIntent().getExtras();
         String idTache = extras.getString("idtu");
 
-        Log.i("test","tata");
+        Log.i("test", "tata");
 
         //Recherche de la tâche en ligne
         this.tache = td.trouverTache(idTache);
         td.close();
 
-        Log.i("test","toto");
+        Log.i("test", "toto");
 
         //Instanciation des valeurs des champs en fonction de celles de la tâche
         ajout_nom.setText(this.tache.getIntituleT());
@@ -91,7 +152,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
             spinnerPrio.add("Pas d'urgence");
             spinnerPrio.add("A traiter rapidement");
             spinnerPrio.add("Urgent");
-    }
+        }
 
         ArrayAdapter adapter = new ArrayAdapter(
                 this,
@@ -109,7 +170,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
             spinnerEtat.add("En cours");
             spinnerEtat.add("En attente");
             spinnerEtat.add("Validee");
-        } else if (etab == 2){
+        } else if (etab == 2) {
             spinnerEtat.add("En attente");
             spinnerEtat.add("En cours");
             spinnerEtat.add("Validee");
@@ -129,13 +190,13 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         adapterb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ajout_etat.setAdapter(adapterb);
         ajout_contenu.setText(this.tache.getDescriptionT());
-        Log.i("test","updateTacheActivity - DescriptionT: "+this.tache.getDescriptionT());
+        Log.i("test", "updateTacheActivity - DescriptionT: " + this.tache.getDescriptionT());
         String prio = String.valueOf(this.tache.getPrioriteT());
 
 
         Calendar cal = Calendar.getInstance();
         try {
-            Log.i("test","getEcheance : "+this.tache.getEcheanceT());
+            Log.i("test", "getEcheance : " + this.tache.getEcheanceT());
             cal.setTime(this.tache.getEcheanceT());
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,18 +206,19 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         month = cal.get(Calendar.MONTH);
         Boolean ajoutZeroMonth = false;
         Boolean ajoutZeroDay = false;
-        if(month<10) {
+        if (month < 10) {
             ajoutZeroMonth = true;
         }
-        if(day<10) {
+        if (day < 10) {
             ajoutZeroDay = true;
         }
         day = cal.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month+1, day);
+        showDate(year, month + 1, day);
 
 
-
-
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -174,9 +236,9 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
 
         //Récupération de la priorité
         int priorite;
-        if (value_prio == "Urgent"){
+        if (value_prio == "Urgent") {
             priorite = 1;
-        }else if(value_prio == "A traiter rapidement"){
+        } else if (value_prio == "A traiter rapidement") {
             priorite = 2;
         } else {
             priorite = 3;
@@ -185,17 +247,17 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         //Récupération de l'état
         String value_etat = ajout_etat.getSelectedItem().toString();
         int etat;
-        if (value_etat == "En cours"){
+        if (value_etat == "En cours") {
             etat = 1;
-        }else if(value_etat == "En attente"){
+        } else if (value_etat == "En attente") {
             etat = 2;
         } else {
             etat = 3;
         }
 
         //Récupération de l'échéance
-        String strEcheance  = ajout_echeance.getText().toString();
-        Log.i("test","echence : "+strEcheance);
+        String strEcheance = ajout_echeance.getText().toString();
+        Log.i("test", "echence : " + strEcheance);
 
         //Modification de la tâche en local
         tache.setIntituleT(nom);
@@ -207,23 +269,23 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         cv.put("intituleT", tache.getIntituleT());
         cv.put("descriptionT", tache.getDescriptionT());
         cv.put("prioriteT", tache.getPrioriteT());
-        Log.i("test","updateTacheActivity dans modification, strEcheance : "+strEcheance);
+        Log.i("test", "updateTacheActivity dans modification, strEcheance : " + strEcheance);
         cv.put("echeanceT", strEcheance);
         setContentValue(cv);
         Bundle extras = getIntent().getExtras();
         String idTache = extras.getString("idtu");
         //int idTacheI = Integer.parseInt(idTache);
-        long lg = td.updateTache(idTache,cv);
+        long lg = td.updateTache(idTache, cv);
 
         //Modification de la tâche en question sur le serveur
-        Log.i("test","updateTacheActivity : Je vais exécuter le updateTacheTask");
-        AsyncTask updateTacheTask = new UpdateTacheTask(this,this.td).execute(idTache,nom,contenu,priorite,etat,strEcheance);
+        Log.i("test", "updateTacheActivity : Je vais exécuter le updateTacheTask");
+        AsyncTask updateTacheTask = new UpdateTacheTask(this, this.td).execute(idTache, nom, contenu, priorite, etat, strEcheance);
 
 
         Object aFonctionne = false;
         try {
             aFonctionne = updateTacheTask.get();
-            Log.i("test","updateTacheActivity : Résultat du task : "+aFonctionne.toString());
+            Log.i("test", "updateTacheActivity : Résultat du task : " + aFonctionne.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -245,11 +307,11 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         String strDay = String.valueOf(day);
         String strMonth = String.valueOf(month);
 
-        if (day<10) {
+        if (day < 10) {
             strDay = "0" + strDay;
         }
 
-        if(month<10) {
+        if (month < 10) {
             strMonth = "0" + strMonth;
         }
 
@@ -282,7 +344,43 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+                    showDate(arg1, arg2 + 1, arg3);
                 }
             };
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("UpdateTache Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }

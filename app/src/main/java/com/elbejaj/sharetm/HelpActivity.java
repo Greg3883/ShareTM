@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 /**
- * Created by Bejaj on 15/01/2017.
+ * Created by Boubaker-Sédike on 28/03/2017.
  */
 
-public class GroupeActivity extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
 
     //Menu de l'application (haut-droite)
     @Override
@@ -45,38 +45,32 @@ public class GroupeActivity extends AppCompatActivity {
 
     private void aprop(){
 
-        Intent intent = new Intent(GroupeActivity.this, AproposActivity.class);
+        Intent intent = new Intent(HelpActivity.this, AproposActivity.class);
         startActivity(intent);
     }
 
     private void help(){
 
-        Intent intent = new Intent(GroupeActivity.this, HelpActivity.class);
+        Intent intent = new Intent(HelpActivity.this, HelpActivity.class);
         startActivity(intent);
     }
 
     private void paramBtn(){
 
-        Intent intent = new Intent(GroupeActivity.this, ParamActivity.class);
+        Intent intent = new Intent(HelpActivity.this, ParamActivity.class);
         startActivity(intent);
     }
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_groupe);
+        setContentView(R.layout.activity_help);
     }
-
     public void intent_tache(View view)
     {
-        Intent intent = new Intent(GroupeActivity.this, MainActivity.class);
+        Intent intent = new Intent(HelpActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void intent_tachegroup(View view)
-    {
-        Intent intent = new Intent(GroupeActivity.this, TacheGroupActivity.class);
-        startActivity(intent);
-    }
+
+
 }
