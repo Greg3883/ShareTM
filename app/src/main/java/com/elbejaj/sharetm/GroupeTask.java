@@ -5,6 +5,7 @@ package com.elbejaj.sharetm;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,8 +35,15 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
         //Récupération du nom
         String nom = params[0];
 
+        SharedPreferences mesPreferences = myContext.getSharedPreferences("ShareTaskManagerPreferences",0);
+        String idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
+
+        Log.i("test","RegisterTAsk - ID de l'utilisateur :"+idRegisteredUser);
+
+
+
         //Instanciation de l'appel à la méthode createGroupe()
-        Call<Groupe> call = apiInterface.createGroupe(nom);
+        Call<Groupe> call = apiInterface.createGroupe(nom,idRegisteredUser);
 
         //Exécution de la méthode createGroupe()
         try {
