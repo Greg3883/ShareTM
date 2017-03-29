@@ -68,14 +68,16 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "Veuillez renseigner le nom", Toast.LENGTH_LONG).show();
         } else {
 
-           /* Log.i("test","je vais ouvrir le groupeDAO");
+            Log.i("test","je vais ouvrir le groupeDAO");
             gd.open();
             Log.i("test","j'ai ouvert le groupeDAO");
             grp.setNom(nom);
             gd.ajouterGroupe(grp);
+            Log.i("test","gpID : "+grp.getIdGroupe());
             Log.i("test","je vais fermer le groupeDAO");
             gd.close();
-            Log.i("test","j'ai fermé le groupeDAO");*/
+            Log.i("test","j'ai fermé le groupeDAO");
+
 
             createGroupe(nom);
 
@@ -87,12 +89,12 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
     public void createGroupe(String nom) {
 
         //Exécution de l'inscription
-        Log.i("test","registerActivity : Je vais exécuter le registerTask");
+        Log.i("test","groupeActivity : Je vais exécuter le groupeTask");
         AsyncTask groupeTask = new GroupeTask(this,this.gd).execute(nom);
         Object aFonctionne = false;
         try {
             aFonctionne = groupeTask.get();
-            Log.i("test","registerActivity : Résultat du task : "+aFonctionne.toString());
+            Log.i("test","groupeActivity : Résultat du task : "+aFonctionne.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

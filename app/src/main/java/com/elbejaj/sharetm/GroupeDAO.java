@@ -58,7 +58,8 @@ public class GroupeDAO {
         db.close();
     }
 
-    public void ajouterGroupe(Groupe g){
+    public long ajouterGroupe(Groupe g){
+
         ContentValues vals = new ContentValues();
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
@@ -66,7 +67,10 @@ public class GroupeDAO {
         vals.put("idGroupe", g.getIdGroupe());
         vals.put("nom", g.getNom());
         vals.put("d_creation", reportDate);
-        db.insert("Groupe", null , vals);
+        Log.i("test","id groupe avant insert : "+vals.getAsString("idGroupe"));
+        Log.i("test","nom groupe avant insert : "+g.getNom());
+        Log.i("test","date creation groupe avant insert : "+reportDate);
+        return db.insert("Groupe", null , vals);
     }
 
     public int supprimerGroupe (int id)

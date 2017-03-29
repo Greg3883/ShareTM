@@ -28,7 +28,7 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
         //Détermine si le register a fonctionné
         Boolean aFonctionne = false;
 
-        Log.i("test", "Je suis dans le doInBackground de RegisterTask");
+        Log.i("test", "Je suis dans le doInBackground de GroupeTask");
 
         ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
 
@@ -38,7 +38,7 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
         SharedPreferences mesPreferences = myContext.getSharedPreferences("ShareTaskManagerPreferences",0);
         String idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
 
-        Log.i("test","RegisterTAsk - ID de l'utilisateur :"+idRegisteredUser);
+        Log.i("test","GroupeTAsk - ID de l'utilisateur :"+idRegisteredUser);
 
         //Instanciation de l'appel à la méthode createGroupe()
         Call<Groupe> call = apiInterface.createGroupe(nom,idRegisteredUser);
@@ -46,11 +46,17 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
         try {
             Response<Groupe> response = call.execute();
             Log.i("test","On a réussi l'appel");
-            /*if(response.body().getIdGroupe() != null) {*/
-                Groupe currentGroupe = response.body();
+            if(response.body().getIdGroupe() != null) {
+                /*Groupe currentGroupe = response.body();
+                Log.i("test","av Open gd dans grTask");
+                groupeDAO.open();
+                Log.i("test","ap Open gd dans grTask");
                 groupeDAO.ajouterGroupe(currentGroupe);
+                Log.i("test","ap Close gd dans grTask");
+                groupeDAO.close();
+                Log.i("test","ap Close gd dans grTask");*/
                 aFonctionne = true;
-            //}
+            }
         } catch (IOException e) {
             Log.i("test", e.getMessage());
         }
