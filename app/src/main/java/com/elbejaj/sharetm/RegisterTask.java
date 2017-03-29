@@ -5,7 +5,6 @@ package com.elbejaj.sharetm;
  */
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,11 +42,11 @@ public class RegisterTask extends AsyncTask<String,Void,Boolean> {
         //Instanciation de l'appel à la méthode register()
         Call<Utilisateur> call = apiInterface.register(nom,email,mdpHash);
 
-        //Exécution de la méthode login()
+        //Exécution de la méthode register()
         try {
             Response<Utilisateur> response = call.execute();
             Log.i("test","On a réussi l'appel");
-            if(response.body().getIdUtilisateur() != null) { //Le login a fonctionné
+            if(response.body().getIdUtilisateur() != null) {
                 Utilisateur currentUtilisateur = response.body();
                 utilisateurDAO.ajouterUtilisateur(currentUtilisateur);
                 aFonctionne = true;

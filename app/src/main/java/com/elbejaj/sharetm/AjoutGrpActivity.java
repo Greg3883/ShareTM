@@ -8,14 +8,18 @@ package com.elbejaj.sharetm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 
 public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -58,15 +62,38 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        gd.open();
-
         String nom = ajout_nom.getText().toString();
-        grp.setNom(nom);
-        gd.ajouterGroupe(grp);
-        gd.close();
-        Intent intent = new Intent(AjoutGrpActivity.this, GroupesActivity.class);
-        startActivity(intent);
+
+        if (nom.length() == 0) {
+            Toast.makeText(this, "Veuillez renseigner le nom", Toast.LENGTH_LONG).show();
+        } else {
+            gd.open();
+            grp.setNom(nom);
+            gd.ajouterGroupe(grp);
+            gd.close();
+
+            createGroupe(nom);
+
+            Intent intent = new Intent(AjoutGrpActivity.this, GroupesActivity.class);
+            startActivity(intent);
+        }
     }
 
+    public void createGroupe(String nom) {
+
+        //Exécution de l'inscription
+        Log.i("test","registerActivity : Je vais exécuter le registerTask");
+        AsyncTask groupeTask = new GroupeTask(this,this.gd).execute(nom);
+        Object aFonctionne = false;
+        try {
+            aFonctionne = groupeTask.get();
+            Log.i("test","registerActivity : Résultat du task : "+aFonctionne.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
