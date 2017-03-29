@@ -83,6 +83,9 @@
         <activity android:name=".AjoutGrpActivity"/>
         <activity android:name=".AffichageGroupeActivity"/>
         <activity android:name=".UpdateGroupeActivity"/>
+        <activity android:name=".AproposActivity"/>
+        <activity android:name=".HelpActivity"/>
+        <activity android:name=".ParamActivity"/>
 
         <activity android:name=".SynchronisationTachesTask"/>
 
