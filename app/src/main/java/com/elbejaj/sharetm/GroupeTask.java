@@ -40,11 +40,8 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
 
         Log.i("test","RegisterTAsk - ID de l'utilisateur :"+idRegisteredUser);
 
-
-
         //Instanciation de l'appel à la méthode createGroupe()
         Call<Groupe> call = apiInterface.createGroupe(nom,idRegisteredUser);
-
         //Exécution de la méthode createGroupe()
         try {
             Response<Groupe> response = call.execute();

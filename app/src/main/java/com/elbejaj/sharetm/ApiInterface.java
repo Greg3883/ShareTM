@@ -114,6 +114,11 @@ public interface ApiInterface {
             @Field("idUtilisateur") String idUtilisateur
     );
 
+
+    @GET("getGroupeById")
+    Call<List<Tache>> getGroupById(
+            @Query("idGroupe") String idGroupe
+
     //*****************************************
     // GESTION AFFECTATIONTACHE
     //*****************************************

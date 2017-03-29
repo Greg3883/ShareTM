@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,7 +80,7 @@ public class GroupeDAO {
         return db.update("Groupe",cv,"idGroupe="+nid, null);
     }
 
-    public Groupe trouverGroupe(int id)
+    /*public Groupe trouverGroupe(int id)
     {
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         Groupe g = null;
@@ -90,7 +91,7 @@ public class GroupeDAO {
             g.setIdGroupe(c.getString(0));
             g.setNom(c.getString(1));
             String strdc  = c.getString(2);
-            Calendar dc = null;
+            Date dc = null;
             try {
                 dc.setTime(format.parse(strdc));
             } catch (ParseException e) {
@@ -101,7 +102,7 @@ public class GroupeDAO {
 
 
         return g;
-    }
+    }*/
 
     public ArrayList <Groupe> listeGroupe()
     {
@@ -117,9 +118,9 @@ public class GroupeDAO {
             Groupe g = new Groupe();
             g.setNom(c.getString(1));
             String strdc  = c.getString(2);
-            Calendar dateC= Calendar.getInstance();
+            Date dateC = null;
             try {
-                dateC.setTime(format.parse(strdc));
+                dateC = format.parse(strdc);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Date;
 
 public class Groupe {
 
@@ -17,7 +18,7 @@ public class Groupe {
     private static final AtomicInteger count = new AtomicInteger(0);
     public String idGroupe;
     private String nomGroupe;
-    private Calendar dateCreationGroupe;
+    private Date dateCreationGroupe;
 
     //private static int idGroupe = 0;
 
@@ -29,7 +30,7 @@ public class Groupe {
         
     }
     //construteurs
-    public Groupe(String idGroupe, String nomGroupe, Calendar date) {
+    public Groupe(String idGroupe, String nomGroupe, Date date) {
         this.idGroupe = idGroupe;
         this.nomGroupe = nomGroupe;
         this.dateCreationGroupe = date;
@@ -52,11 +53,11 @@ public class Groupe {
         this.nomGroupe = nomG;
     }
 
-    public Calendar getDateCreationGroupe() {
+    public Date getDateCreationGroupe() {
         return dateCreationGroupe;
     }
 
-    public void setDateCreationGroupe(Calendar d) {
+    public void setDateCreationGroupe(Date d) {
         this.dateCreationGroupe = d;
     }
 

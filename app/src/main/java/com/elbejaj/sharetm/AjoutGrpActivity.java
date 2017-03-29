@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 
@@ -29,7 +29,7 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
     TextView dateC;
     GroupeDAO gd;
     Groupe grp;
-    Calendar date;
+    Date date;
 
 
     @Override
@@ -45,7 +45,7 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
         dateC = (TextView) findViewById(R.id.dateC);
 
         String datestr;
-        Calendar date = Calendar.getInstance();
+        Date date = new Date();
         datestr = df.format(date.getTime());
 
         dateC.setText(datestr);
@@ -67,10 +67,15 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
         if (nom.length() == 0) {
             Toast.makeText(this, "Veuillez renseigner le nom", Toast.LENGTH_LONG).show();
         } else {
+
+           /* Log.i("test","je vais ouvrir le groupeDAO");
             gd.open();
+            Log.i("test","j'ai ouvert le groupeDAO");
             grp.setNom(nom);
             gd.ajouterGroupe(grp);
+            Log.i("test","je vais fermer le groupeDAO");
             gd.close();
+            Log.i("test","j'ai fermé le groupeDAO");*/
 
             createGroupe(nom);
 
