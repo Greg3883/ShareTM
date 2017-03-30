@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void logoutBtn(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -114,8 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
         TacheDAO td = new TacheDAO(this,isConnected);
 
+        Bundle extras = getIntent().getExtras();
+        boolean fromSplash = false;
+        if(extras != null) {
+            fromSplash = extras.getBoolean("fromSplash");
+        }
+
         //Si on est connecté, on synchronise les tâches avec le serveur
-        if(isConnected) {
+        if(isConnected && !fromSplash) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationTachesTask(this,td).execute();
             Log.i("test","J'ai terminé la synchronisation des tâches");

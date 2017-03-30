@@ -52,11 +52,11 @@ public class GroupesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -84,8 +84,17 @@ public class GroupesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+<<<<<<< HEAD
     GridView simpleList;
     ArrayList birdList=new ArrayList<>();
+=======
+    private void logoutBtn(){
+        Intent intent = new Intent(GroupesActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

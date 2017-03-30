@@ -29,10 +29,10 @@ public class GroupeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
+            case R.id.param:
                 aprop();
                 return true;
-            case R.id.help:
+            case R.id.aprop:
                 paramBtn();
                 return true;
             case R.id.helpe:

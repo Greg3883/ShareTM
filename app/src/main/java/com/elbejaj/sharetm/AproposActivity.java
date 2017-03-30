@@ -30,11 +30,11 @@ public class AproposActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -61,6 +61,12 @@ public class AproposActivity extends AppCompatActivity {
         Intent intent = new Intent(AproposActivity.this, ParamActivity.class);
         startActivity(intent);
     }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(AproposActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

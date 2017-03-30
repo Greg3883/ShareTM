@@ -70,11 +70,11 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -99,6 +99,11 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     private void paramBtn(){
 
         Intent intent = new Intent(AjoutActivity.this, ParamActivity.class);
+        startActivity(intent);
+    }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(AjoutActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

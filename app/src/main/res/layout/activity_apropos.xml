@@ -9,12 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:text="Nous avons réussi à faire une application qui fonctionne approximativement" />
+        android:text="Grégoire est de la race des géniesS" />
 
-    <Button
-        android:text="Déconnexion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_logout"
-        android:onClick="logoutBtn"/>
 </LinearLayout>
