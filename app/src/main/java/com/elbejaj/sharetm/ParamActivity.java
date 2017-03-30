@@ -74,9 +74,12 @@ public class ParamActivity extends AppCompatActivity {
     public void logoutBtn(View view)
     {
         Intent intent = new Intent(ParamActivity.this, LoginActivity.class);
-        mesPreferences.edit().remove("ShareTaskManagerPreferences").commit();
-        Boolean isConnected = hasActiveInternetConnection();
-        intent.putExtra("isConnected",isConnected);
+        //mesPreferences.edit().remove("ShareTaskManagerPreferences").commit();
+        SharedPreferences settings = this.getSharedPreferences("ShareTaskManagerPreferences", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("userConnected", false);
+        editor.putString("idRegisteredUser","");
+        editor.commit();
         startActivity(intent);
     }
 
