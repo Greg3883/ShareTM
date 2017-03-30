@@ -51,9 +51,22 @@ public class Splash extends Activity{
 
                     Log.i("test","SPLASH : On va voir si on est connecté");
                     if(isConnected && !userConnected) { //Connecté à Internet et pas enregistré ->Page de login
-                        Log.i("test","Connecté à Internet et pas enregistré");
+                        Log.i("test", "Connecté à Internet et pas enregistré");
                         i = new Intent(".LOGINACTIVITY");
+                        i.putExtra("isConnected", isConnected);
+                        //Démarrage de l'activité correcpondante
+                        startActivity(i);
+                    } else if (userConnected && isConnected){
+                        TacheDAO td = new TacheDAO(getApplicationContext(),isConnected);
+                        new SynchronisationTachesTask(getApplicationContext(),td).execute();
+                        try {
+                            sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        i = new Intent (".MAINACTIVITY");
                         i.putExtra("isConnected",isConnected);
+                        i.putExtra("fromSplash",true);
                         //Démarrage de l'activité correcpondante
                         startActivity(i);
                     } else if (userConnected) { //User enregistré -> MainActivity contrôle la synchronisation

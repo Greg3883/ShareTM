@@ -119,8 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
         TacheDAO td = new TacheDAO(this,isConnected);
 
+        Bundle extras = getIntent().getExtras();
+        boolean fromSplash = false;
+        if(extras != null) {
+            fromSplash = extras.getBoolean("fromSplash");
+        }
+
         //Si on est connecté, on synchronise les tâches avec le serveur
-        if(isConnected) {
+        if(isConnected && !fromSplash) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationTachesTask(this,td).execute();
             Log.i("test","J'ai terminé la synchronisation des tâches");
