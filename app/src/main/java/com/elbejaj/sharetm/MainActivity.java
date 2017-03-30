@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -129,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
         if(isConnected && !fromSplash) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationTachesTask(this,td).execute();
+            try {
+                sleep(700);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Log.i("test","J'ai terminé la synchronisation des tâches");
         } else {
             Log.i("test","La personne n'est pas connectée, on ne peut pas synchroniser les tâches");

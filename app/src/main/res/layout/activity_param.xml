@@ -5,12 +5,6 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:text="Nous avons réussi à faire une application qui fonctionne approximativement" />
-
     <Button
         android:text="Déconnexion"
         android:layout_width="match_parent"

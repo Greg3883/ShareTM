@@ -1,14 +1,9 @@
 package com.elbejaj.sharetm;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -73,7 +68,7 @@ public class ParamActivity extends AppCompatActivity {
 
     public void logoutBtn(View view)
     {
-        Intent intent = new Intent(ParamActivity.this, LoginActivity.class);
+        Intent intent = new Intent(ParamActivity.this, Splash.class);
         //mesPreferences.edit().remove("ShareTaskManagerPreferences").commit();
         SharedPreferences settings = this.getSharedPreferences("ShareTaskManagerPreferences", 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -94,37 +89,4 @@ public class ParamActivity extends AppCompatActivity {
         Intent intent = new Intent(ParamActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
-    public boolean hasActiveInternetConnection() {
-        Log.i("test","Je suis au début du hasActiveInternetConnection");
-        Context context;
-        Boolean isConnected = false;
-        ConnectivityManager connect = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        Log.i("test","Je suis avant le if");
-        if(connect!=null) {
-            Log.i("test","Connect n'est pas null");
-
-            //NetworkInfo[] information = connect.getAllNetworkInfo();
-            Network[] networks = connect.getAllNetworks();
-            NetworkInfo networkInfo;
-
-            Log.i("test","J'ai récupéré les networks");
-
-
-            for(Network network : networks) {
-                networkInfo = connect.getNetworkInfo(network);
-                if(networkInfo.getState().equals(NetworkInfo.State.CONNECTED)) {
-                    isConnected = true;
-                    break;
-                }
-            }
-
-        }
-        Log.i("test","Je suis juste avant le retour de la fonction");
-        return isConnected;
-    }
-
-
-
 }

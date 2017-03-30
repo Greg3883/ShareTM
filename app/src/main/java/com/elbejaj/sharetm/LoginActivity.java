@@ -1,6 +1,7 @@
 package com.elbejaj.sharetm;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static java.lang.Thread.sleep;
 
 /*
  * Activité d'inscription/connexion de l'application
@@ -40,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        DBManager db = new DBManager(this,"base", null, 13);
+        SQLiteDatabase sqlite = db.getWritableDatabase();
+        db.onUpgrade(sqlite,13,13);
 
         //Récupération de la variable isConnected
         Bundle extras = getIntent().getExtras();

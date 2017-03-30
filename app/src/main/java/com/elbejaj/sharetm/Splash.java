@@ -60,7 +60,7 @@ public class Splash extends Activity{
                         TacheDAO td = new TacheDAO(getApplicationContext(),isConnected);
                         new SynchronisationTachesTask(getApplicationContext(),td).execute();
                         try {
-                            sleep(500);
+                            sleep(700);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

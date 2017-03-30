@@ -131,4 +131,6 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(UTILISATEUR_TABLE_DROP);
         onCreate(db);
     }
+
+
 }
