@@ -58,7 +58,7 @@ public class DBManager extends SQLiteOpenHelper {
             "CREATE TABLE " + GROUPE_TABLE_NAME + " (" +
                     GROUPE_ID + " TEXT PRIMARY KEY, " +
                     GROUPE_NOM + " TEXT, " +
-                    GROUPE_DATECREATION + "TEXT "+ ");";
+                    GROUPE_DATECREATION + " TEXT "+ ");";
 
     //Requête pour la suppression de la table groupe
     public static final String GROUPE_TABLE_DROP = "DROP TABLE IF EXISTS " + GROUPE_TABLE_NAME + ";";

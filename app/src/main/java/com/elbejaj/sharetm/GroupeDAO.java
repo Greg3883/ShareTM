@@ -1,7 +1,7 @@
 package com.elbejaj.sharetm;
 
 /**
- * Created by Baalamor on 05/02/2017.
+ * Created by Valentin on 05/02/2017.
  */
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,6 +16,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import static android.R.attr.id;
 
 
 public class GroupeDAO {
@@ -61,16 +63,13 @@ public class GroupeDAO {
     public long ajouterGroupe(Groupe g){
 
         ContentValues vals = new ContentValues();
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Calendar c = Calendar.getInstance();
-        String reportDate = df.format( c.getTime());
         vals.put("idGroupe", g.getIdGroupe());
-        vals.put("nom", g.getNom());
-        vals.put("d_creation", reportDate);
+        vals.put("nomGroupe", g.getNom());
+        vals.put("dateCreationGroupe", g.date_toString());
         Log.i("test","id groupe avant insert : "+vals.getAsString("idGroupe"));
         Log.i("test","nom groupe avant insert : "+g.getNom());
-        Log.i("test","date creation groupe avant insert : "+reportDate);
-        return db.insert("Groupe", null , vals);
+        Log.i("test","date creation groupe avant insert : "+ g.date_toString());
+        return db.insert("groupe", null , vals);
     }
 
     public int supprimerGroupe (int id)
@@ -108,6 +107,31 @@ public class GroupeDAO {
         return g;
     }*/
 
+
+    /**
+     * Retourne un booléen indiquant si le groupee existe déjà dans la base
+     * @param idGroupe : Identifiant de le groupe à chercher
+     */
+    public boolean alreadyExists(String idGroupe) {
+
+        Boolean response = false;
+
+        String[] projectionIn = {"idGroupe","nomGroupe","dateCreationGroupe"};
+        String selection = "idGroupe='"+idGroupe+"'";
+        String[] selectionArgs = null;
+        String groupBy = null;
+        String having = null;
+        String setOrder = null;
+        Cursor c = db.query("Groupe",projectionIn, selection, selectionArgs, groupBy, having, setOrder);
+
+        if(c.getCount() > 0) {
+            response = true;
+        }
+
+        return response;
+
+    }
+
     public ArrayList <Groupe> listeGroupe()
     {
         //Format des dates
@@ -115,7 +139,7 @@ public class GroupeDAO {
 
         ArrayList<Groupe> listeG = new ArrayList<Groupe>();
         db = dbm.getWritableDatabase();
-        Cursor c = db.query("Groupe", new String[] {"idGroupe","nom","d_creation"},null,null,null,null,null);
+        Cursor c = db.query("groupe", new String[] {"idGroupe","nomGroupe","dateCreationGroupe"},null,null,null,null,null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
