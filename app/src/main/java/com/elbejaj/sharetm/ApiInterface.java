@@ -9,6 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 /**
  * Created by Laurie on 01/02/2017.
  */
@@ -120,6 +122,11 @@ public interface ApiInterface {
             @Query("idGroupe") String idGroupe
     );
 
+    //Récupération des groupes par utilisateur
+    @GET("getGroupesByUtilisateur")
+    Call<List<Groupe>> getGroupByUser(
+            @Query("idUtilisateur") String idUtilisateur
+    );
 
     //*****************************************
     // GESTION AFFECTATIONTACHE

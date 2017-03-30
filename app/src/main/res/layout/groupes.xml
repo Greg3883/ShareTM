@@ -79,6 +79,10 @@
             android:src="@drawable/button_add"
             android:onClick="button_ajout"/>
 
+
+
+
+
     </LinearLayout>
 
 </ScrollView>

@@ -43,8 +43,13 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
+<<<<<<< HEAD
+        sha1="d5b696fadd9378072a1542e0f1dc6107e66af28e">
+        <dex dex="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c84df5e4b01e56e0e2e885114d80f4b72dda1f3e\classes.dex" />
+=======
         sha1="867dad63c33388ff8c7644b236579355036d075f">
         <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_29954e440e62f8b5a335f4d169826472215cfa74\classes.dex" />
+>>>>>>> origin/master
     </item>
     <item
         is-multidex="true"
@@ -169,8 +174,13 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
+<<<<<<< HEAD
+        sha1="e8ce12c81ae89c3f296c77bd0d46ef0cd777e583">
+        <dex dex="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_770fb4ac914a00dc34dccd1b14f8f4e2d0280077\classes.dex" />
+=======
         sha1="343938d35bd9f63bc56c2f6f7db0724091144887">
         <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d4705f378a1eb23411fea58eacb3e3419581c08b\classes.dex" />
+>>>>>>> origin/master
     </item>
     <item
         is-multidex="true"
@@ -219,6 +229,23 @@
     </item>
     <item
         is-multidex="true"
+<<<<<<< HEAD
+        jar="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_187cac37117012c3b53b6d3d2e49fe6e4e6b6bcc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Baalamor\Documents\GitHub\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_ce9f3d3004aa531f60f0364eb91748cd1717a594\classes.dex" />
+=======
         jar="C:\Users\Laurie\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
         jumboMode="true"
         optimize="true"
@@ -234,6 +261,7 @@
         revision="24.0.3"
         sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
         <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_cec18e5870159ed0ee4ae9f49e479f8b9aa80116\classes.dex" />
+>>>>>>> origin/master
     </item>
     <item
         is-multidex="true"

@@ -1,7 +1,7 @@
 package com.elbejaj.sharetm;
 
 /**
- * Created by Baalamor on 05/02/2017.
+ * Created by Valentin on 05/02/2017.
  */
 
 import java.text.DateFormat;
@@ -63,6 +63,13 @@ public class Groupe {
 
     public String date_toString() {
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        return df.format(dateCreationGroupe.getTime());
+        return df.format(dateCreationGroupe);
+    }
+
+    public String toString() {
+        return " Id du groupe: " + getIdGroupe()
+                + " Nom du groupe: " + getNom()
+                + "Date de création du groupe: " + date_toString();
+
     }
 }

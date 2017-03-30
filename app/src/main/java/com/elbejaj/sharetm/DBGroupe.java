@@ -1,7 +1,7 @@
 package com.elbejaj.sharetm;
 
 /**
- * Created by Baalamor on 08/02/2017.
+ * Created by Valentin on 08/02/2017.
  */
 
 import android.content.Context;
@@ -12,12 +12,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBGroupe extends SQLiteOpenHelper {
 
     public static final String GROUPE_ID = "idGroupe";
-    public static final String GROUPE_NOM = "nom";
-    public static final String GROUPE_DCREATION = "d_creation";
-    public static final String GROUPE_TABLE_NAME = "Groupe";
+    public static final String GROUPE_NOM = "nomGroupe";
+    public static final String GROUPE_DCREATION = "dateCreationGroupe";
+    public static final String GROUPE_TABLE_NAME = "groupe";
     public static final String GROUPE_TABLE_CREATE =
             "CREATE TABLE " + GROUPE_TABLE_NAME + " (" +
-                    GROUPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    GROUPE_ID + " TEXT PRIMARY KEY, " +
                     GROUPE_NOM + " TEXT, " +
                     GROUPE_DCREATION + " TEXT);";
 
