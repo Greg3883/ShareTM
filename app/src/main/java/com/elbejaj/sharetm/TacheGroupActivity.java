@@ -52,11 +52,11 @@ public class TacheGroupActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -81,6 +81,11 @@ public class TacheGroupActivity extends AppCompatActivity {
     private void paramBtn(){
 
         Intent intent = new Intent(TacheGroupActivity.this, ParamActivity.class);
+        startActivity(intent);
+    }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(TacheGroupActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

@@ -73,11 +73,11 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
-                aprop();
-                return true;
-            case R.id.help:
+            case R.id.param:
                 paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
                 return true;
             case R.id.helpe:
                 help();
@@ -102,6 +102,11 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     private void paramBtn() {
 
         Intent intent = new Intent(UpdateTacheActivity.this, ParamActivity.class);
+        startActivity(intent);
+    }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(UpdateTacheActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +26,58 @@ public class AffichageTacheActivity extends AppCompatActivity {
     TacheDAO td;
     Tache tache;
     ArrayList<Tache> tabTache = new ArrayList<Tache>();
+
+    //Menu de l'application (haut-droite)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_menu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.param:
+                paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
+                return true;
+            case R.id.helpe:
+                help();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void aprop(){
+
+        Intent intent = new Intent(AffichageTacheActivity.this, AproposActivity.class);
+        startActivity(intent);
+    }
+
+    private void help(){
+
+        Intent intent = new Intent(AffichageTacheActivity.this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    private void paramBtn(){
+
+        Intent intent = new Intent(AffichageTacheActivity.this, ParamActivity.class);
+        startActivity(intent);
+    }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(AffichageTacheActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
