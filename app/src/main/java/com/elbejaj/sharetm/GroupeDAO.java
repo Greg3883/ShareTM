@@ -10,14 +10,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import static android.R.attr.id;
+import java.util.Date;
 
 
 public class GroupeDAO {
@@ -154,6 +151,8 @@ public class GroupeDAO {
             }
             g.setDateCreationGroupe(dateC);
             g.setIdGroupe(c.getString(0));
+
+            Log.i("Groupe DAO : ",g.getIdGroupe());
             listeG.add(g);
             c.moveToNext();
         }

@@ -118,7 +118,13 @@ public class GroupesActivity extends AppCompatActivity {
         //@TODO : A modifier, réuperer le isConnected du main
         gd = new GroupeDAO(this, isConnected);
 
-        if(isConnected) {
+        boolean fromAddingGroup = false;
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            fromAddingGroup = extras.getBoolean("fromAjoutGroupe");
+        }
+
+        if(isConnected && !fromAddingGroup) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationGroupesTask(this,gd).execute();
             Log.i("test","J'ai terminé la synchronisation des tâches");

@@ -6,20 +6,16 @@ package com.elbejaj.sharetm;
 
 
 import android.app.ProgressDialog;
-import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 
 public class SynchronisationGroupesTask extends AsyncTask <Void,Void,Void> {
@@ -87,6 +83,4 @@ public class SynchronisationGroupesTask extends AsyncTask <Void,Void,Void> {
         return null;
 
     }
-
-
 }

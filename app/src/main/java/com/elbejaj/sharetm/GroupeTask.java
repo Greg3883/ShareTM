@@ -42,19 +42,10 @@ public class GroupeTask extends AsyncTask<String,Void,Boolean> {
 
         //Instanciation de l'appel à la méthode createGroupe()
         Call<Groupe> call = apiInterface.createGroupe(nom,idRegisteredUser);
-        //Exécution de la méthode createGroupe()
         try {
             Response<Groupe> response = call.execute();
             Log.i("test","On a réussi l'appel");
             if(response.body().getIdGroupe() != null) {
-                /*Groupe currentGroupe = response.body();
-                Log.i("test","av Open gd dans grTask");
-                groupeDAO.open();
-                Log.i("test","ap Open gd dans grTask");
-                groupeDAO.ajouterGroupe(currentGroupe);
-                Log.i("test","ap Close gd dans grTask");
-                groupeDAO.close();
-                Log.i("test","ap Close gd dans grTask");*/
                 aFonctionne = true;
             }
         } catch (IOException e) {

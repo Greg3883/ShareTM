@@ -6,6 +6,7 @@ package com.elbejaj.sharetm;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,13 +14,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
+
+import static java.lang.Thread.sleep;
 
 
 public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -69,19 +71,25 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
         } else {
 
             Log.i("test","je vais ouvrir le groupeDAO");
-            gd.open();
+            //gd.open();
             Log.i("test","j'ai ouvert le groupeDAO");
             grp.setNom(nom);
-            gd.ajouterGroupe(grp);
+            //gd.ajouterGroupe(grp);
             Log.i("test","gpID : "+grp.getIdGroupe());
             Log.i("test","je vais fermer le groupeDAO");
-            gd.close();
+            //gd.close();
             Log.i("test","j'ai fermé le groupeDAO");
 
 
             createGroupe(nom);
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Intent intent = new Intent(AjoutGrpActivity.this, GroupesActivity.class);
+            intent.putExtra("fromAjoutGroupe", true);
             startActivity(intent);
         }
     }
@@ -94,6 +102,8 @@ public class AjoutGrpActivity extends AppCompatActivity implements View.OnClickL
         Object aFonctionne = false;
         try {
             aFonctionne = groupeTask.get();
+            sleep(500);
+            new SynchronisationGroupesTask(this,gd).execute();
             Log.i("test","groupeActivity : Résultat du task : "+aFonctionne.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
