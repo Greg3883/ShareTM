@@ -67,6 +67,12 @@ public class AproposActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(AproposActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

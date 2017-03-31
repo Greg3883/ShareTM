@@ -1,9 +1,14 @@
 package com.elbejaj.sharetm;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,6 +73,7 @@ public class ParamActivity extends AppCompatActivity {
 
     public void logoutBtn(View view)
     {
+
         Intent intent = new Intent(ParamActivity.this, Splash.class);
         //mesPreferences.edit().remove("ShareTaskManagerPreferences").commit();
         SharedPreferences settings = this.getSharedPreferences("ShareTaskManagerPreferences", 0);
@@ -89,4 +95,13 @@ public class ParamActivity extends AppCompatActivity {
         Intent intent = new Intent(ParamActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(ParamActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 }

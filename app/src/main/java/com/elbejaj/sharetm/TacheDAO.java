@@ -92,9 +92,9 @@ public class TacheDAO {
 
     }
 
-    public int supprimerTache (int id)
+    public int supprimerTache (String id)
     {
-        return db.delete("Tache", "idTache="+id, null);
+        return db.delete("Tache", "idTache='"+id+"'", null);
     }
 
     public int updateTache (String id, ContentValues cv)

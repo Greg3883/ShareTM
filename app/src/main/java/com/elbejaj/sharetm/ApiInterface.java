@@ -3,13 +3,12 @@ package com.elbejaj.sharetm;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by Laurie on 01/02/2017.
@@ -39,12 +38,20 @@ public interface ApiInterface {
             @Field("password") String mdpHash
     );
 
+    //Récupération des groupes par utilisateur
+    @GET("getGroupesByUtilisateur")
+    Call<List<Groupe>> getGroupByUser(
+            @Query("idUtilisateur") String idUtilisateur
+    );
+
     //Récupération d'un utilisateur par son email
     @FormUrlEncoded
     @POST("getUtilisateurByEmail")
     Call<Utilisateur> getUserByEmail(
             @Field("email") String email
     );
+
+    
     //Récupération des utilisateurs d'un groupe
     @FormUrlEncoded
     @GET("getUtilisateursByGroupe")
@@ -97,6 +104,12 @@ public interface ApiInterface {
             @Query("idUtilisateur") String idUtilisateur
     );
 
+    //Récupération des tâches par utilisateur admin
+    @GET("getTachesAdminByUtilisateur")
+    Call<List<Tache>> getTaskAdminByUser(
+            @Query("idUtilisateur") String idUtilisateur
+    );
+
     //Récupération des tâches par groupe
     @FormUrlEncoded
     @GET("getTachesByGroupe")
@@ -116,17 +129,19 @@ public interface ApiInterface {
             @Field("idUtilisateur") String idUtilisateur
     );
 
+    //uppresion tache
+    @FormUrlEncoded
+    @POST("supprimerTache")
+    Call<Void> deleteTask(
+            @Field("idTache") String idTache
+    );
+
 
     @GET("getGroupeById")
     Call<List<Tache>> getGroupById(
             @Query("idGroupe") String idGroupe
     );
 
-    //Récupération des groupes par utilisateur
-    @GET("getGroupesByUtilisateur")
-    Call<List<Groupe>> getGroupByUser(
-            @Query("idUtilisateur") String idUtilisateur
-    );
 
     //*****************************************
     // GESTION AFFECTATIONTACHE

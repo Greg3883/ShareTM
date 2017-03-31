@@ -61,6 +61,12 @@ public class HelpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(HelpActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
     private void logoutBtn(){
         Intent intent = new Intent(HelpActivity.this, LoginActivity.class);
         startActivity(intent);
