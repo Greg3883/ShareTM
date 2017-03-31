@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
@@ -84,17 +83,12 @@ public class GroupesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-<<<<<<< HEAD
     GridView simpleList;
     ArrayList birdList=new ArrayList<>();
-=======
     private void logoutBtn(){
         Intent intent = new Intent(GroupesActivity.this, LoginActivity.class);
         startActivity(intent);
     }
-
-
->>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
