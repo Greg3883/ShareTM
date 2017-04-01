@@ -17,18 +17,14 @@ import java.util.concurrent.ExecutionException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static java.lang.Thread.sleep;
-
 /*
  * Activité d'inscription/connexion de l'application
  */
 
 public class LoginActivity extends AppCompatActivity {
 
-    UtilisateurDAO ud;
     TextView login_incorrect;
     ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
-    Boolean isConnected;
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -50,21 +46,22 @@ public class LoginActivity extends AppCompatActivity {
 
         //Récupération de la variable isConnected
         Bundle extras = getIntent().getExtras();
+        final Boolean isConnected;
         if(extras==null) {
-            this.isConnected = null;
+            isConnected = false;
         } else {
-            this.isConnected=extras.getBoolean("isConnected");
+            isConnected=extras.getBoolean("isConnected");
         }
 
+        final UtilisateurDAO ud = new UtilisateurDAO(this,isConnected);
 
-        this.ud = new UtilisateurDAO(this,this.isConnected);
 
         //Si on clique sur le bouton Login, on peut se logger et on lance la méthode login()
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
              @Override
              public void onClick(View v) {
-                    login();
+                    login(ud, isConnected);
                 }
              }
         );
@@ -88,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Fonction pour se connecter à l'application
      */
-    public void login() {
+    public void login(UtilisateurDAO ud, Boolean isConnected) {
 
         //@TODO : Remettre la vérification des champs du formulaire
         /*
@@ -116,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Exécution de la connexion
         Log.i("test","loginActivity : Je vais exécuter le loginTask");
-        AsyncTask loginTask = new LoginTask(this,this.ud).execute(email,password);
+        AsyncTask loginTask = new LoginTask(this,ud).execute(email,password);
         Object aFonctionne = false;
         try {
             aFonctionne = loginTask.get();

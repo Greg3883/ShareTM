@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class GroupesActivity extends AppCompatActivity {
 
     GroupeDAO gd;
@@ -125,11 +127,16 @@ public class GroupesActivity extends AppCompatActivity {
         }
 
         if(isConnected && !fromAddingGroup) {
-            Log.i("test","Je vais synchroniser les tâches");
+            Log.i("test","Je vais synchroniser les groupes");
             new SynchronisationGroupesTask(this,gd).execute();
-            Log.i("test","J'ai terminé la synchronisation des tâches");
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.i("test","J'ai terminé la synchronisation des groupes");
         } else {
-            Log.i("test","La personne n'est pas connectée, on ne peut pas synchroniser les tâches");
+            Log.i("test","La personne n'est pas connectée, on ne peut pas synchroniser les groupes");
         }
 
         tabGroupe = gd.listeGroupe();

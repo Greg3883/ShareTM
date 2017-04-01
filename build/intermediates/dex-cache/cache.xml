@@ -70,8 +70,13 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
+<<<<<<< HEAD
         sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-7.0.1_91a96039c004f5d8ad70dc01dc2ff817f4f03878\classes.dex" />
+=======
+        sha1="36ad995c119cfc742d340839ea92263457fd449b">
+        <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_05e7fdf47b8d354c6876cfa515003295902096cb\classes.dex" />
+>>>>>>> origin/master
     </item>
     <item
         is-multidex="true"
@@ -169,8 +174,13 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
+<<<<<<< HEAD
         sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
         <dex dex="C:\Users\Bejaj\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_89fb587016ff797470e12630ee6de548f9ffd475\classes.dex" />
+=======
+        sha1="9c501add0b4a8129c7d8944f23a00c5e59323963">
+        <dex dex="C:\Users\Laurie\AndroidStudioProjects\ShareTM\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d4705f378a1eb23411fea58eacb3e3419581c08b\classes.dex" />
+>>>>>>> origin/master
     </item>
     <item
         is-multidex="true"

@@ -12,12 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
+
+import static java.lang.Thread.sleep;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -41,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         Button valider = (Button) findViewById(R.id.btn_valider);
+
+        //Instanciation de l'utilisateur DAO
+        this.ud = new UtilisateurDAO(this,true);
 
         valider.setOnClickListener(new View.OnClickListener() {
 
@@ -143,10 +147,27 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Boolean registerAFonctionne = (Boolean) aFonctionne;
+        String registerAFonctionne = (String) aFonctionne;
 
         //Avant de démarrer le LoginActivity, on vérifie si l'inscription a fonctionné
-        if(registerAFonctionne==true) {
+        if(registerAFonctionne=="PB_MAIL") { //EMail déjà utilisé
+            Toast.makeText(this,"L'email est déjà utilisé",Toast.LENGTH_LONG).show();
+
+        } else if(registerAFonctionne=="USER_CREATED") { // Ca a fonctionné
+
+            //Création du groupe Personnel
+            GroupeDAO gd = new GroupeDAO(this,true);
+            Log.i("test","groupeActivity : Je vais exécuter le groupeTask");
+            AsyncTask groupeTask = new GroupeTask(this,gd).execute("Personnel");
+            Object creatGroupeAFonctionne = false;
+            try {
+                creatGroupeAFonctionne = groupeTask.get();
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             Intent i = new Intent (".LOGINACTIVITY");
             startActivity(i);
         } else {

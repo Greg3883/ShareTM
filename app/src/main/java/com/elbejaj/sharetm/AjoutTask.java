@@ -56,8 +56,10 @@ public class AjoutTask extends AsyncTask<String,Void,Boolean> {
         //Exécution de la méthode login()
         try {
             Response<Tache> response = call.execute();
-            if(response.body().getIdTache() != null) { //Le login a fonctionné
-                aFonctionne = true;
+            if(response.body()!= null) {//L'ajout a fonctionné
+                if(response.body().getIdTache()!=null) {
+                    aFonctionne = true;
+                }
             }
         } catch (IOException e) {
             Log.i("test", e.getMessage());

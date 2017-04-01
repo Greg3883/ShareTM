@@ -113,6 +113,7 @@ public class GroupeDAO {
 
         Boolean response = false;
 
+        open();
         String[] projectionIn = {"idGroupe","nomGroupe","dateCreationGroupe"};
         String selection = "idGroupe='"+idGroupe+"'";
         String[] selectionArgs = null;
