@@ -222,10 +222,10 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         //long laf = taf.ajouterAffectationTache(affectTache);
         mesPreferences = getSharedPreferences("ShareTaskManagerPreferences",0);
         this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
-        AsyncTask loginTask = new AjoutTask(this, this.td,this.taf,this.tache,this.affectTache,idRegisteredUser).execute();
+        AsyncTask ajoutTask = new AjoutTask(this, this.td,this.taf,this.tache,this.affectTache,idRegisteredUser).execute();
         Object aFonctionne = false;
         try {
-            aFonctionne = loginTask.get();
+            aFonctionne = ajoutTask.get();
             Log.i("test","loginActivity : Résultat du task : "+aFonctionne.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();

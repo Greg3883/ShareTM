@@ -72,7 +72,9 @@ public class UtilisateurDAO{
 
             //Récupération de la date de création dans une chaîne de caractères
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Log.i("test","Date création de l'utilisateur : "+u.getDateCreationU());
             String dateCreation = df.format(u.getDateCreationU());
+            Log.i("test","Date création de l'utilisateur (String): "+dateCreation);
 
             vals.put("idUtilisateur", u.getIdUtilisateur());
             vals.put("nomU", u.getNomU());

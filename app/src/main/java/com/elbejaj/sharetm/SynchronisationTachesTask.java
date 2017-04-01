@@ -1,7 +1,5 @@
 package com.elbejaj.sharetm;
 
-import android.app.ProgressDialog;
-import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -24,7 +22,7 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
 
     private Context myContext;
     private TacheDAO tacheDAO;
-    final ProgressDialog progressDialog;
+    //final ProgressDialog progressDialog;
     private SharedPreferences mesPreferences;
     private String idUtilisateurCourant;
 
@@ -33,10 +31,6 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
         this.myContext = context;
         this.tacheDAO = tacheDAO;
 
-        //Instanciation du dialogue de chargement
-        progressDialog = new ProgressDialog(this.myContext, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setMessage("Synchronisation...");
         //Récupération de l'ID de l'utilisateur courant
         mesPreferences = this.myContext.getSharedPreferences("ShareTaskManagerPreferences",0);
         this.idUtilisateurCourant = mesPreferences.getString("idRegisteredUser","");
@@ -89,7 +83,7 @@ public class SynchronisationTachesTask extends AsyncTask <Void,Void,Void> {
     @Override
     protected void onProgressUpdate(Void... progress) {
         //@TODO : Voir pourquoi ça n'affiche rien
-        this.progressDialog.show();
+        //this.progressDialog.show();
     }
 
     @Override

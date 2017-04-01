@@ -5,30 +5,40 @@ package com.elbejaj.sharetm;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class RegisterTask extends AsyncTask<String,Void,Boolean> {
+import static java.lang.Thread.sleep;
+
+public class RegisterTask extends AsyncTask<String,Void,String> {
 
     private Context myContext;
     private UtilisateurDAO utilisateurDAO;
 
     public RegisterTask(Context context, UtilisateurDAO utilisateurDAO) {
         this.myContext = context;
-        this.utilisateurDAO = utilisateurDAO;
+        if(utilisateurDAO != null) {
+            this.utilisateurDAO = utilisateurDAO;
+        } else {
+            Log.i("test","RegisterTask - Constructeur : UtilisateurDAO est null");
+            this.utilisateurDAO = new UtilisateurDAO(this.myContext,true);
+        }
+
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected String doInBackground(String... params) {
 
         //Détermine si le register a fonctionné
-        Boolean aFonctionne = false;
+        String aFonctionne = "";
 
         Log.i("test", "Je suis dans le doInBackground de RegisterTask");
 
@@ -46,10 +56,35 @@ public class RegisterTask extends AsyncTask<String,Void,Boolean> {
         try {
             Response<Utilisateur> response = call.execute();
             Log.i("test","On a réussi l'appel");
-            if(response.body().getIdUtilisateur() != null) {
+            if(response.body() != null) {
                 Utilisateur currentUtilisateur = response.body();
-                utilisateurDAO.ajouterUtilisateur(currentUtilisateur);
-                aFonctionne = true;
+                if(currentUtilisateur!=null && currentUtilisateur.getIdUtilisateur()!=null) {
+                    //On peut ajouter
+                    Log.i("test","idDel'utilisateur a ajouter : "+currentUtilisateur.getIdUtilisateur());
+                    if(currentUtilisateur.getIdUtilisateur().equals("PB_MAIL")) {
+                        Log.i("test","currentUtilisateur non null et idUtilisateur PB_MAIL");
+                        aFonctionne = "PB_MAIL";
+                        //Toast.makeText(myContext,"Cet email est déjà enregistré",Toast.LENGTH_LONG).show();
+                    } else {
+                        this.utilisateurDAO.ajouterUtilisateur(currentUtilisateur);
+
+                        //Mise à jour des préférences
+                        SharedPreferences settings = myContext.getSharedPreferences("ShareTaskManagerPreferences", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean("userConnected", true);
+                        String idRegisteredUser = currentUtilisateur.getIdUtilisateur();
+                        editor.putString("idRegisteredUser",idRegisteredUser);
+                        editor.commit();
+
+
+
+                        aFonctionne = "USER_CREATED";
+                    }
+                } else {
+                    aFonctionne = "USER_NOT_CREATED";
+                    Log.i("test","Problème d'inscription");
+                }
+
             }
         } catch (IOException e) {
             Log.i("test", e.getMessage());
@@ -59,7 +94,7 @@ public class RegisterTask extends AsyncTask<String,Void,Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean aFonctionne) {
+    protected void onPostExecute(String aFonctionne) {
         Toast.makeText(myContext, "Inscription réussie !",Toast.LENGTH_LONG).show();
     }
 
