@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -50,14 +44,9 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
     private Calendar calendar;
     private int year, month, day;
 
+
     //Pour les appels aux services de l'API
     ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-
 
     //Menu de l'application (haut-droite)
     @Override
@@ -133,13 +122,10 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         Bundle extras = getIntent().getExtras();
         String idTache = extras.getString("idtu");
 
-        Log.i("test", "tata");
-
         //Recherche de la tâche en ligne
         this.tache = td.trouverTache(idTache);
         td.close();
 
-        Log.i("test", "toto");
 
         //Instanciation des valeurs des champs en fonction de celles de la tâche
         ajout_nom.setText(this.tache.getIntituleT());
@@ -221,15 +207,12 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         showDate(year, month + 1, day);
 
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
     @Override
     public void onClick(View v) {
-
+        Log.i("test","Je suis dans le onClick du valider");
         //Format des dates
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         td.open();
@@ -238,6 +221,7 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
         String value_prio = ajout_priorite.getSelectedItem().toString();
+
 
         //Récupération de la priorité
         int priorite;
@@ -270,15 +254,16 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         tache.setEtatT(etat);
         tache.setPrioriteT(priorite);
 
+        //Envoi des nouveaux attributs à la requête de modification en local
         ContentValues cv = new ContentValues();
         cv.put("intituleT", tache.getIntituleT());
         cv.put("descriptionT", tache.getDescriptionT());
         cv.put("prioriteT", tache.getPrioriteT());
-        Log.i("test", "updateTacheActivity dans modification, strEcheance : " + strEcheance);
         cv.put("echeanceT", strEcheance);
         setContentValue(cv);
         Bundle extras = getIntent().getExtras();
         String idTache = extras.getString("idtu");
+        //@TODO : Modifier la date de dernière modification
         //int idTacheI = Integer.parseInt(idTache);
         long lg = td.updateTache(idTache, cv);
 
@@ -353,39 +338,6 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
                 }
             };
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("UpdateTache Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

@@ -114,6 +114,20 @@
             android:id="@+id/ajout_etat" />
 
 
+        <TextView
+            android:text="Groupe :"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="22dp"
+            android:textStyle="normal|italic"
+            android:textColor="#282830" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ajout_spinnerGroupes" />
+
         <Button
             android:id="@+id/ajout_button"
             android:layout_width="match_parent"

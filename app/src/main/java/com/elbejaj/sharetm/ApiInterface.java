@@ -9,8 +9,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Created by Laurie on 01/02/2017.
  */

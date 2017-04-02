@@ -45,24 +45,24 @@ public class AjoutTask extends AsyncTask<String,Void,Boolean> {
         DateFormat form = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = form.format(tache.getEcheanceT());
 
-        Log.i("test", "Je suis dans le doInBackground de LoginTask");
+        Log.i("test", "Je suis dans le doInBackground de AjoutTask");
 
         ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
 
 
         //Instanciation de l'appel à la méthode login()
         Call<Tache> call = apiInterface.createTask(tache.getIntituleT(),tache.getDescriptionT(),tache.getPrioriteT(),tache.getEtatT(),formattedDate,tache.getRefGroupe(),this.idu);
-        //Call<Tache> call1 = apiInterface.createAffectationTache(mesPreferences.getString("idRegisteredUser",""),tache.getIdTache(),aft.isAdmin());
         //Exécution de la méthode login()
         try {
             Response<Tache> response = call.execute();
             if(response.body()!= null) {//L'ajout a fonctionné
                 if(response.body().getIdTache()!=null) {
                     aFonctionne = true;
+                    Log.i("test","AjoutTask : Ca a fonctionné !");
                 }
             }
         } catch (IOException e) {
-            Log.i("test", e.getMessage());
+            Log.i("test", "Exception dans le AjoutTask : "+e.getMessage());
         }
 
         /*try {

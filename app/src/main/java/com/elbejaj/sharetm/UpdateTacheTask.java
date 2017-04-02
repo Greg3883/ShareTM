@@ -49,6 +49,7 @@ public class UpdateTacheTask extends AsyncTask<Object,Void,Boolean> {
         Log.i("test", "updateTacheTask : etat de la tâche à modifier : " + etatT);
         Log.i("test", "updateTacheTask : echeance de la tâche à modifier : " + echeanceT);
 
+
         //Instanciation de l'appel à la méthode updateTask()
         Call<Tache> call = apiInterface.updateTask(idTache, intituleT, descriptionT, prioriteT, etatT, echeanceT);
 

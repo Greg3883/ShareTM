@@ -44,12 +44,16 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences mesPreferences;
     TacheDAO td;
     AffectationTacheDAO taf;
-    private String idRegisteredUser;
     AffectationTache affectTache;
+    private String idRegisteredUser;
     Tache tache;
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
+    List listeGroupesNoms = new ArrayList();
+    List listeGroupesID = new ArrayList();
+
+    Spinner ajout_spinnerGroupes;
 
     //Menu de l'application (haut-droite)
     @Override
@@ -114,6 +118,36 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         ajout_nom = (EditText) findViewById(R.id.ajout_input_nom);
         ajout_contenu = (EditText) findViewById(R.id.ajout_input_contenu);
         ajout_priorite = (Spinner) findViewById(R.id.ajout_priorite);
+        ajout_spinnerGroupes = (Spinner) findViewById(R.id.ajout_spinnerGroupes);
+
+        //Remplissage des données pour les groupes
+        Log.i("test","Ajout activity : Je vais remplir la liste des groupes");
+        GroupeDAO gd = new GroupeDAO(this,true);
+        ArrayList<Groupe> listeGroupes = gd.listeGroupe();
+
+        for(int i=0;i<listeGroupes.size();i++) {
+            Groupe currentGroupe = listeGroupes.get(i);
+            if(currentGroupe!=null) {
+                Log.i("test","ID Du groupe : "+currentGroupe.getIdGroupe());
+                Log.i("test","nom du groupe : " + currentGroupe.getNom());
+                this.listeGroupesID.add(currentGroupe.getIdGroupe());
+                this.listeGroupesNoms.add(currentGroupe.getNom());
+            } else {
+                Log.i("test","le groupe est null");
+            }
+        }
+        //Remplissage du spinner
+        Log.i("test","ArrayAdapter");
+        if(this.listeGroupesNoms!=null) {
+            Log.i("test","AjoutActivity : La liste des groupes n'est PAS null");
+            ArrayAdapter dataAdapterG = new ArrayAdapter(this,android.R.layout.simple_spinner_item,this.listeGroupesNoms);
+            dataAdapterG.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ajout_spinnerGroupes.setAdapter(dataAdapterG);
+
+        } else {
+            Log.i("test","AjoutActivity : La liste des groupes est null");
+        }
+
         List spinnerPrio = new ArrayList();
         spinnerPrio.add("Urgent");
         spinnerPrio.add("A traiter rapidement");
@@ -159,83 +193,99 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         TacheDAO td = new TacheDAO(this, true);
         AffectationTacheDAO taf = new AffectationTacheDAO(this,true);
-        Log.i("test","Je rentre dans le OnClick");
         ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
+
         //Format des dates
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
         Date currentDate = new Date();
-        Log.i("test","Je rentk");
+
+        //Récupération des valeurs
         td.open();
-        Log.i("test","Je rentk");
         tache = new Tache();
+
         String nom = ajout_nom.getText().toString();
         String contenu = ajout_contenu.getText().toString();
         String value_etat = ajout_etat.getSelectedItem().toString();
-        int etat;
-        if (value_etat == "En cours"){
-            etat = 1;
-        }else if(value_etat == "En attente"){
-            etat = 2;
-        } else {
-            etat = 3;
-        }
-        String value_prio = ajout_priorite.getSelectedItem().toString();
-        int priorite;
-        if (value_prio == "Urgent"){
-            priorite = 1;
-        }else if(value_prio == "A traiter rapidement"){
-            priorite = 2;
-        } else {
-            priorite = 3;
-        }
-        String strEcheance  = ajout_echeance.getText().toString();
-        try {
-            Date strEcheance2 = format2.parse(strEcheance);
-            strEcheance = format.format(strEcheance2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log.i("////ZEEEEEEEEEEE/////", strEcheance);
-        tache.setEtatT(etat);
-        tache.setIntituleT(nom);
-        tache.setDescriptionT(contenu);
-        tache.setRefGroupe("1");
-        tache.setPrioriteT(priorite);
-        tache.setDateCreationT(currentDate);
-        Date echeance = null;
-        try {
-            echeance = format.parse(strEcheance);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        tache.setEcheanceT(echeance);
-        Log.i("test","dans le try");
 
-        // long lg = td.ajouterTache(tache);
-        taf.open();
-        affectTache = new AffectationTache();
-        //affectTache.setIdUtilisateur(mesPreferences.getString("idRegisteredUser",""));
-        affectTache.setIdUtilisateur("1");
-        affectTache.setEstAdminTache(1);
-        affectTache.setIdTache(tache.getIdTache());
-        //long laf = taf.ajouterAffectationTache(affectTache);
-        mesPreferences = getSharedPreferences("ShareTaskManagerPreferences",0);
-        this.idRegisteredUser = mesPreferences.getString("idRegisteredUser","");
-        AsyncTask ajoutTask = new AjoutTask(this, this.td,this.taf,this.tache,this.affectTache,idRegisteredUser).execute();
-        Object aFonctionne = false;
-        try {
-            aFonctionne = ajoutTask.get();
-            Log.i("test","loginActivity : Résultat du task : "+aFonctionne.toString());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        if(contenu.isEmpty() | nom.isEmpty()) {
+            Toast.makeText(this,"Veuillez remplir tous les champs",Toast.LENGTH_LONG).show();
+        } else {
+            int etat;
+            if (value_etat == "En cours") {
+                etat = 1;
+            } else if (value_etat == "En attente") {
+                etat = 2;
+            } else {
+                etat = 3;
+            }
+            String value_prio = ajout_priorite.getSelectedItem().toString();
+            int priorite;
+            if (value_prio == "Urgent") {
+                priorite = 1;
+            } else if (value_prio == "A traiter rapidement") {
+                priorite = 2;
+            } else {
+                priorite = 3;
+            }
+            String strEcheance = ajout_echeance.getText().toString();
+            try {
+                Date strEcheance2 = format2.parse(strEcheance);
+                strEcheance = format.format(strEcheance2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //Récupération du groupe sélectionné et de son ID
+            String idGroupeSelected = listeGroupesID.get(ajout_spinnerGroupes.getSelectedItemPosition()).toString();
+
+            tache.setEtatT(etat);
+            tache.setIntituleT(nom);
+            tache.setDescriptionT(contenu);
+            tache.setRefGroupe("1");
+            tache.setPrioriteT(priorite);
+            tache.setDateCreationT(currentDate);
+            tache.setRefGroupe(idGroupeSelected);
+
+            Date echeance = null;
+            try {
+                echeance = format.parse(strEcheance);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            tache.setEcheanceT(echeance);
+
+
+            taf.open();
+            affectTache = new AffectationTache();
+
+            affectTache.setIdUtilisateur("1");
+            affectTache.setEstAdminTache(1);
+            affectTache.setIdTache(tache.getIdTache());
+
+            //Récupération des préférences pour avoir l'ID utilisateur courant
+            mesPreferences = getSharedPreferences("ShareTaskManagerPreferences", 0);
+            this.idRegisteredUser = mesPreferences.getString("idRegisteredUser", "");
+
+            //Création d'une tâche sur le serveur
+            Log.i("test", "Je vais lancer l'ajoutTask");
+            AsyncTask ajoutTask = new AjoutTask(this, this.td, this.taf, this.tache, this.affectTache, idRegisteredUser).execute();
+            Object aFonctionne = false;
+            try {
+                aFonctionne = ajoutTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            taf.close();
+            td.close();
+
+            //Retour vers le MainActivity
+            Intent intent = new Intent(AjoutActivity.this, MainActivity.class);
+            startActivity(intent);
         }
-        taf.close();
-        td.close();
-        Intent intent = new Intent(AjoutActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 
     private void showDate(int year, int month, int day) {

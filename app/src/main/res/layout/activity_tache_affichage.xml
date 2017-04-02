@@ -18,7 +18,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
-            android:text="SUPPRIMER !"
+            android:text="SUPPRIMER"
             android:textColor="#ecf0f1"
             android:background="@drawable/border_add"
             android:layout_gravity="center_vertical"
