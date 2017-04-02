@@ -1,6 +1,9 @@
 package com.elbejaj.sharetm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,10 +14,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Bejaj on 14/01/2017.
@@ -25,6 +35,11 @@ public class AffichageTacheActivity extends AppCompatActivity {
     LinearLayout main_layout;
     TacheDAO td;
     Tache tache;
+    AffectationTache affectTache;
+    Tache tacheEncours;
+    AffectationTacheDAO taf;
+    private String idUtilisateurCourant;
+    private SharedPreferences mesPreferences;
     ArrayList<Tache> tabTache = new ArrayList<Tache>();
 
     //Menu de l'application (haut-droite)
@@ -84,7 +99,10 @@ public class AffichageTacheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tache_affichage);
 
+        AffectationTacheDAO taf = new AffectationTacheDAO(this,true);
         main_layout = (LinearLayout) findViewById(R.id.layout_affichage);
+        mesPreferences = getSharedPreferences("ShareTaskManagerPreferences",0);
+        this.idUtilisateurCourant = mesPreferences.getString("idRegisteredUser","");
         //@TODO Changer ca
         td = new TacheDAO(this,true);
         tabTache = td.listeTache();
@@ -99,6 +117,7 @@ public class AffichageTacheActivity extends AppCompatActivity {
                 Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
                 if (idTacheI.equals(tabTache.get(i).getIdTache())) {
                     //Creation du Linear Layout de la tâche
+                    tacheEncours = tabTache.get(i);
                     final RelativeLayout rowLinear = new RelativeLayout(this);
 
                     //Paramètre du Linear
@@ -157,13 +176,26 @@ public class AffichageTacheActivity extends AppCompatActivity {
 
     public void button_suppr(View view)
     {
+        Object aSuppr = false;
         Intent intent = new Intent(AffichageTacheActivity.this, MainActivity.class);
         td.open();
         String idTache;
         Bundle extras = getIntent().getExtras();
         idTache = extras.getString("idpass");
-        int idTacheI = Integer.parseInt(idTache);
-        long lg = td.supprimerTache(idTacheI);
+        Log.i("test","Id tache en cours :"+ tacheEncours.getIdTache());
+        AsyncTask loginTask = new DeleteTacheTask(this, this.td,this.taf,tacheEncours,this.affectTache, this.idUtilisateurCourant).execute();
+        try {
+            aSuppr = (Boolean) loginTask.get();
+        } catch (Exception e) {
+            Log.i("test", e.getMessage());
+        }
+        if (aSuppr.toString().equals("true")) {
+            long lg = td.supprimerTache(idTache);
+        } else {
+            Toast.makeText(getApplicationContext(), "Tu n'es pas Admin de cette tâche !",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
         td.close();
         startActivity(intent);
     }
