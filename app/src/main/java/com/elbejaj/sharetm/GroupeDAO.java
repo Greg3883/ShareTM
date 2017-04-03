@@ -80,29 +80,38 @@ public class GroupeDAO {
         return db.update("Groupe",cv,"idGroupe="+nid, null);
     }
 
-    /*public Groupe trouverGroupe(int id)
+    public Groupe trouverGroupe(String id)
     {
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         Groupe g = null;
-        Cursor c = db.query("Groupe", new String[] {"idGroupe","nom","d_creation"},"idGroupe="+id,null,null,null,null);
+        //Cursor c = db.query("groupe", new String[] {"idGroupe","nomGroupe","dateCreationGroupe"},null,null,null,null,null);
+        //Cursor c = db.query("tache", new String[] {"dateDerniereModification"},"idTache='"+id+"'",null,null,null,null);
+        Cursor c = db.query("groupe", new String[] {"idGroupe","nomGroupe","dateCreationGroupe"},"idGroupe='"+id+"'",null,null,null,null);
+        Log.i("Test-Valentin", "Toto");
         if (c.moveToFirst())
         {
+            Log.i("Test","1");
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Log.i("Test","2");
             g = new Groupe();
+            Log.i("Test","3");
             g.setIdGroupe(c.getString(0));
+            Log.i("Get0",c.getString(0));
+            Log.i("Get1",c.getString(1));
+            Log.i("Get2",c.getString(2));
             g.setNom(c.getString(1));
             String strdc  = c.getString(2);
-            Date dc = null;
+            Date new_d = null;
             try {
-                dc.setTime(format.parse(strdc));
-            } catch (ParseException e) {
+                new_d = df.parse(strdc);
+            } catch (Exception e){
                 e.printStackTrace();
             }
-            g.setDateCreationGroupe(dc);
+            g.setDateCreationGroupe(new_d);
         }
 
 
         return g;
-    }*/
+    }
 
 
     /**

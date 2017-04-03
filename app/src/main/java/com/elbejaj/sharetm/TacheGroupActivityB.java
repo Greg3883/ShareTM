@@ -3,10 +3,15 @@ package com.elbejaj.sharetm;
 //LAURIE
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,24 +32,85 @@ public class TacheGroupActivityB extends AppCompatActivity {
     TacheDAO td;
     GroupeDAO gd;
     Spinner tri_spinner;
+    Intent intent;
+    Intent newI;
+    String nomGroupe;
     TextView aff_name_tache;
     TextView aff_content_tache;
 
     ArrayList<Tache> tabTache = new ArrayList<Tache>();
+
+
+    //Menu de l'application (haut-droite)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_menu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.param:
+                paramBtn();
+                return true;
+            case R.id.aprop:
+                aprop();
+                return true;
+            case R.id.helpe:
+                help();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void aprop(){
+
+        Intent intent = new Intent(TacheGroupActivityB.this, AproposActivity.class);
+        startActivity(intent);
+    }
+
+    private void help(){
+
+        Intent intent = new Intent(TacheGroupActivityB.this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    private void paramBtn(){
+
+        Intent intent = new Intent(TacheGroupActivityB.this, ParamActivity.class);
+        startActivity(intent);
+    }
+
+    private void logoutBtn(){
+        Intent intent = new Intent(TacheGroupActivityB.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tachegroup_afficahge);
 
+
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
         tri_spinner = (Spinner) findViewById(R.id.tri_option);
         DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         List spinnerPrio = new ArrayList();
-        spinnerPrio.add("Trier par date");
         spinnerPrio.add("Trier par priorité");
+        spinnerPrio.add("Trier par date");
         spinnerPrio.add("Trier par état");
+        spinnerPrio.add("Trier par groupe");
 
         ArrayAdapter adapter = new ArrayAdapter(
                 this,
@@ -55,14 +121,35 @@ public class TacheGroupActivityB extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tri_spinner.setAdapter(adapter);
 
-        //TODO : A changer
-        td = new TacheDAO(this, true);
-        //TODO : A modifier, ajouter le isConnected du main
+        //TODO : CHanger
+        td = new TacheDAO(this,true);
+        //@TODO : A modifier, récupérer le isCOnnected du main
         gd = new GroupeDAO(this,false);
         tabTache = td.listeTache();
         Collections.sort(tabTache, Tache.TachePrioComparator);
         final int N = tabTache.size();
         final LinearLayout[] myLinear = new LinearLayout[N];
+
+        ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
+        ArrayList<Groupe> tabGroupe = new ArrayList<Groupe>();
+        gd = new GroupeDAO(this, false);
+        tabGroupe = gd.listeGroupe();
+        final int NI = tabGroupe.size();
+        ArrayList<String> listGroupesId = new ArrayList<String>();
+        ArrayList<String> listGroupesNoms = new ArrayList<String>();
+        for(int i =0; i<NI; i++){
+            Groupe currentGroupe = tabGroupe.get(i);
+            if(currentGroupe !=null){
+                Log.i("Id groupe",currentGroupe.getIdGroupe());
+                Log.i("Nom groupe",currentGroupe.getNom());
+                listGroupesId.add(currentGroupe.getIdGroupe());
+                listGroupesNoms.add(currentGroupe.getNom());
+            }
+        }
+
+        for (int i=0;i<listGroupesNoms.size()-1;i++){
+            Log.i("Je cherhce",listGroupesNoms.get(i));
+        }
 
 
 
@@ -78,9 +165,12 @@ public class TacheGroupActivityB extends AppCompatActivity {
             //Creation du Linear Layout des états
             final LinearLayout rowEtat = new LinearLayout(this);
 
+            //Creation du Linear Layout des états
+            final LinearLayout rowPrio = new LinearLayout(this);
+
             //Paramètre du Linear
             LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 300);
-            lpb.setMargins(30, 50, 0, 0);
+            //lpb.setMargins(30, 50, 0, 0);
             final String idToPassb = tabTache.get(i).getIdTache();
             Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
             rowEtat.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +186,8 @@ public class TacheGroupActivityB extends AppCompatActivity {
             rowEtat.setLayoutParams(lpb);
 
             //Paramètre du Linear
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
-            lp.setMargins(0, 50, 30, 0);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, 300);
+            //lp.setMargins(0, 50, 30, 0);
             rowLinear.setOrientation(LinearLayout.VERTICAL);
             final String idToPass = tabTache.get(i).getIdTache();
             Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
@@ -111,40 +201,60 @@ public class TacheGroupActivityB extends AppCompatActivity {
                     startActivity(intentAff);
                 }
             });
+
             rowLinear.setLayoutParams(lp);
+
+            //Paramètre du Linear lpdc
+            LinearLayout.LayoutParams lpcd = new LinearLayout.LayoutParams(50, 300);
+            //lp.setMargins(0, 50, 30, 0);
+            rowPrio.setOrientation(LinearLayout.VERTICAL);
+            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
+            if (tabTache.get(i).getPrioriteT() == 1) {
+                rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_red));
+            }else if (tabTache.get(i).getPrioriteT() == 2) {
+                rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_orange));
+            } else if (tabTache.get(i).getPrioriteT() == 3) {
+                rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_green));
+            }
+            rowPrio.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intentAff = new Intent(TacheGroupActivityB.this, AffichageTacheActivity.class);
+                    String strName = null;
+                    intentAff.putExtra("idpass", idToPass);
+                    startActivity(intentAff);
+                }
+            });
+            rowPrio.setLayoutParams(lpcd);
+
+
+
+
+            Log.i("test","MainActivity : estRetard - "+tabTache.get(i).afficherTache() );
+
+
             tabTache.get(i).estRetard();
-            if (tabTache.get(i).getPrioriteT() == 1) {
-                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
-            }else if (tabTache.get(i).getPrioriteT() == 2) {
-                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-            } else if (tabTache.get(i).getPrioriteT() == 3) {
-                rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
-            }
-
-            if (tabTache.get(i).getPrioriteT() == 1) {
-                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_red));
-            }else if (tabTache.get(i).getPrioriteT() == 2) {
-                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-            } else if (tabTache.get(i).getPrioriteT() == 3) {
-                rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_green));
-            }
-
-
 
             //On stock les taches
+
             myLinear[i] = rowLinear;
 
             //Création du nom de la tache
             final TextView nomTache = new TextView(this);
             rowLinear.addView(nomTache);
-            nomTache.setText(tabTache.get(i).getIntituleT());
+            nomTache.setText(tabTache.get(i).getIntituleT().toUpperCase());
             nomTache.setTextSize(18);
             nomTache.setId(R.id.nomTache);
             nomTache.setTextSize(20);
+            nomTache.setTextColor(getResources().getColor(R.color.blacky));
             nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
             LinearLayout.LayoutParams nomParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            nomParam.setMargins(20, 20, 0, 0);
+            nomParam.setMargins(20, 65, 0, 0);
             nomTache.setLayoutParams(nomParam);
+
+
+
 
             //Création du contenu
             final TextView contenuTache = new TextView(this);
@@ -163,12 +273,33 @@ public class TacheGroupActivityB extends AppCompatActivity {
             dateTache.setTextSize(16);
             Date preDate = tabTache.get(i).getEcheanceT();
             SimpleDateFormat preDateb = new SimpleDateFormat("dd-MM-yyyy");
-            String newDate = preDateb.format( preDate );
+            String newDate = preDateb.format(preDate);
             dateTache.setText(newDate);
             dateTache.setTypeface(null, dateTache.getTypeface().ITALIC);
             LinearLayout.LayoutParams dateParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             dateParam.setMargins(20, 0, 0, 0);
             dateTache.setLayoutParams(dateParam);
+
+
+            gd.open();
+            Groupe new_group;
+            new_group = gd.trouverGroupe(tabTache.get(i).getRefGroupe());
+            gd.close();
+            if(new_group== null){
+                Log.i("test","test du log");
+            } else {
+                //Création du groupe
+                final TextView groupeTache = new TextView(this);
+                groupeTache.setId(R.id.groupeTache);
+                rowLinear.addView(groupeTache);
+                groupeTache.setTextSize(16);
+                String refG = tabTache.get(i).getRefGroupe();
+                groupeTache.setText(new_group.getNom());
+                groupeTache.setTypeface(null, dateTache.getTypeface().ITALIC);
+                LinearLayout.LayoutParams groupParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                groupParam.setMargins(20, 0, 0, 0);
+                groupeTache.setLayoutParams(groupParam);
+            }
 
 
             ImageView etatImg = new ImageView(this);
@@ -183,6 +314,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
                 etatImg.setImageResource(R.drawable.retard);
             }
 
+
             rowEtat.addView(etatImg);
             etatImg.getLayoutParams().height = 150;
             etatImg.getLayoutParams().width = 150;
@@ -192,15 +324,81 @@ public class TacheGroupActivityB extends AppCompatActivity {
             etatImg.setLayoutParams(lpc);
             //Ajout des layout tâche
             principLinear.addView(rowEtat);
-
             //Ajout des layout tâche
             principLinear.addView(rowLinear);
+            principLinear.addView(rowPrio);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutParams.setMargins(30, 20, 30, 0);
+
+            principLinear.setLayoutParams(layoutParams);
+            GradientDrawable gdu = new GradientDrawable();
+            gdu.setColor(getResources().getColor(R.color.en_attente));
+            gdu.setCornerRadius(10);
+            if (tabTache.get(i).getPrioriteT() == 1) {
+                gdu.setStroke(5, getResources().getColor(R.color.prio_red));
+            }else if (tabTache.get(i).getPrioriteT() == 2) {
+                gdu.setStroke(5, getResources().getColor(R.color.prio_orange));
+            } else if (tabTache.get(i).getPrioriteT() == 3) {
+                gdu.setStroke(5, getResources().getColor(R.color.prio_green));
+            }
+
+            principLinear.setBackground(gdu);
+
 
             //Ajout des layout tâche
             main_layout.addView(principLinear);
 
 
         }
+
+        tri_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View view,
+                                       int position, long row_id) {
+                Boolean startAct = false;
+
+                switch(position){
+                    case 0:
+                        Log.i("8===D~~","(Tintin au tibet)");
+                        break;
+                    case 1:
+                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivity.class);
+                        startAct = true;
+                        break;
+                    case 2:
+                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivityC.class);
+                        startAct = true;
+                        break;
+
+                    case 3:
+                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivityD.class);
+                        startAct = true;
+                        break;
+
+
+                }
+                if (startAct == true) {
+                    startActivity(newI);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
 
     }
 
@@ -212,7 +410,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
     public void intent_groupe(View view)
     {
-        Intent intent = new Intent(TacheGroupActivityB.this, GroupeActivity.class);
+        Intent intent = new Intent(TacheGroupActivityB.this, GroupesActivity.class);
         startActivity(intent);
     }
 
@@ -221,6 +419,8 @@ public class TacheGroupActivityB extends AppCompatActivity {
         Intent intent = new Intent(TacheGroupActivityB.this, MainActivity.class);
         startActivity(intent);
     }
+
+
 
 
 }

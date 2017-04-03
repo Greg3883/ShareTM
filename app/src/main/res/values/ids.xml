@@ -4,6 +4,7 @@
     <item name="nomTache" type="id">nomTache</item>
     <item name="contenuTache" type="id">contenuTache</item>
     <item name="dateTache" type="id">dateTache</item>
-    <item name="etaTach" type="id" />
+    <item name="etaTach" type="id">etaTach</item>
+    <item name="groupeTache" type="id">groupeTache</item>
 
 </resources>
