@@ -1,6 +1,5 @@
 package com.elbejaj.sharetm;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,15 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created by Bejaj on 14/01/2017.
@@ -192,8 +185,8 @@ public class AffichageTacheActivity extends AppCompatActivity {
         if (aSuppr.toString().equals("true")) {
             long lg = td.supprimerTache(idTache);
         } else {
-            Toast.makeText(getApplicationContext(), "Tu n'es pas Admin de cette tâche !",
-                    Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), "Vous devez être administrateur de la tâche pour la supprimer",
+                    Toast.LENGTH_LONG)
                     .show();
         }
         td.close();

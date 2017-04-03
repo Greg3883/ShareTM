@@ -106,18 +106,12 @@ public class GroupesActivity extends AppCompatActivity {
         //Vérifie s'il est connecté
         this.isConnected = hasActiveInternetConnection();
 
-        Log.i("test","MAINACTIVITY - ID de l'utilisateur :"+this.idRegisteredUser);
-
         if(this.isConnected) {
             Log.i("test","La personne est connectée");
         } else {
             Log.i("test","La personne est hors-ligne");
         }
 
-
-
-
-        //@TODO : A modifier, réuperer le isConnected du main
         gd = new GroupeDAO(this, isConnected);
 
         boolean fromAddingGroup = false;

@@ -9,11 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
 
         <Button
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
@@ -22,11 +23,12 @@
             android:textColor="#ecf0f1"
             android:background="@drawable/border_add"
             android:layout_gravity="center_vertical"
-            android:onClick="button_suppr"/>
+            android:onClick="button_suppr"
+            android:id="@+id/supp_button" />
 
         <Button
             android:id="@+id/ajout_button"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
@@ -35,7 +37,8 @@
             android:textColor="#ecf0f1"
             android:background="@drawable/border_add"
             android:layout_gravity="center_vertical"
-            android:onClick="button_upd"/>
+            android:onClick="button_upd"
+            android:layout_weight="5.52" />
 
     </LinearLayout>
 

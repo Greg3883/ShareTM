@@ -160,13 +160,13 @@ public class UpdateTacheActivity extends AppCompatActivity implements View.OnCli
         if (etab == 1) {
             spinnerEtat.add("En cours");
             spinnerEtat.add("En attente");
-            spinnerEtat.add("Validee");
+            spinnerEtat.add("Validée");
         } else if (etab == 2) {
             spinnerEtat.add("En attente");
             spinnerEtat.add("En cours");
-            spinnerEtat.add("Validee");
+            spinnerEtat.add("Validée");
         } else {
-            spinnerEtat.add("Validee");
+            spinnerEtat.add("Validée");
             spinnerEtat.add("En attente");
             spinnerEtat.add("En cours");
 

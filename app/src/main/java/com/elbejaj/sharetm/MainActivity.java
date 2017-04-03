@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TacheDAO td = new TacheDAO(this,isConnected);
+        GroupeDAO gd = new GroupeDAO(this,isConnected);
 
         Bundle extras = getIntent().getExtras();
         boolean fromSplash = false;
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         if(isConnected && !fromSplash) {
             Log.i("test","Je vais synchroniser les tâches");
             new SynchronisationTachesTask(this,td).execute();
+            new SynchronisationGroupesTask(this,gd).execute();
             try {
                 sleep(700);
             } catch (InterruptedException e) {

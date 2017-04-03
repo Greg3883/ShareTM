@@ -166,7 +166,7 @@ public class AjoutActivity extends AppCompatActivity implements View.OnClickList
         List spinnerEtat = new ArrayList();
         spinnerEtat.add("En cours");
         spinnerEtat.add("En attente");
-        spinnerEtat.add("Validee");
+        spinnerEtat.add("Validée");
 
         ArrayAdapter adapterb = new ArrayAdapter(
                 this,

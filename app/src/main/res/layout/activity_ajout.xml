@@ -5,143 +5,156 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/dr_form_add"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp">
+        android:scrollbars="none">
 
-
-
-
-        <TextView
-            android:id="@+id/ajout_text_nom"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="Nom de la tâche :"
-            android:textColor="#282830"
-            android:textSize="22dp"
-            android:textStyle="italic"/>
+            android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/ajout_input_nom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:layout_below="@id/ajout_text_nom"
-            android:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/ajout_text_contenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description de la tâche :"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/ajout_input_nom"
-            android:textColor="#282830"
-            android:textSize="22dp"
-            android:textStyle="italic"/>
-
-        <EditText
-            android:id="@+id/ajout_input_contenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ajout_text_contenu"
-            android:background="@drawable/border" />
-
-        <TextView
-            android:id="@+id/ajout_text_priorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Priorité :"
-            android:layout_below="@id/ajout_input_contenu"
-            android:textColor="#282830"
-            android:textSize="22dp"
-            android:textStyle="italic"/>
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:id="@+id/ajout_priorite" />
-
-
-        <TextView
-            android:id="@+id/ajout_text_echeance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Date d'écheance :"
-            android:layout_below="@id/ajout_priorite"
-            android:textColor="#282830"
-            android:textSize="22dp"
-            android:textStyle="italic"/>
-
-        <Button
-            android:id="@+id/ajout_input_echeance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/border"
-            android:layout_below="@id/ajout_text_echeance"
-            android:onClick="setDate"
-            android:text="@string/date_button_set" />
-
-
-        <TextView
-            android:id="@+id/ajout_text_etat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Etat :"
-            android:layout_below="@id/ajout_input_echeance"
-            android:textColor="#282830"
-            android:textSize="22dp"
-            android:textStyle="italic"/>
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:id="@+id/ajout_etat" />
-
-
-        <TextView
-            android:text="Groupe :"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:textSize="22dp"
-            android:textStyle="normal|italic"
-            android:textColor="#282830" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ajout_spinnerGroupes"
-            android:layout_weight="1.65" />
-
-        <Button
-            android:id="@+id/ajout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="AJOUTER !"
-            android:textColor="#ecf0f1"
-            android:background="@drawable/border_add"
-            android:layout_gravity="center_vertical"
-            android:layout_below="@+id/ajout_input_etat"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/dr_form_add"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:weightSum="1">
 
 
 
-    </LinearLayout>
 
+
+                <TextView
+                    android:id="@+id/ajout_text_nom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Nom de la tâche :"
+                    android:textColor="#282830"
+                    android:textSize="22dp"
+                    android:textStyle="italic"/>
+
+                <EditText
+                    android:id="@+id/ajout_input_nom"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:layout_below="@id/ajout_text_nom"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/ajout_text_contenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description de la tâche :"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/ajout_input_nom"
+                    android:textColor="#282830"
+                    android:textSize="22dp"
+                    android:textStyle="italic"/>
+
+                <EditText
+                    android:id="@+id/ajout_input_contenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ajout_text_contenu"
+                    android:background="@drawable/border" />
+
+                <TextView
+                    android:id="@+id/ajout_text_priorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Priorité :"
+                    android:layout_below="@id/ajout_input_contenu"
+                    android:textColor="#282830"
+                    android:textSize="22dp"
+                    android:textStyle="italic"/>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:id="@+id/ajout_priorite" />
+
+
+                <TextView
+                    android:id="@+id/ajout_text_echeance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Date d'écheance :"
+                    android:layout_below="@id/ajout_priorite"
+                    android:textColor="#282830"
+                    android:textSize="22dp"
+                    android:textStyle="italic"/>
+
+                <Button
+                    android:id="@+id/ajout_input_echeance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/border"
+                    android:layout_below="@id/ajout_text_echeance"
+                    android:onClick="setDate"
+                    android:text="@string/date_button_set" />
+
+
+                <TextView
+                    android:id="@+id/ajout_text_etat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Etat :"
+                    android:layout_below="@id/ajout_input_echeance"
+                    android:textColor="#282830"
+                    android:textSize="22dp"
+                    android:textStyle="italic"/>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:id="@+id/ajout_etat" />
+
+
+                <TextView
+                    android:text="Groupe :"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView4"
+                    android:textSize="22dp"
+                    android:textStyle="normal|italic"
+                    android:textColor="#282830" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ajout_spinnerGroupes" />
+
+                <Button
+                    android:id="@+id/ajout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="AJOUTER !"
+                    android:textColor="#ecf0f1"
+                    android:background="@drawable/border_add"
+                    android:layout_gravity="center_vertical"
+                    android:layout_below="@+id/ajout_input_etat"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
