@@ -31,7 +31,7 @@ public class GroupeDAO {
     public GroupeDAO(Context ctx, boolean isConnected)
     {
         this.ctx = ctx;
-        dbm = new DBGroupe(ctx, "baseGrp", null, 13);
+        dbm = new DBGroupe(ctx, "baseGrp", null, 15);
 
         //Si connexion, on instancie le gestionnaire de BDD en ligne
         if(isConnected) {

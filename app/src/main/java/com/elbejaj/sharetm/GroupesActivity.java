@@ -1,7 +1,7 @@
 package com.elbejaj.sharetm;
 
 /**
- * Created by Baalamor on 15/01/2017.
+ * Created by Valentin on 15/01/2017.
  */
 
 
@@ -132,6 +132,8 @@ public class GroupesActivity extends AppCompatActivity {
         } else {
             Log.i("test","La personne n'est pas connectée, on ne peut pas synchroniser les groupes");
         }
+
+
 
         tabGroupe = gd.listeGroupe();
         final int N = tabGroupe.size();

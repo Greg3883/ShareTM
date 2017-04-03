@@ -4,6 +4,47 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:background="@color/prio_blanc">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:text="GROUPE"
+                android:textColor="@color/prio_red"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/prio_red">
+
+            <TextView
+                android:id="@+id/mbr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="MEMBRES"
+                android:textColor="@color/prio_blanc"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"

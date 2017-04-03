@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  * Created by Bejaj on 03/12/2016.
@@ -124,6 +125,53 @@ public class UtilisateurDAO{
         }
 
         return trouve;
+    }
+
+
+    public ArrayList<Utilisateur> listeUtilsateurs(ArrayList<MembreGroupe> m) {
+
+        ArrayList<Utilisateur> liste = new ArrayList<Utilisateur>();
+        int z;
+        db = dbm.getWritableDatabase();
+        Cursor c = db.query("utilisateur", new String[] {"idUtilisateur","nomU","email","mdpHash","apiKey","dateCreationU"},null,null,null,null,null);
+        for(int i=0;i<m.size()-1;i++) {
+            c.moveToFirst();
+            z = 0;
+            while (!c.isAfterLast() || z == 0) {
+                if(c.getString(0).equals(m.get(i).getIdUtilisateur())) {
+                    Utilisateur u = new Utilisateur();
+                    u.setIdUtilisateur(c.getString(0));
+                    u.setNomU(c.getString(1));
+                    u.setEmail(c.getString(2));
+                    u.setMdpHash(c.getString(3));
+                    u.setApiKey(c.getString(4));
+                    liste.add(u);
+                    z = 1;
+                } else {
+                    c.moveToNext();
+                }
+            }
+        }
+        return liste;
+    }
+
+    public String userByEmail(String email) {
+        Utilisateur u = new Utilisateur();
+        String id = "";
+        db = dbm.getWritableDatabase();
+        Cursor c = db.query("utilisateur", new String[] {"idUtilisateur","nomU","email","mdpHash","apiKey","dateCreationU"},null,null,null,null,null);
+        if (c!=null && c.moveToFirst()) {
+
+            int z = 0;
+            while (!c.isAfterLast()) {
+                if (c.getString(2).equals(email)) {
+                    id = c.getString(0);
+                } else {
+                    c.moveToNext();
+                }
+            }
+        }
+        return id;
     }
 
     /**public ArrayList <Tache> listeTache()

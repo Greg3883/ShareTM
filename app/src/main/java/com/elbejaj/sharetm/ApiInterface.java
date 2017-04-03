@@ -160,13 +160,19 @@ public interface ApiInterface {
     // GESTION MEMBREGROUPE
     //*****************************************
 
-    //Création d'une affectationTâche
+    //Création d'un membre
     @FormUrlEncoded
     @POST("creerMembreGroupe")
-    Call<Tache> createMembreGroupe(
+    Call<MembreGroupe> createMembreGroupe(
             @Field("idUtilisateur") String idUtilisateur,
             @Field("idGroupe") String idGroupe,
-            @Field("estAdmin") int estAdmin
+            @Field("estAdmin") boolean estAdmin
+    );
+
+    //Liste membreGroupe par id du groupe
+    @GET("getMembreByGrpId")
+    Call<List<MembreGroupe>> getMembreByGrpId(
+            @Query("idGroupe") String idGroupe
     );
 
 

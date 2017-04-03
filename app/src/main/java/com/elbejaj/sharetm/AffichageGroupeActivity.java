@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -71,6 +74,21 @@ public class AffichageGroupeActivity extends AppCompatActivity {
                 nomParam.setMargins(20, 20, 20, 10);
                 nomGroupe.setLayoutParams(nomParam);
 
+                TextView mbr = (TextView) findViewById(R.id.mbr);
+                //final int hyu = i;
+                final String idGrp = tabGroupe.get(i).getIdGroupe();
+                mbr.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentAff = new Intent(AffichageGroupeActivity.this, ListeMembresActivity.class);
+                        //String idGrp = tabGroupe.get(hyu).getIdGroupe();
+                        intentAff.putExtra("idtu", idGrp);
+                        Log.i("test","VALEUR du IDGRP : " + idGrp);
+                        startActivity(intentAff);
+                    }
+                });
+
 
             }
         }
@@ -97,10 +115,22 @@ public class AffichageGroupeActivity extends AppCompatActivity {
         String idGrp;
         Bundle extras = getIntent().getExtras();
         int pos = extras.getInt("pos");
-        idGrp = extras.getString("idpass");
+        idGrp = extras.getString("idtu");
         intent.putExtra("idtu", idGrp);
         intent.putExtra("position", pos);
         startActivity(intent);
     }
+
+    /*public void listeMBR(View view, String idGrp)
+    {
+        Intent intent = new Intent(AffichageGroupeActivity.this, ListeMembresActivity.class);
+        Bundle extras = getIntent().getExtras();
+        int pos = extras.getInt("pos");
+        idGrp = extras.getString("idtu");
+        intent.putExtra("idtu", idGrp);
+        intent.putExtra("position", pos);
+        startActivity(intent);
+    }*/
+
 
 }

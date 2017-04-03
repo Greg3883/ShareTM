@@ -105,6 +105,26 @@ public class DBManager extends SQLiteOpenHelper {
 
 
 
+    //Gestion de la table membreGroupe
+
+    public static final String MEMBGRP_TABLE_NAME = "membreGroupe";
+
+    public static final String MEMBGRP_ID = "idMembreGroupe";
+    public static final String MEMBGRP_IDU = "idUtilisateur";
+    public static final String MEMBGRP_IDG = "idGroupe";
+    public static final String MEMBGRP_ISADMIN = "estAdmin";
+
+    public static final String MEMBGRP_TABLE_CREATE =
+            "CREATE TABLE " + MEMBGRP_TABLE_NAME + " (" +
+                    MEMBGRP_ID + " TEXT PRIMARY KEY, " +
+                    MEMBGRP_IDU + " TEXT, " +
+                    MEMBGRP_IDG + " TEXT, " +
+                    MEMBGRP_ISADMIN + " INTEGER "+ ");";
+
+    //Requête pour la suppression de la table
+    public static final String MEMBGRP_TABLE_DROP = "DROP TABLE IF EXISTS " + MEMBGRP_TABLE_NAME + ";";
+
+
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -116,6 +136,7 @@ public class DBManager extends SQLiteOpenHelper {
             db.execSQL(AFFTACHE_TABLE_CREATE);
             db.execSQL(GROUPE_TABLE_CREATE);
             db.execSQL(UTILISATEUR_TABLE_CREATE);
+            db.execSQL(MEMBGRP_TABLE_CREATE);
         } catch (Exception e) {
             Log.i("test","Problème création DB, " + e.getMessage());
         }
@@ -129,6 +150,7 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(GROUPE_TABLE_DROP);
         db.execSQL(AFFTACHE_TABLE_DROP);
         db.execSQL(UTILISATEUR_TABLE_DROP);
+        db.execSQL(MEMBGRP_TABLE_DROP);
         onCreate(db);
     }
 
