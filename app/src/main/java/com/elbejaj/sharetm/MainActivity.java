@@ -285,8 +285,29 @@ public class MainActivity extends AppCompatActivity {
            dateParam.setMargins(20, 0, 0, 0);
            dateTache.setLayoutParams(dateParam);
 
+           gd.open();
+           Groupe new_group;
+           new_group = gd.trouverGroupe(tabTache.get(i).getRefGroupe());
+           gd.close();
+            if(new_group== null){
+                Log.i("test","test du log");
+            } else {
+                //Création du groupe
+                final TextView groupeTache = new TextView(this);
+                groupeTache.setId(R.id.groupeTache);
+                rowLinear.addView(groupeTache);
+                groupeTache.setTextSize(16);
+                String refG = tabTache.get(i).getRefGroupe();
+                groupeTache.setText(new_group.getNom());
+                groupeTache.setTypeface(null, dateTache.getTypeface().ITALIC);
+                LinearLayout.LayoutParams groupParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                groupParam.setMargins(20, 0, 0, 0);
+                groupeTache.setLayoutParams(groupParam);
+            }
 
- 
+
+
+
 
 
 

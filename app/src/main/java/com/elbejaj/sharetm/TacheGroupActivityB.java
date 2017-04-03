@@ -281,36 +281,25 @@ public class TacheGroupActivityB extends AppCompatActivity {
             dateTache.setLayoutParams(dateParam);
 
 
-            Log.i("Size tabTache", String.valueOf(tabTache.size()));
-            Log.i("Size listGroupId", String.valueOf(listGroupesId.size()));
-            int g = 0;
-            Boolean stop = false;
-            while(g<= listGroupesId.size()-1 && stop == false){
-                Log.i("Taille G", String.valueOf(g));
-                Log.i("Taille I", String.valueOf(i));
-                Log.i("Tabtache ou est",tabTache.get(i).getRefGroupe());
-                Log.i("TabTache intu", tabTache.get(i).getIntituleT());
-                Log.i("listGroupID",listGroupesId.get(g));
-                if (listGroupesId.get(g).equals(tabTache.get(i).getIdTache())){
-                    nomGroupe = listGroupesNoms.get(g);
-                    stop = true;
-                    Log.i("Missing","You");
-                }
-                g++;
+            gd.open();
+            Groupe new_group;
+            new_group = gd.trouverGroupe(tabTache.get(i).getRefGroupe());
+            gd.close();
+            if(new_group== null){
+                Log.i("test","test du log");
+            } else {
+                //Création du groupe
+                final TextView groupeTache = new TextView(this);
+                groupeTache.setId(R.id.groupeTache);
+                rowLinear.addView(groupeTache);
+                groupeTache.setTextSize(16);
+                String refG = tabTache.get(i).getRefGroupe();
+                groupeTache.setText(new_group.getNom());
+                groupeTache.setTypeface(null, dateTache.getTypeface().ITALIC);
+                LinearLayout.LayoutParams groupParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                groupParam.setMargins(20, 0, 0, 0);
+                groupeTache.setLayoutParams(groupParam);
             }
-            Log.i("Nom groupe", "Nom : "+nomGroupe);
-            //Création du groupe
-
-            final TextView groupeTache = new TextView(this);
-            groupeTache.setId(R.id.groupeTache);
-            rowLinear.addView(groupeTache);
-            groupeTache.setTextSize(16);
-            String preGroupe = nomGroupe;
-            groupeTache.setText(preGroupe);
-            groupeTache.setTypeface(null, dateTache.getTypeface().ITALIC);
-            LinearLayout.LayoutParams GroupeParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            //groupeTache.setMargins(20, 0, 0, 0);
-            groupeTache.setLayoutParams(GroupeParam);
 
 
             ImageView etatImg = new ImageView(this);
