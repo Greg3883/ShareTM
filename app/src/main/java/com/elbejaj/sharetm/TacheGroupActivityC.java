@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class TacheGroupActivityB extends AppCompatActivity {
+public class TacheGroupActivityC extends AppCompatActivity {
 
 
     LinearLayout main_layout;
@@ -33,8 +33,8 @@ public class TacheGroupActivityB extends AppCompatActivity {
     GroupeDAO gd;
     Spinner tri_spinner;
     Intent intent;
-    Intent newI;
     String nomGroupe;
+    Intent newI;
     TextView aff_name_tache;
     TextView aff_content_tache;
 
@@ -72,24 +72,24 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
     private void aprop(){
 
-        Intent intent = new Intent(TacheGroupActivityB.this, AproposActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, AproposActivity.class);
         startActivity(intent);
     }
 
     private void help(){
 
-        Intent intent = new Intent(TacheGroupActivityB.this, HelpActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, HelpActivity.class);
         startActivity(intent);
     }
 
     private void paramBtn(){
 
-        Intent intent = new Intent(TacheGroupActivityB.this, ParamActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, ParamActivity.class);
         startActivity(intent);
     }
 
     private void logoutBtn(){
-        Intent intent = new Intent(TacheGroupActivityB.this, LoginActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, LoginActivity.class);
         startActivity(intent);
     }
 
@@ -99,7 +99,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tachegroup_afficahge);
+        setContentView(R.layout.activity_tache_afficahgec);
 
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
@@ -107,9 +107,9 @@ public class TacheGroupActivityB extends AppCompatActivity {
         DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         List spinnerPrio = new ArrayList();
-        spinnerPrio.add("Trier par priorité");
-        spinnerPrio.add("Trier par date");
         spinnerPrio.add("Trier par état");
+        spinnerPrio.add("Trier par date");
+        spinnerPrio.add("Trier par priorité");
         spinnerPrio.add("Trier par groupe");
 
         ArrayAdapter adapter = new ArrayAdapter(
@@ -126,9 +126,10 @@ public class TacheGroupActivityB extends AppCompatActivity {
         //@TODO : A modifier, récupérer le isCOnnected du main
         gd = new GroupeDAO(this,false);
         tabTache = td.listeTache();
-        Collections.sort(tabTache, Tache.TachePrioComparator);
+        Collections.sort(tabTache, Tache.TacheEtatComparator);
         final int N = tabTache.size();
         final LinearLayout[] myLinear = new LinearLayout[N];
+
 
         ApiInterface apiInterface = STMAPI.getClient().create(ApiInterface.class);
         ArrayList<Groupe> tabGroupe = new ArrayList<Groupe>();
@@ -177,7 +178,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intentAff = new Intent(TacheGroupActivityB.this, AffichageTacheActivity.class);
+                    Intent intentAff = new Intent(TacheGroupActivityC.this, AffichageTacheActivity.class);
                     String strName = null;
                     intentAff.putExtra("idpass", idToPassb);
                     startActivity(intentAff);
@@ -195,7 +196,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intentAff = new Intent(TacheGroupActivityB.this, AffichageTacheActivity.class);
+                    Intent intentAff = new Intent(TacheGroupActivityC.this, AffichageTacheActivity.class);
                     String strName = null;
                     intentAff.putExtra("idpass", idToPass);
                     startActivity(intentAff);
@@ -220,7 +221,7 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intentAff = new Intent(TacheGroupActivityB.this, AffichageTacheActivity.class);
+                    Intent intentAff = new Intent(TacheGroupActivityC.this, AffichageTacheActivity.class);
                     String strName = null;
                     intentAff.putExtra("idpass", idToPass);
                     startActivity(intentAff);
@@ -382,16 +383,16 @@ public class TacheGroupActivityB extends AppCompatActivity {
                         Log.i("8===D~~","(Tintin au tibet)");
                         break;
                     case 1:
-                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivity.class);
+                        newI = new Intent(TacheGroupActivityC.this, TacheGroupActivity.class);
                         startAct = true;
                         break;
                     case 2:
-                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivityC.class);
+                        newI = new Intent(TacheGroupActivityC.this, TacheGroupActivityB.class);
                         startAct = true;
                         break;
 
                     case 3:
-                        newI = new Intent(TacheGroupActivityB.this, TacheGroupActivityD.class);
+                        newI = new Intent(TacheGroupActivityC.this, TacheGroupActivityD.class);
                         startAct = true;
                         break;
 
@@ -415,19 +416,19 @@ public class TacheGroupActivityB extends AppCompatActivity {
 
     public void button_ajout(View view)
     {
-        Intent intent = new Intent(TacheGroupActivityB.this, AjoutActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, AjoutActivity.class);
         startActivity(intent);
     }
 
     public void intent_groupe(View view)
     {
-        Intent intent = new Intent(TacheGroupActivityB.this, GroupesActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, GroupesActivity.class);
         startActivity(intent);
     }
 
     public void intent_tache(View view)
     {
-        Intent intent = new Intent(TacheGroupActivityB.this, MainActivity.class);
+        Intent intent = new Intent(TacheGroupActivityC.this, MainActivity.class);
         startActivity(intent);
     }
 
