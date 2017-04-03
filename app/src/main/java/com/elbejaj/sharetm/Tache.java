@@ -147,6 +147,20 @@ public class Tache implements Comparable<Tache>{
         }
     };
 
+    public static Comparator<Tache> TacheGroupeComparator = new Comparator<Tache>() {
+        public int compare(Tache t1, Tache t2) {
+            int i;
+            if (t1.getRefGroupe().compareTo(t2.getRefGroupe()) < 0){
+                i = -1; // T1 est avant
+            } else if (t1.getRefGroupe().compareTo(t2.getRefGroupe()) > 0){
+                i = 1; // T2 est avant
+            } else {
+                i = 0;
+            }
+            return i;
+        }
+    };
+
     public static Comparator<Tache> TacheEtatComparator = new Comparator<Tache>() {
         public int compare(Tache t1, Tache t2) {
             int i;

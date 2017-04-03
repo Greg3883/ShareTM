@@ -99,7 +99,7 @@ public class TacheGroupActivityD extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tache_afficahgec);
+        setContentView(R.layout.activity_tachegroupe_afficahgec);
 
 
         main_layout = (LinearLayout) findViewById(R.id.main_layout);
