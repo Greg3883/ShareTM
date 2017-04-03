@@ -5,6 +5,7 @@ package com.elbejaj.sharetm;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -165,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
        for (int i = 0; i < N; i++) {
 
-           Log.i("test","Je suis dans le for du mainActivity");
-
            //Creation du Linear Layout de la tâche
            final LinearLayout principLinear = new LinearLayout(this);
 
@@ -176,9 +175,12 @@ public class MainActivity extends AppCompatActivity {
            //Creation du Linear Layout des états
            final LinearLayout rowEtat = new LinearLayout(this);
 
+           //Creation du Linear Layout des états
+           final LinearLayout rowPrio = new LinearLayout(this);
+
            //Paramètre du Linear
            LinearLayout.LayoutParams lpb = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 300);
-           lpb.setMargins(30, 50, 0, 0);
+           //lpb.setMargins(30, 50, 0, 0);
            final String idToPassb = tabTache.get(i).getIdTache();
            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
            rowEtat.setOnClickListener(new View.OnClickListener() {
@@ -194,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
            rowEtat.setLayoutParams(lpb);
 
            //Paramètre du Linear
-           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
-           lp.setMargins(0, 50, 30, 0);
+           LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, 300);
+           //lp.setMargins(0, 50, 30, 0);
            rowLinear.setOrientation(LinearLayout.VERTICAL);
            final String idToPass = tabTache.get(i).getIdTache();
            Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
@@ -210,44 +212,54 @@ public class MainActivity extends AppCompatActivity {
                }
            });
 
-
-
-
            rowLinear.setLayoutParams(lp);
-           Log.i("test","MainActivity : estRetard - "+tabTache.get(i).afficherTache() );
+
+           //Paramètre du Linear lpdc
+           LinearLayout.LayoutParams lpcd = new LinearLayout.LayoutParams(50, 300);
+           //lp.setMargins(0, 50, 30, 0);
+           rowPrio.setOrientation(LinearLayout.VERTICAL);
+           Log.i("ID de la tache", String.valueOf(tabTache.get(i).getIdTache()));
+           if (tabTache.get(i).getPrioriteT() == 1) {
+               rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_red));
+           }else if (tabTache.get(i).getPrioriteT() == 2) {
+               rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_orange));
+           } else if (tabTache.get(i).getPrioriteT() == 3) {
+               rowPrio.setBackgroundColor(getResources().getColor(R.color.prio_green));
+           }
+           rowPrio.setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View v) {
+                   Intent intentAff = new Intent(MainActivity.this, AffichageTacheActivity.class);
+                   String strName = null;
+                   intentAff.putExtra("idpass", idToPass);
+                   startActivity(intentAff);
+               }
+           });
+           rowPrio.setLayoutParams(lpcd);
+
+
            tabTache.get(i).estRetard();
-           if (tabTache.get(i).getPrioriteT() == 1) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_red));
-           }else if (tabTache.get(i).getPrioriteT() == 2) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-           } else if (tabTache.get(i).getPrioriteT() == 3) {
-               rowLinear.setBackgroundColor(getResources().getColor(R.color.prio_green));
-           }
-
-           if (tabTache.get(i).getPrioriteT() == 1) {
-               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_red));
-           }else if (tabTache.get(i).getPrioriteT() == 2) {
-               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_orange));
-           } else if (tabTache.get(i).getPrioriteT() == 3) {
-               rowEtat.setBackgroundColor(getResources().getColor(R.color.prio_green));
-           }
-
 
            //On stock les taches
 
-            myLinear[i] = rowLinear;
+           myLinear[i] = rowLinear;
 
            //Création du nom de la tache
            final TextView nomTache = new TextView(this);
            rowLinear.addView(nomTache);
-           nomTache.setText(tabTache.get(i).getIntituleT());
+           nomTache.setText(tabTache.get(i).getIntituleT().toUpperCase());
            nomTache.setTextSize(18);
            nomTache.setId(R.id.nomTache);
            nomTache.setTextSize(20);
+           nomTache.setTextColor(getResources().getColor(R.color.blacky));
            nomTache.setTypeface(null, nomTache.getTypeface().BOLD);
            LinearLayout.LayoutParams nomParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-           nomParam.setMargins(20, 20, 0, 0);
+           nomParam.setMargins(20, 65, 0, 0);
            nomTache.setLayoutParams(nomParam);
+
+
+
 
            //Création du contenu
            final TextView contenuTache = new TextView(this);
@@ -274,6 +286,10 @@ public class MainActivity extends AppCompatActivity {
            dateTache.setLayoutParams(dateParam);
 
 
+ 
+
+
+
            ImageView etatImg = new ImageView(this);
            int state = tabTache.get(i).getEtatT();
            if (state == 1) {
@@ -286,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
                etatImg.setImageResource(R.drawable.retard);
            }
 
+
            rowEtat.addView(etatImg);
            etatImg.getLayoutParams().height = 150;
            etatImg.getLayoutParams().width = 150;
@@ -295,9 +312,29 @@ public class MainActivity extends AppCompatActivity {
            etatImg.setLayoutParams(lpc);
            //Ajout des layout tâche
            principLinear.addView(rowEtat);
-
            //Ajout des layout tâche
            principLinear.addView(rowLinear);
+           principLinear.addView(rowPrio);
+
+           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                   LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+           layoutParams.setMargins(30, 20, 30, 0);
+
+           principLinear.setLayoutParams(layoutParams);
+           GradientDrawable gdu = new GradientDrawable();
+           gdu.setColor(getResources().getColor(R.color.en_attente));
+           gdu.setCornerRadius(10);
+           if (tabTache.get(i).getPrioriteT() == 1) {
+               gdu.setStroke(5, getResources().getColor(R.color.prio_red));
+           }else if (tabTache.get(i).getPrioriteT() == 2) {
+               gdu.setStroke(5, getResources().getColor(R.color.prio_orange));
+           } else if (tabTache.get(i).getPrioriteT() == 3) {
+               gdu.setStroke(5, getResources().getColor(R.color.prio_green));
+           }
+
+           principLinear.setBackground(gdu);
+
 
            //Ajout des layout tâche
            main_layout.addView(principLinear);
