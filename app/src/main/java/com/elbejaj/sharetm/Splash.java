@@ -10,7 +10,6 @@ import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Bejaj on 20/11/2016.
@@ -77,7 +76,6 @@ public class Splash extends Activity{
                         startActivity(i);
                     } else if (!isConnected) {
                         Log.i("test","Utilisateur non connecté à Internet");
-                        Toast.makeText(getApplicationContext(),"Veuillez vous connecter à Internet pour vous enregistrer",Toast.LENGTH_SHORT).show();
                     }
 
 
